@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <title>EASYMULL</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+        <link rel="stylesheet" href="/css/formularios.css"/>
+        <link rel="stylesheet" href="/css/dashboard.css" />
+        <link rel="stylesheet" href="/css/bootstrap-switch.min.css"/>
+
+    </head>
+
+    <body>
+        <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
+        <div class="container">
+            <form method="POST" th:object="${funcionario}"  th:action="@{/cadastrarFuncionarios}">
+                <div class="recent-grid">
+                    <div class="projects">
+                        <!--MESSAGENS-->
+                        <th:block th:include="fragmentos/MessagensDeAlertas"></th:block>
+                        <div class="card">
+                            <div class="card-header" sec:authorize-url="/listarFuncionarios">
+                                <h3 class="title">Registo de Funcionários</h3>
+                                <a href="/listarFuncionarios" >Listar Funcionários</a>
+                            </div>
+                            <input type="hidden" th:field="*{codigo}">
+                            <div class="user-details">
+                                <div class="input-box">
+                                    <span class="details">Nome</span>
+                                    <input type="text" th:field="*{nome}" placeholder="Digite seu Nome">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('nome')}" 
+                                          th:errors="*{nome}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Sobrenome</span>
+                                    <input type="text" th:field="*{sobrenome}" placeholder="Digite o sobrenome">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('sobrenome')}" 
+                                          th:errors="*{sobrenome}">
+                                    </span>
+                                </div>           
+                                <div class="input-box">
+                                    <span class="details">B.I</span>
+                                    <input type="text" class="bi" th:field="*{bi}" placeholder="Digite o B.I">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('bi')}" 
+                                          th:errors="*{bi}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Naturalidade</span>
+                                    <select id="provincia" th:field="*{provincia}">
+                                        <option value="">Selecione uma província</option>
+                                        <option th:each="provincia : ${provincias}" th:value="${provincia.codigo}" th:text="${provincia.nome}"></option>
+                                    </select>
+                                    <span class="error-filds" th:if="${#fields.hasErrors('provincia')}" 
+                                          th:errors="*{provincia}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Municipio</span>
+                                    <input type="hidden" id="inputHiddencodigoMunicipioSelecionado" th:value="*{municipio} != null ? *{municipio.codigo}"/>
+                                    <select id="municipio" data:url="@{/municipios}" th:field="*{municipio}">
+                                    </select>
+                                    <div class="js-img-loading" style="display: none;">
+                                        <img th:src="@{/img/loading.gif}" width="60" height="60" style="display: flex; margin: 6px 0 0 5px;"/>
+                                    </div>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Data de Nascimento</span>
+                                    <input type="date" th:field="*{dataNascimento}" placeholder="Digite a Data de nascimento">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('dataNascimento')}" 
+                                          th:errors="*{dataNascimento}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Nome do Pai</span>
+                                    <input type="text" th:field="*{nomePai}" placeholder="Digite o nome do Pai">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('nomePai')}" 
+                                          th:errors="*{nomePai}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Nome da Mãe</span>
+                                    <input type="text" th:field="*{nomeMae}" placeholder="Digite o nome da Mãe">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('nomeMae')}" 
+                                          th:errors="*{nomeMae}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">E-mail</span>
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" th:field="*{email}" placeholder="Digite o E-mail">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('email')}" 
+                                          th:errors="*{email}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Telefone</span>
+                                    <input type="text" class="phone" th:field="*{telefone}" placeholder="Digite o Telefone">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('telefone')}" 
+                                          th:errors="*{telefone}">
+                                    </span>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Morada/Bairro</span>
+                                    <input type="text"  th:field="*{bairro}" placeholder="Ex: Ferrovia">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('bairro')}" 
+                                          th:errors="*{bairro}">
+                                    </span>
+                                </div>               
+
+                                <div class="input-box">
+                                    <span class="details">Nº Regist Militar</span>
+                                    <input type="text" th:field="*{numCRM}" placeholder="Digite o Nº Registo Militar">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('numCRM')}" 
+                                          th:errors="*{numCRM}">
+                                    </span>
+                                </div>
+
+                                <div class="input-box">
+                                    <span class="details">Tipo Funcionário</span>
+                                    <select id="tipoFuncionario"  required="true" th:field="*{tipoFuncionario}">
+                                        <option value="">Selecione o tipo Funcionário</option>
+                                        <option th:each="tipoFunc : ${T(com.ispi.projectoIspi.Enum.TipoFuncionario).values()}"
+                                                th:value="${tipoFunc}" th:text="${tipoFunc}"></option>
+                                    </select>
+                                    <span class="error-filds" th:if="${#fields.hasErrors('tipoFuncionario')}" 
+                                          th:errors="*{tipoFuncionario}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Estado</span>
+                                    <input class="js-status" type="checkbox" th:field="*{estado}" data-off-color="danger" data-on-color="success"
+                                           data-on-text="Activo" data-off-text="Inactivo">                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gender-details">
+                    <span class="gender-title">Género</span>
+                    <div style="display: flex; margin: 16px 0; justify-content: space-between;">                  
+                        <th:block th:each="genero : ${T(com.ispi.projectoIspi.Enum.Genero).values()}">
+                            <div class="category">
+                                <input th:id="|id_${genero}|" type="radio" th:value="${genero}" th:field="*{genero}" name="genero">
+                                <label  for="|id_${genero}|" th:text="${genero}"></label>
+                            </div>
+
+                        </th:block>
+                        <span class="error-filds" style="color: red;" th:if="${#fields.hasErrors('genero')}" 
+                              th:errors="*{genero}">
+                        </span>
+                    </div>
+                </div>
+                <div class="button">
+                    <button type="submit" class="btn">Salvar</button>
+
+                </div>
+            </form>
+        </div>
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/vendors.min.js}"></script>
+        <script th:src="@{/js/multiseleccao.js}"></script> 
+        <script th:src="@{/js/jquery.mask.js}"></script>
+        <script th:src="@{/js/main.js}"></script> 
+        <script th:src="@{/js/bootstrap-switch.min.js}" ></script>
+        <script>
+            $('.js-status').bootstrapSwitch();
+        </script>
+    </body>
+
+</html>

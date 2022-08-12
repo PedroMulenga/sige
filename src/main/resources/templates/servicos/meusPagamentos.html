@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <title>ISPI Payment</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css}" />
+        <link rel="stylesheet" th:href="@{css/dashboard.css}" href="css/dashboard.css" />
+        <link rel="stylesheet" href="css/cardsPrincipal.css" th:href="@{css/cardsPrincipal.css}"/>
+
+    </head>
+
+    <body>
+        <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
+        <div class="main-content">
+            <div class="title">RELATÓRIOS</div>
+            <main class="cards">
+                <section class="card inscricao">
+                    <div class="icon img">
+                        <img src="/img/undraw_pay_online_b1hk.svg" alt="Scanear">
+                    </div>
+                    <h3>Propinas</h3>
+                    <span>Clique no botão abaixo para poderes obter um histórico dos seus pagamentos de propinas.</span>
+                    <a href="/verificacaoRapida" class="button">Mostrar PDF</a>
+                </section>
+                <section class="card funcionario">
+                    <div class="icon img">
+                        <img src="/img/undraw_mobile_payments_vftl.svg" alt="Listar">
+                    </div>
+                    <h3>Transportes</h3>
+                    <span>Clique no botão abaixo para poderes obter um histórico dos seus pagamentos de transportes</span>
+                    <a href="/listarPagamentoTransporte" class="button">Mostrar PDF</a>
+                </section>
+                
+            </main>
+
+        </div>
+
+
+    </body>
+
+</html>

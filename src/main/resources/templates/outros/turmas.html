@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <title>EASYMULL</title>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+        <link rel="stylesheet" href="/css/formularios.css"/>
+        <link rel="stylesheet" href="/css/dashboard.css" />
+        <link rel="stylesheet" href="/css/bootstrap-switch.min.css"/>
+
+    </head>
+
+    <body>
+        <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
+        <div class="container">
+            <form method="POST" th:object="${turma}"  th:action="@{/cadastrarTurma}">
+                <div class="recent-grid">
+                    <div class="projects">
+                        <!--MESSAGENS-->
+                        <th:block th:include="fragmentos/MessagensDeAlertas"></th:block>
+                        <div class="card">
+                            <div class="card-header" sec:authorize-url="/listarTurmas">
+                                <h3 class="title">Registo de Turmas</h3>
+                                <a href="/listarTurmas" >Listar Turmas</a>
+                            </div>
+                            <input type="hidden" th:field="*{codigo}">
+                            <div class="user-details">
+                                <div class="input-box">
+                                    <span class="details">Nome</span>
+                                    <input type="text" th:field="*{nome}" placeholder="Digite o nome">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('nome')}" 
+                                          th:errors="*{nome}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Classe</span>
+                                    <input type="text" th:field="*{classe}" placeholder="EX: 1ªClasse">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('classe')}" 
+                                          th:errors="*{classe}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Curso</span>
+                                    <select id="curo" th:field="*{curso}">
+                                        <option value="">Selecione um curso</option>
+                                        <option th:each="curso : ${cursos}"  th:value="${curso.codigo}" th:text="${curso.nome}"></option>
+                                    </select>
+                                    <span class="error-filds" th:if="${#fields.hasErrors('curso')}" 
+                                          th:errors="*{curso}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Período</span>
+                                    <select id="nome" class="form-control"  th:field="*{periodo}">
+                                        <option value="">Selecione o período</option>
+                                        <option th:each="periodos : ${T(com.ispi.projectoIspi.Enum.Periodo).values()}"
+                                                th:value="${periodos}" th:text="${periodos}"></option>
+                                    </select>
+                                    <span class="error-filds" th:if="${#fields.hasErrors('periodo')}" 
+                                          th:errors="*{periodo}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Estado</span>
+                                    <input class="js-status" type="checkbox" th:field="*{estado}" data-off-color="danger" data-on-color="success"
+                                           data-on-text="Activo" data-off-text="Inactivo">                                   
+                                </div>
+                                <div class="button">
+                                    <button type="submit" class="btn">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap-switch.min.js" ></script>
+        <script>
+            $('.js-status').bootstrapSwitch();
+        </script>
+        <script src="/js/vendors.min.js"></script>
+        <script src="/js/main.js"></script> 
+    </body>
+
+</html>

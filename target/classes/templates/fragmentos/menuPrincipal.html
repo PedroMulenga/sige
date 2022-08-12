@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"/>        
+    </head>
+
+    <body>
+        <div th:fragment="menuPrincipal">
+            <input type="checkbox" id="nav-toggle">
+            <div class="sidebar">
+                <div class="sidebar-brand">
+                    <h2><span class="lab la-accusoft"></span><span>EASYMULL</span></h2>
+                </div>
+                <div class="sidebar-menu">
+                    <ul>
+                        <li>
+                            <a href="/dashboard" class="nav_link active"><img src="/img/home_32px.png" alt="" class="icon">
+                                <span>Dashboard</span></a>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_EFECTUAR_MATRICULAS')">
+                            <a href="/paginas/secretariaPage" class="nav_link"><img src="/img/secretary.png" alt="" class="icon">
+                                <span>Secretaria</span></a>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_REGISTAR_PAGAMENTOS')">
+                            <a href="/paginas/servicePage" class="nav_link"><img src="/img/service.png" alt="" class="icon">
+                                <span>Pagamentos</span></a>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_VERIFICAR_PAGAMENTOS')">
+                            <a href="/transportes/transportePage" class="nav_link"><img src="/img/taxi_mobile_payment_64px.png" alt="" class="icon">
+                                <span>Finanças</span></a>
+                        </li>
+
+                        <li sec:authorize="hasRole('ROLE_VERIFICAR_RELATORIOS')">
+                            <a href="/report/menu_reports" class="nav_link"><img src="/img/print.png" alt="" class="icon">
+                                <span>Relatórios</span></a>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_CADASTRAR_USUARIOS')">
+                            <a href="/paginas/security" class="nav_link"><img src="/img/user.png" alt="" class="icon">
+                                <span>Usuários</span></a>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_CADASTRAR_USUARIOS')">
+                            <a href="/paginas/other" class="nav_link"><img src="/img/mind_map.png" alt="" class="icon">
+                                <span>Outros</span></a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="main-content">
+                <header>
+                    <h2>
+                        <label for="nav-toggle">
+                            <span class="las"><img src="/img/togle.png" alt="" width="20" class="icon"></span>
+                        </label>
+                    </h2>
+                    <div class="user-wrapper">
+                        <img th:src="@{/mostrarImagemUsuario/{imagem}(imagem=${#authentication.principal.usuario.nomeImagen})}" width="40px" height="40px" alt="">                                               
+                        <label th:text="${#authentication.principal.usuario.nomeUsuario}">Name User</label>
+
+                        <div class="menuUsuario">                   
+                            <label for="btnDrop-1" class="button">Opções
+                                <span class='bx bx-chevron-down nav_icon nav_dropdown-icon' ></span>
+                            </label>
+                            <input class="checkboxInputHeader" type="checkbox" id="btnDrop-1">
+                            <ul class="menu">
+                                <li>
+                                    <a th:href="@{/listarPerfil}">Meu Pefil</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/logout}">Logout</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </header> 
+            </div>           
+        </div>
+        <script th:src="@{/js/dashboard.js}"></script>
+    </body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+        <title>EASYMULL</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/vendors.min.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/ispi.min.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/application.css}"/>
+
+    </head>
+
+    <body class="aw-layout-simple-page">
+        <div class="aw-layout-simple-page__container">
+
+            <div class="aw-error-panel">
+                <h1 class="aw-error-panel__code" style="font-size: 8rem; font-weight: 700;">
+                    <i class="fa  fa-exclamation-triangle" style="font-size: 8rem; font-weight: 700; color: #CA8308;"></i> 500
+                </h1>
+
+                <h2 class="aw-error-panel__title" style="font-size: 4rem; text-transform: uppercase; font-weight: 600;">Erro no servidor</h2>
+
+                <div class="aw-error-panel__description" style="font-size: 2rem;">
+                    Desculpe, algo muito estranho aconteceu e não conseguimos processar a sua requisição.
+                    Tente novamente ou entre em contato conosco se precisar de ajuda.
+                    <br/><br/>
+                    <a href="javascript:history.back()" class="btn  btn-warning" style="padding: 2rem; font-size: 1.6rem; border-radius: 40px; border: 0;">Voltar para a página inicial</a>
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>

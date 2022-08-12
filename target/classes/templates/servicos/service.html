@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <title>ISPI Payment</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+        <link rel="stylesheet" href="/css/dashboard.css" />
+        <link rel="stylesheet" href="/css/cardsPrincipal.css"/>
+
+    </head>
+
+    <body>
+        <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
+        <div class="main-content">
+            <div class="title">SECTOR FINANCEIRO</div>
+            <main class="cards">
+                <section class="card inscricao">
+                    <div class="icon">
+                        <img src="/img/emolumento.png" alt="Emolumentos">
+                    </div>
+                    <h3>Pegisto de Emolumentos</h3>
+                    <span>Efectue o registo de pagamentos no sistema ISPI Payments</span>
+                    <a href="/listarPagamentosAlunos">Pagar</a>
+                </section>
+                <section class="card funcionario">
+                    <div class="icon">
+                        <img src="/img/outros.png" alt="Outros Pagamentos">
+                    </div>
+                    <h3>Outros tipos de Pagamentos</h3>
+                    <span>Efectue o registo de outros pagamentos no sistema ISPI Payments</span>
+                     <a href="#">Pagar</a>
+                </section>
+                
+            </main>
+        </div>
+
+
+    </body>
+
+</html>

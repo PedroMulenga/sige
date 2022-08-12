@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <title>ISPI Payment</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+        <link rel="stylesheet" href="/css/formularios.css"/>
+        <link rel="stylesheet" href="/css/dashboard.css" />
+        <link rel="stylesheet" href="/css/sweetAlert.min.css"/>
+
+    </head>
+
+    <body>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        <input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}"/>
+        <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
+        <div class="container">
+            <div class="title">VERIFICAÇÃO DE PAGAMENTOS</div>
+
+            <div class="recent-grid">
+                <div class="projects">
+                    <div class="card">
+                        <form method="POST" th:action="@{/transportes/listarPagamentoTransporte}">
+                            <div id="fragmentoFotoMatricula">
+                                FOTO ESTUDANTE...
+                            </div>
+                            <div class="user-details">
+                                <div class="input-box">                       
+                                    <div class="search-wrapper">
+                                        <input type="text" id="numeroEstudante" required="" name="numeroEstudante" placeholder="Nºde Estudante" />
+                                        <span class="las"><button id="buttonVerificar" type="button"><img src="/img/search.png" width="30" height="30"></button></span>
+                                    </div>
+                                </div>
+
+                                <div class="customers" style="margin-top: .8rem;">
+                                    <div class="card" >                            
+                                        <div class="title">Descrição de Pagamentos</div>
+                                        <table width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <td style="font-weight: 600; font-size: 16px; height: 100%">Mês Referente</td>
+                                                    <td style="font-weight: 600; font-size: 16px;">Data Pagamento</td>
+                                                    <td style="font-weight: 600; font-size: 16px;">Situação</td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div id="tabelaPagamentos" >
+                                            <span style="font-size: 16px;">Resultados Aqui...</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/vendors.min.js}"></script>
+        <script th:src="@{/js/main.js}"></script>
+    </body>
+
+</html>

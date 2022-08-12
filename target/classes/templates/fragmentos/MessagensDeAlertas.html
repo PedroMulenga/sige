@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <!--MESSAGENS-->
+    <div class="content">
+        <div class="success alertas" th:if="${success != null}">
+            <div class="checked">
+                <i class='bx bx-check-circle'></i>
+                <div class="checked_data">
+                    <h1>Sucesso</h1>
+                    <p th:text="${success}"></p>
+                </div>
+            </div>
+            <i class='bx bx-x' aria-hidden="true"></i>
+        </div>
+        <div class="warning alertas" th:if="${warning != null}">
+            <div class="checked">
+                <i class='bx bx-info-square'></i>
+                <div class="checked_data">
+                    <h1>Aviso</h1>
+                    <p th:text="${warning}"></p>
+                </div>
+            </div>
+            <i class='bx bx-x' aria-hidden="true"></i>
+        </div>
+        <div class="info alertas" th:if="${info != null}">
+            <div class="checked">
+                <i class='bx bx-info-square'></i>
+                <div class="checked_data">
+                    <h1>BOAS VINDAS</h1>
+                    <h3 th:text="${info}"></h3>
+                </div>
+            </div>
+            <i class='bx bx-x' aria-hidden="true"></i>
+        </div>
+    </div>
+</html>

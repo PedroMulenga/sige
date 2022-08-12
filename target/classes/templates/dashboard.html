@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt"xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+        <link rel="stylesheet" href="/css/dashboard.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+    </head>
+
+    <body>  
+        <input type="checkbox" id="nav-toggle">
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <h2><span class="lab la-accusoft"></span><span>EASYMULL</span></h2>
+            </div>
+            <div class="sidebar-menu">
+                <ul>
+                    <li>
+                        <a href="/dashboard" class="nav_link active"><img src="/img/home_32px.png" alt="" class="icon">
+                            <span>Dashboard</span></a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_EFECTUAR_MATRICULAS')">
+                        <a href="/paginas/secretariaPage" class="nav_link"><img src="/img/secretary.png" alt="" class="icon">
+                            <span>Secretaria</span></a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_REGISTAR_PAGAMENTOS')">
+                        <a href="/paginas/servicePage" class="nav_link"><img src="/img/service.png" alt="" class="icon">
+                            <span>Pagamentos</span></a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_VERIFICAR_PAGAMENTOS')">
+                        <a href="/transportes/transportePage" class="nav_link"><img src="/img/taxi_mobile_payment_64px.png" alt="" class="icon">
+                            <span>Consultas</span></a>
+                    </li>
+
+                    <li sec:authorize="hasRole('ROLE_VERIFICAR_RELATORIOS')">
+                        <a href="/report/menu_reports" class="nav_link"><img src="/img/print.png" alt="" class="icon">
+                            <span>Relatórios</span></a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_CADASTRAR_USUARIOS')">
+                        <a href="/paginas/security" class="nav_link"><img src="/img/user.png" alt="" class="icon">
+                            <span>Usuários</span></a>
+                    </li>
+                    <li>
+                    <li sec:authorize="hasRole('ROLE_CADASTRAR_USUARIOS')">
+                        <a href="/paginas/other" class="nav_link"><img src="/img/mind_map.png" alt="" class="icon">
+                            <span>Outros</span></a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="main-content">
+            <header>
+                <h2>
+                    <label for="nav-toggle">
+                        <span class="las"><img src="/img/togle.png" alt="" width="20" class="icon"></span>
+                    </label> Dashboard
+                </h2>
+                <div class="search-wrapper">
+                    <span class="las la-search"></span>
+                    <input type="search" placeholder="Search" />
+                </div>
+                <div class="user-wrapper">
+                    <img th:src="@{/mostrarImagemUsuario/{imagem}(imagem=${#authentication.principal.usuario.nomeImagen})}" width="40px" height="40px" alt="">                                               
+                    <label th:text="${#authentication.principal.usuario.nomeUsuario}">Name User</label>
+
+                    <div class="menuUsuario">                   
+                        <label for="btnDrop-1" class="button">Opções
+                            <span class='bx bx-chevron-down nav_icon nav_dropdown-icon' ></span>
+                        </label>
+                        <input class="checkboxInputHeader" type="checkbox" id="btnDrop-1">
+                        <ul class="menu">
+                            <li>
+                                <a th:href="@{/listarPerfil}">Meu Pefil</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/logout}">Logout</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </header> 
+        </div>         
+        <div class="main-content">
+            <main class="main">
+                <div class="cards">
+                    <div class="card-single card1">
+                        <div>
+                            <h1>[[${totalDeUsuarios}]]</h1>
+                            <span>Total Matriculados</span>
+                        </div>
+                        <div>
+                            <span class="las la-users"></span>
+                        </div>
+                    </div>
+                    <div class="card-single card2">
+                        <div>
+                            <h1>595</h1>
+                            <span>Pagos</span>
+                        </div>
+                        <div>
+                            <img src="/img/taxi_mobile_payment.png" alt="" class="icon">
+                        </div>
+                    </div>
+                    <div class="card-single card3">
+                        <div>
+                            <h1>326</h1>
+                            <span>Não Pagos</span>
+                        </div>
+                        <div>
+                            <img src="/img/mobile_payment.png" alt="" class="icon">
+                        </div>
+                    </div>
+                    <div class="card-single card4">
+                        <div>
+                            <h1>3</h1>
+                            <span>Total Funcionarios</span>
+                        </div>
+                        <div>
+                            <img src="/img/books.png" alt="" class="icon">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="recent-grid">
+                    <div class="projects">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Utilização dos serviços de Transportes</h3>                            
+                            </div>
+                            <div class="card-body">
+                                <canvas id="myChart" height="160"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="customers">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Dados Percentuais</h3>
+                                <button>Ver todos <span class="las la-arrow-right"></span></button>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="customer">
+                                    <canvas id="myChart" height="160"></canvas>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/vendors.min.js}"></script>
+        <script th:src="@{/js/chart.min.js}"></script>
+        <script th:src="@{/js/dashboardChart.js}"></script>
+    </body>
+
+</html>

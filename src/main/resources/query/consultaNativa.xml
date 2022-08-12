@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0" xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm
+        http://java.sun.com/xml/ns/persistence/orm_2_0.xsd ">
+    <named-native-query name="Matricula.totalEstudantelPorAno" result-set-mapping="totalPorAnoMapping">
+        <query>
+            select date_format(data_registo, '%Y') ano, count(*) totalPorAno
+            from matricula where data_registo > date_sub(now(), interval 5 YEAR)
+            group by date_format(data_registo, '%Y')
+            order by date_format(data_registo, '%Y') desc;
+        </query>       
+    </named-native-query>
+    <sql-result-set-mapping name="totalPorAnoMapping">
+        <constructor-result target-class="com.ispi.projectoIspi.dto.TotalMatricula">
+            <column name="ano" class="java.lang.String"></column>
+            <column name="totalPorAno" class="java.lang.Integer"></column>           
+        </constructor-result>
+    </sql-result-set-mapping>
+</entity-mappings>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <title>ISPI Payment</title>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    </head>
+    <body>
+
+        <div class="container">
+            <h2> Lista de Bairros</h2> 
+            <div class="container align-content-around">
+                <button type="button"  class="btn btn-outline-primary" data-toggle="modal" data-target="#cadastroModal" style="font-size: 18px; text-decoration: none;">+ Novo Registo</button>
+            </div>
+            <hr>
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                <th scope="col">Nome </th>
+                <th scope="col">Municipio</th>
+                <th scope="col">Acção</th>
+                </thead>
+                <tbody>
+                    <tr scope="row" th:each="bairro : ${listaBairro}">
+                        <td th:text="${bairro.nome}"></td>
+                        <td th:text="${bairro.municipio.nome}"></td>
+                        <td>
+                            <a class="btn btn-primary editar" th:href="@{/getOneBairro/(codigo=${bairro.codigo})}">
+                                <i class="fas fa-edit"></i>Editar</a>
+                            <a  class="btn btn-danger" th:href="@{/eliminarBairro/(codigo=${bairro.codigo})}" id="deleteButton">
+                                <i class="fas fa-times"></i>Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <!-- Modal Cadastro -->
+        <div class="modal fade" id="cadastroModal" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+            <form method="POST" th:object="${bairro}" autocomplete="off" th:action="@{/cadastrarBairro}">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="cadastroModalLabel">Novo Bairro</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">                 
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="municipio">Município:</label>
+                                    <select id="municipio" class="form-control" th:field="*{municipio}">
+                                        <option value="">Selecione o município</option>
+                                        <option th:each="municipio : ${municipios}"  th:value="${municipio.codigo}" th:text="${municipio.nome}"></option>
+                                    </select>
+                                </div> 
+                                <div class="form-group col-md-4">
+                                    <label for="nome">Nome:</label>
+                                    <input type="text" class="form-control" id="nome" th:field="*{nome}" placeholder="Digite o nome" required="true">
+                                </div>                                                                     
+                                <div class="form-group col-md-">
+                                    <label for="nomeVulgar">Nome Vulgar:</label>
+                                    <input type="text" class="form-control" id="nomeVulgar" th:field="*{vulgar}" placeholder="Digite o nome Vulgar" required="true">
+                                </div>                                                                     
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <button type="submit" class="btn btn-outline-success">Salvar</button>
+                                <button type="button"  class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Modal Editar -->
+        <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+            <form method="PUT" th:object="${bairro}" autocomplete="off" th:action="@{/editarBairro}">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editarModalLabel">Editar Bairro</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input class="form-control" id="codigoEdit"  name="codigo" type="hidden" />
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="municipioEdit">Município:</label>
+                                    <select id="municipioEdit" class="form-control" th:field="*{municipio}">
+                                        <option value="">Selecione o município</option>
+                                        <option th:each="municipio : ${municipios}"  th:value="${municipio.codigo}" th:text="${municipio.nome}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="nome">Nome:</label>
+                                    <input type="text" class="form-control" id="nomeEdit" th:field="*{nome}" placeholder="Digite seu nome" required="true">
+                                </div> 
+                                <div class="form-group col-md-">
+                                    <label for="nomeVulgar">Nome Vulgar:</label>
+                                    <input type="text" class="form-control" id="nomeVulgarEdit" th:field="*{vulgar}" placeholder="Digite o nome Vulgar" required="true">
+                                </div> 
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <button type="submit" class="btn btn-outline-warning">Atualizar</button>
+                                <button type="button"  class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Modal Eliminar -->
+        <div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="eliminarModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="eliminarModalLabel">Confirmar Eliminação</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning" role="alert">
+                            <h5>Tem certeza que pretendes eliminar o registo?</h5>
+                            <p style="font-size: 25px; text-align: center; color: #002752">Não poderás recopera-lo</p> 
+                        </div>                                
+                    </div>
+                    <div class="modal-footer">
+                        <a href="" id="delRef" class="btn btn-outline-success">Sim, Delectar</a>
+                        <button type="button"  class="btn btn-outline-danger" data-dismiss="modal">Não, Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="js/main.js" th:src="@{js/main.js}"></script>
+    </body>
+</html>

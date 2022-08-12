@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <title>ISPI Payment</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+        <link rel="stylesheet" href="/css/formularios.css"/>
+        <link rel="stylesheet" href="/css/dashboard.css" />
+        <link rel="stylesheet" href="/css/bootstrap-switch.min.css"/>
+        <link rel="stylesheet" href="/css/sweetAlert.min.css"/>
+
+    </head>
+
+    <body>
+        <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
+        <div class="container">
+            <div class="projects">
+                <div class="card">
+                    <div class="card-header" sec:authorize-url="/cadastrarFuncionarios">
+                        <h3 class="title">Lista de Funcionários</h3>
+                        <a href="/cadastrarFuncionarios" >Novo Registo</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="content-table" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Data de Nascimento</th>
+                                        <th>E-mail</th>
+                                        <th>Tipo Funcionário</th>
+                                        <th>Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="funcionario : ${listaFuncionarios}">
+                                        <td th:text="${funcionario.nome} +' ' + ${funcionario.sobrenome}"></td>
+                                        <td th:text="${#temporals.format(funcionario.dataNascimento, 'dd/MM/yyyy')}"></td>
+                                        <td th:text="${funcionario.email}"></td>
+                                        <td th:text="${funcionario.tipoFuncionario}"></td>
+                                        <td>
+                                            <a th:href="@{/editarFuncionario/}+${funcionario.codigo}" style="padding-right: 10px;">
+                                                <i class="fas fa-edit"><img src="/img/edit.png" alt="Editar" width="20px" height="20px"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="delete" th:attr="attr-codigo = ${funcionario.codigo}">
+                                                <i class="fas fa-edit"><img src="/img/delet.png" alt="Apagar" width="20px" height="20px"></i>
+                                            </a>
+
+                                        </td>
+
+                                    </tr> 
+                                    <tr th:if="${#lists.isEmpty(listaFuncionarios)}">
+                                        <td colspan="7">Nenhum valor por apresentar</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="pagination">
+                                <span>Total de Registo: [[${totalDeItens}]] - Pagina [[${paginaCorrente}]] de [[${totalDePaginas}]]</span>
+                                <ul>
+                                    <li class="btnPaginatio prev">
+                                        <a th:if="${paginaCorrente > 1}" th:href="@{/listarFuncionarios/1}">«</a>
+                                        <a  th:unless="${paginaCorrente > 1}">«</a>
+                                    </li>
+                                    <li class="btnPaginatio prev">
+                                        <a th:if="${paginaCorrente > 1}" th:href="@{'/listarFuncionarios/' + ${paginaCorrente - 1}}"><i class="fas fa-angle-left">Prev</i></a>
+                                        <a th:unless="${paginaCorrente > 1}"><span>Prev</span></a>
+                                    </li>
+                                    <th:block th:each="i: ${#numbers.sequence(1, totalDePaginas)}">                  
+                                        <li class="numb">
+                                            <a th:if="${i != paginaCorrente}" th:href="@{'/listarFuncionarios/' + ${i}}">[[${i}]]</a>  
+                                            <span class="active" th:unless="${i != paginaCorrente}">[[${i}]]</span>  
+                                        </li>
+                                    </th:block>
+                                    <li class="btnPaginatio next">
+                                        <a th:if="${paginaCorrente < totalDePaginas}" th:href="@{'/listarFuncionarios/' + ${paginaCorrente + 1}}"><i class="fas fa-angle-right">Next</i></a>
+                                        <a th:unless="${paginaCorrente < totalDePaginas}"><span>Next</span></a>
+                                    </li>
+                                    <li class="btnPaginatio next">
+                                        <a th:if="${paginaCorrente < totalDePaginas}" th:href="@{'/listarFuncionarios/' + ${totalDePaginas}}"><span>»</span></a>
+                                        <a  th:unless="${paginaCorrente < totalDePaginas}"><span>»</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/vendors.min.js}"></script>
+        <script th:src="@{/js/main.js}"></script>
+        <script>
+            $('.delete').on('click', function () {
+                var codigo = $(this).attr('attr-codigo');
+                console.log(codigo);
+                swal({
+                    title: "Tem certeza?",
+                    text: "Você não poderá recuperar os dados após a exclusão.",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Não, Cancelar",
+                    confirmButtonColor: "#0779A7",
+                    confirmButtonText: "Sim, Excluir",
+                    reverseButtons: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    setTimeout(function () {
+                        $.get("/eliminarFuncionario/" + codigo, function (data) {
+                            location.reload(true);
+                        });
+                        swal("Excluído!", "Registo Eliminado com sucesso.", "success");
+                        location.reload(true);
+
+                    }, 1000);
+                });
+            });
+        </script>
+    </body>
+
+</html>
