@@ -42,7 +42,6 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ResourceLoader;
@@ -209,7 +208,7 @@ public class MatriculaController {
     }
 
     @GetMapping("/gerar_ficha_pdf/{codigo}")
-    public JasperPrint gerarFichaAluno(@PathVariable("codigo") Long codigo, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, JRException {
+    public void gerarFichaAluno(@PathVariable("codigo") Long codigo, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, JRException {
         Connection conexao = jdbcTemplate.getDataSource().getConnection();
         JasperReport inputStream = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/templates/relatorios/matricula_ficha_alino_especifico.jrxml"));
         Optional<Matricula> matriculaOptional = matriculaService.getOne(codigo);
@@ -217,11 +216,10 @@ public class MatriculaController {
         parametros.put("CODIGO", matriculaOptional.get().getCodigo());
         JasperPrint print = JasperFillManager.fillReport(inputStream, parametros, conexao);
         response.setContentType("application/pdf");
-        response.setHeader("Content-disposition", "inline; lista_alunos.pdf");
+        response.setHeader("Content-disposition", "inline; ficha_alunos.pdf");
         OutputStream stream = response.getOutputStream();
         JasperExportManager.exportReportToPdfStream(print, stream);
 
-        return print;
     }
 
     @GetMapping("/relatorio_lista_alunos")
@@ -232,18 +230,20 @@ public class MatriculaController {
     }
 
     @PostMapping("/relatorio_lista_alunos")
-    public JasperPrint imprimirListaAlunos(@RequestParam("turma") Matricula matricula, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, JRException {
+    public void imprimirListaAlunos(@RequestParam("turma") Matricula matricula, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, InterruptedException {
         List<Matricula> matriculaOptional = matriculaService.findByTurma(matricula.getTurma());
-        Connection conexao = jdbcTemplate.getDataSource().getConnection();
-        String path = resourceLoader.getResource("classpath:lista_alunos_turma.jrxml").getURI().getPath();
-        JasperReport jasperReport = JasperCompileManager.compileReport(path);
-        Map<String, Object> parametros = new HashMap<>();
-        parametros.put("CODIGOTURMA", matricula.getTurma().getCodigo());
-        JasperPrint print = JasperFillManager.fillReport(jasperReport, parametros, conexao);
-        response.setContentType("application/pdf");
-        response.setHeader("Content-disposition", "inline; lista_alunos.pdf");
-        OutputStream stream = response.getOutputStream();
-        JasperExportManager.exportReportToPdfStream(print, stream);
-        return print;
+        try {
+            Connection conexao = jdbcTemplate.getDataSource().getConnection();
+            JasperReport inputStream = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/templates/relatorios/lista_alunos_turma.jrxml"));
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("CODIGOTURMA", matricula.getTurma().getCodigo());
+            JasperPrint print = JasperFillManager.fillReport(inputStream, parametros, conexao);
+            response.setContentType("application/pdf");
+            response.setHeader("Content-disposition", "inline; lista_alunos.pdf");
+            OutputStream stream = response.getOutputStream();
+            JasperExportManager.exportReportToPdfStream(print, stream);
+        } catch (JRException error) {
+            error.printStackTrace();
+        }
     }
 }

@@ -12,7 +12,6 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.servlet.ViewResolver;
 
 
 /**
@@ -32,10 +31,5 @@ public class WebConfig {
     public JdbcTemplate jdbcTemplate(@Qualifier("db") DataSource ds) {
         return new JdbcTemplate(ds);
     }
-
-   /* @Bean
-    public ViewResolver jasperReportViewResolver(DataSource dataSource) {
-        JasperReportsViewResolver resover = new JasperReportView Resolver();
-    }*/
 
 }

@@ -3,34 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-function excluir(codigo) {
-    swal({
-        title: "Tem certeza?",
-        text: "Você não poderá recuperar os dados após a exclusão.",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Sim, Excluir!",
-        closeOnConfirm: false,
-        showLoaderOnConfirm: true
-    }, function () {
-        setTimeout(function () {
-            $.ajax({
-                method: 'POST',
-                url: 'eliminarAluno' + codig,
-                contentType: 'application/json',
-                data: JSON.stringify({codigo: codigo}),
-                dataType: 'json',
-                success: function (resposta) {
-                    console.log(resposta);
-                }
-            });
-
-            swal("Excluído!", "Registo Eliminado com sucesso.", "success");
-        }, 2000);
-    });
-}
 function GerarNumeroEstudante() {
     var texto = "20";
     var aleatorio = Math.floor(Math.random() * 1500);

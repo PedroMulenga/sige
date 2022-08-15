@@ -65,6 +65,14 @@
     font-weight: 700;
 
 }
+.label h1 span{
+    font-size: 25px;
+    width: 100px;
+    height: 90px;
+    border: 10px solid #038A0C;
+    border-radius: 50%;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, .9);
+}
 .label img{
     width: 120px;
     height: 120px;

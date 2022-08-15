@@ -27,12 +27,12 @@ ISPI.GraficoDeTotaisPorAnos = (function () {
                 datasets: [{
                         label: 'Crescimento Anual',
                         data: totais,
-                        backgroundColor: '#066792',
-                        pointBorderColor: '#066792',
-                        pointBackgroundColor: '#fff',
-                        borderColor: '#046967',
-                        borderWidth: 6,
-                        pointRadius: 5,
+                        backgroundColor: '#B90101',
+                        pointBorderColor: '#ffa705',
+                        pointBackgroundColor: '#FFF',
+                        borderColor: '#B90101',
+                        borderWidth: 4,
+                        pointRadius: 10,
                     }]
             },
             options: {
@@ -50,7 +50,7 @@ ISPI.GraficoDeTotaisPorAnos = (function () {
                     }
 
                 },
-                hoverRadius: 15,
+                hoverRadius: 20,
                 hoverBackgroundColor: '#44BD02',
                 responsive: true
             }

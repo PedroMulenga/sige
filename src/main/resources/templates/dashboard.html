@@ -91,7 +91,7 @@
                 <div class="cards">
                     <div class="card-single card1">
                         <div>
-                            <h1>[[${totalDeUsuarios}]]</h1>
+                            <h1>[[${totalMatrculas}]]</h1>
                             <span>Total Matriculados</span>
                         </div>
                         <div>
@@ -100,7 +100,7 @@
                     </div>
                     <div class="card-single card2">
                         <div>
-                            <h1>595</h1>
+                            <h1>[[${totalAlunosPagos}]]</h1>
                             <span>Pagos</span>
                         </div>
                         <div>
@@ -109,7 +109,7 @@
                     </div>
                     <div class="card-single card3">
                         <div>
-                            <h1>326</h1>
+                            <h1>[[${totalAlunosNaoPagos}]]</h1>
                             <span>Não Pagos</span>
                         </div>
                         <div>
@@ -118,7 +118,7 @@
                     </div>
                     <div class="card-single card4">
                         <div>
-                            <h1>3</h1>
+                            <h1>[[${totalDeFuncionarios}]]</h1>
                             <span>Total Funcionarios</span>
                         </div>
                         <div>
@@ -131,7 +131,7 @@
                     <div class="projects">
                         <div class="card">
                             <div class="card-header">
-                                <h3>Utilização dos serviços de Transportes</h3>                            
+                                <h3>REPRESENTAÇÃO GRÁFICA DO CRESCIMENTO ACADÉMICO NOS ÚLTIMOS 5 ANOS</h3>                            
                             </div>
                             <div class="card-body">
                                 <canvas id="myChart" height="160"></canvas>
@@ -141,13 +141,13 @@
                     <div class="customers">
                         <div class="card">
                             <div class="card-header">
-                                <h3>Dados Percentuais</h3>
-                                <button>Ver todos <span class="las la-arrow-right"></span></button>
+                                <h3>DADOS PERCENTUAIS</h3>
+                                <button onclick="updateChart();">Atualizar<span class="las la-arrow-right"></span></button>
                             </div>
                             <div class="card-body">
 
                                 <div class="customer">
-                                    <canvas id="myChart" height="160"></canvas>
+                                    <canvas id="myAreaChart" height="160"></canvas>
                                 </div>
 
 
@@ -162,6 +162,12 @@
         <script th:src="@{/js/vendors.min.js}"></script>
         <script th:src="@{/js/chart.min.js}"></script>
         <script th:src="@{/js/dashboardChart.js}"></script>
+        <script th:src="@{/js/areaChart.js}"></script>
+        <script>
+            function updateChart() {
+                location.reload(true);
+            }
+        </script>
     </body>
 
 </html>

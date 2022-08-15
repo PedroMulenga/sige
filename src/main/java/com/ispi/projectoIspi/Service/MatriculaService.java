@@ -73,7 +73,7 @@ public class MatriculaService {
         if (idadeCalculada <= 0) {
             throw new DataInvalidaException("A Data informada é inválida");
         }
-        if (matricula.getNumCRM() != "" && matricula.getGenero() == Genero.FEMENINO) {
+        if (!matricula.getNumCRM().equals("") && matricula.getGenero() == Genero.FEMENINO) {
             throw new NomeExistenteException("Este campo não pode ser preenchido para Mulheres");
         }
         if (numeroEstudante.isPresent() && !numeroEstudante.get().equals(matricula)) {

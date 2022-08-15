@@ -9,6 +9,8 @@ import com.ispi.projectoIspi.Enum.StatusUsuario;
 import com.ispi.projectoIspi.ExceptionMessages.BiUsuarioExistenteException;
 import com.ispi.projectoIspi.ExceptionMessages.EmailUsuarioExistenteException;
 import com.ispi.projectoIspi.ExceptionMessages.SenhaObrigatoriaNovoUsuario;
+import com.ispi.projectoIspi.Service.EmolumentoService;
+import com.ispi.projectoIspi.Service.FuncionarioService;
 import com.ispi.projectoIspi.Service.MatriculaService;
 import com.ispi.projectoIspi.Service.UsuarioService;
 import com.ispi.projectoIspi.model.Grupo;
@@ -56,14 +58,16 @@ public class CriarContaUsuarioController {
     private UsuarioService usuarioService;
     @Autowired
     private MatriculaService matriculaService;
-    private Matricula matricula = new Matricula();
+    @Autowired
+    private EmolumentoService emolumentoService;
+    @Autowired
+    private FuncionarioService funcionarioService;
     private List<Grupo> grupos = new ArrayList<>();
     private Optional<Usuario> usuarioSistema;
     private static String caminhoImagem = "C:/EASYMULL/imagens/usuarios/";
 
     @GetMapping("/")
     public ModelAndView index(@AuthenticationPrincipal User user, Usuario usuario, RedirectAttributes attribute) {
-        matricula = new Matricula();
         if (user != null) {
             return new ModelAndView("redirect:/dashboard");
         }
@@ -72,7 +76,6 @@ public class CriarContaUsuarioController {
 
     @GetMapping("/login")
     public ModelAndView login(@AuthenticationPrincipal User user, Usuario usuario, RedirectAttributes attribute) {
-        matricula = new Matricula();
         if (user != null) {
             return new ModelAndView("redirect:/dashboard");
         }
@@ -83,15 +86,18 @@ public class CriarContaUsuarioController {
     @GetMapping("/dashboard")
     public ModelAndView dashboard() {
         ModelAndView mv = new ModelAndView("dashboard");
-        Page<Usuario> page = usuarioService.totalUsuario();
-        long totalDeUsuarios = page.get().count();
-        mv.addObject("totalDeUsuarios", totalDeUsuarios);
-        mv.addObject("listaDeUsuarios", usuarioService.getAll());
+        int totalAlunosPagos = emolumentoService.findAllPay().size();
+        int totalAlunosMatrculados = matriculaService.getAll().size();
+        int totalAlunosNaoPagos = (totalAlunosMatrculados - totalAlunosPagos);
+        mv.addObject("totalAlunosPagos", totalAlunosPagos);
+        mv.addObject("totalAlunosNaoPagos", totalAlunosNaoPagos);
+        mv.addObject("totalDeFuncionarios", funcionarioService.getAll().size());
+        mv.addObject("totalMatrculas", totalAlunosMatrculados);
         return mv;
     }
 
     //ResponseEntity
-    @PutMapping(path = "/usuarios/status", consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}, produces ={ MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @PutMapping(path = "/usuarios/status", consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
     //@ResponseBody
     public void atualizarEstatus(@RequestBody @RequestParam("codigos[]") Long[] codigos, @RequestParam("status") StatusUsuario statusUsuario) {
@@ -158,13 +164,12 @@ public class CriarContaUsuarioController {
         return new ModelAndView("redirect:/criarContaUsuarios");
     }*/
 
-  /*  @PostMapping(value = "/verificarUsuario/{bi}{numeroEstudante}", consumes = {MediaType.APPLICATION_JSON_VALUE})
+ /*  @PostMapping(value = "/verificarUsuario/{bi}{numeroEstudante}", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Matricula findEstudanteByBi(Usuario usuario) {
         matricula = matriculaService.findByBiEstudanteAndSituacao(usuario.getBi(), usuario.getNumeroEstudante());
         return matricula;
     }*/
-
     @GetMapping("/403")
     public String acessoNegado() {
         return "error/403";

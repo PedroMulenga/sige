@@ -57,6 +57,10 @@ public class EmolumentoService {
 
     }
 
+    public List<Emolumento> findAllPay() {
+        return (List<Emolumento>) emolumentoRepository.findAllPay(anoAcademicoReferente, mesReferente);
+    }
+
     public Emolumento findByNumeroEstudanteAndMesReferente(String numeroEstudante) {
         Emolumento emolumento = emolumentoRepository.findByNumeroEstudante(numeroEstudante, anoAcademicoReferente, mesReferente);
         return emolumento;
