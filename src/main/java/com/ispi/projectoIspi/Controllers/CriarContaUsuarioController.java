@@ -66,14 +66,14 @@ public class CriarContaUsuarioController {
     private Optional<Usuario> usuarioSistema;
     private static String caminhoImagem = "C:/EASYMULL/imagens/usuarios/";
 
-    @GetMapping("/")
+   /* @GetMapping("/")
     public ModelAndView index(@AuthenticationPrincipal User user, Usuario usuario, RedirectAttributes attribute) {
         if (user != null) {
             return new ModelAndView("redirect:/dashboard");
         }
         return new ModelAndView("login");
     }
-
+*/
     @GetMapping("/login")
     public ModelAndView login(@AuthenticationPrincipal User user, Usuario usuario, RedirectAttributes attribute) {
         if (user != null) {
