@@ -2,7 +2,7 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
     <head >
-        <title>ISPI Payment</title>
+        <title>EASYMULL</title>
         <meta charset="UTF-8">
         <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,11 +14,15 @@
     <body>
         <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
         <div class="container">
-            <div class="title">Cadastro de Províncias</div>
+            <div class="card-header">
+                <h3 class="title">Cadastro de Províncias</h3>
+                <a href="/provincias/listarProvincias" >Listar Todas</a>
+            </div>
             <!--MESSAGENS-->
             <th:block th:include="fragmentos/MessagensDeAlertas"></th:block>
-            <form method="post" th:object="${provincia}" th:action="@{/cadastrarProvincia}">
+            <form method="POST" th:object="${provincia}" th:action="@{/provincias/cadastrarProvincia}">
                 <div class="user-details">
+                    <input type="hidden" th:field="*{codigo}">
                     <div class="input-box">
                         <span class="details">Nome</span>
                         <input type="text" th:field="*{nome}" placeholder="Digite seu Nome">
@@ -34,53 +38,11 @@
                         </span>
                     </div>              
                 </div>
-
                 <div class="button">
                     <button type="submit" class="btn">Salvar</button>
 
                 </div>
             </form>
-            <div class="title">Lista de Províncias</div>
-            <table class="content-table">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Sigla</th>
-                        <th>Opções</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="provincia : ${listaProvincia}">
-                        <td th:text="${provincia.nome}"></td>
-                        <td th:text="${provincia.sigla}"></td>
-                        <td></td>
-
-                    </tr> 
-                    <tr th:if="${#lists.isEmpty(listaProvincia)}">
-                        <td colspan="7">Nenhum valor por apresentar</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div>&nbsp;</div>
-            <div>
-                Total de Itens: [[${totalDeItens}]] - Page [[${paginaCorrente}]] de [[${totalDePaginas}]]
-                &nbsp; - &nbsp;
-                <a th:if="${paginaCorrente > 1}" th:href="@{/page/1}">First</a>               
-                <span th:unless="${paginaCorrente > 1}" >First</span>
-                &nbsp;
-                <a th:if="${paginaCorrente > 1}" th:href="@{'/page/' + ${paginaCorrente - 1}}">Previous</a> 
-                <span th:unless="${paginaCorrente > 1}" >Previous</span>
-                &nbsp;
-                <span th:each="i: ${#numbers.sequence(1, totalDePaginas)}">
-                    <a th:if="${i != paginaCorrente}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>&nbsp;&nbsp;
-                    <span th:unless="${i != paginaCorrente}">[[${i}]]</span>
-                </span>
-                <a th:if="${paginaCorrente < totalDePaginas}" th:href="@{'/page/' + ${paginaCorrente + 1}}">Next</a> 
-                <span th:unless="${paginaCorrente < totalDePaginas}" >Next</span>
-                &nbsp;
-                <a th:if="${paginaCorrente < totalDePaginas}" th:href="@{'/page/' + ${totalDePaginas}}">Last</a>
-                <span th:unless="${paginaCorrente < totalDePaginas}" >Last</span>
-            </div>
         </div>
         <script type="text/javascript" src="js/main.js" th:src="@{js/main.js}"></script>
     </body>

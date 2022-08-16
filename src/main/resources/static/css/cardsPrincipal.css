@@ -50,17 +50,17 @@ main.cards section.card:first-child {
 }
 
 main.cards section.card a {
-    padding: 1rem 2rem;
+    padding: 1rem 1rem;
     text-transform: uppercase;
-    border-radius: 32px;
+    border-radius: 25px;
     border: 0;
     cursor: pointer;
-    font-size: 90%;
+    font-size: 80%;
     font-weight: 600;
     color: #fff;
 }
 main.cards section.card a.button {
-    padding: 1rem 3rem;
+    padding: 1rem 1rem;
     cursor: pointer;
     font-size: 90%;
     font-weight: 600;

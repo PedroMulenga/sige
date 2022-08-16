@@ -82,7 +82,7 @@ public class FuncionarioService {
     }
 
     public Funcionario findByBiIgnoreCaseAndEstadoIsTrue(String Bi, TipoFuncionario tipoFuncionario) {
-        Funcionario funcionario = funcionarioRepository.findByBiIgnoreCaseAndTipoFuncionarioAndEstadoIsTrue(Bi, tipoFuncionario.MOTORISTA);
+        Funcionario funcionario = funcionarioRepository.findByBiIgnoreCaseAndTipoFuncionarioAndEstadoIsTrue(Bi, tipoFuncionario.SECRETARIA);
         return funcionario;
     }
 

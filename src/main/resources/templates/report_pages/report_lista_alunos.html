@@ -25,14 +25,14 @@
                             <div class="user-details">
                                 <div class="input-box">
                                     <span class="details">Turma</span>
-                                    <select id="curo" required="true" th:field="*{turma}" style="width: 20rem;">
+                                    <select id="curo" required="true" th:field="*{turma}" name="turma" style="width: 20rem;">
                                         <option value="">Selecione a Turma</option>
                                         <option th:each="turma : ${turmas}"  th:value="${turma.codigo}" th:text="${turma.nome}+' - '+ ${turma.classe} +' - '+ ${turma.periodo}"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="button">
-                                <button type="submit" target="_blank" class="btn">Imprimir</button>
+                                <button type="submit" class="btn">Imprimir</button>
                             </div>
                         </div>
                     </div>

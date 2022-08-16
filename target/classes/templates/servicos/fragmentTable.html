@@ -5,31 +5,25 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <th:block th:fragment="tabelaPagamentos" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <div class="projects">
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table width="100%" style="margin-bottom: 3rem;">
-                        <tbody>
-                            <tr class="customer" id="lista" th:each="emolumento : ${emolumentos}">
-                                <td>
-                                    <th:block th:if="${emolumento.mesReferente== #dates.format(#dates.createNow(), 'MMMM')}">
-                                        <span style="background: #06AC15; color: #fff; border: none; border-radius: 15%; padding: 10px;" th:text="${emolumento.mesReferente}"></span>
-                                    </th:block>
-                                    <th:block th:if="${emolumento.mesReferente!= #dates.format(#dates.createNow(), 'MMMM')}">
-                                        <span style="color: #0386B1; border: none; padding: 10px; font-size: 1.2rem;" th:text="${emolumento.mesReferente}"></span>
-                                    </th:block>
-                                </td>
-                                <td th:text="${#dates.format(emolumento.dataPagamento, 'dd/MM/yyyy')}"></td>
-                                <td>
-                                    <img src="/img/favicon.ico" alt="icon" width="20px" height="20px">
-                                </td>
-                            </tr>
-                            <tr th:if="${#lists.isEmpty(emolumentos)}">
-                                <td colspan="7">Nenhum Resultado Encontrado</td>
-                            </tr>
-                        </tbody>
-                    </table>
+    <div class="card-body">
+        <div class="customer" id="lista" th:each="emolumento : ${emolumentos}">
+            <div class="info">
+                <div>
+                    <th:block th:if="${emolumento.mesReferente== #dates.format(#dates.createNow(), 'MMMM')}">
+                        <h3 style="background: #ffa705; color: #fff; border: none; border-radius: 5%; padding: 10px;" th:text="${emolumento.mesReferente}"></h3>
+                    </th:block>
+                    <th:block th:if="${emolumento.mesReferente!= #dates.format(#dates.createNow(), 'MMMM')}">
+                        <h3 style="border: none; padding: 10px; font-size: 1.2rem;" th:text="${emolumento.mesReferente}"></h3>
+                    </th:block>
+                    <small th:text="${#dates.format(emolumento.dataPagamento, 'dd/MM/yyyy')}">Direcor Geral</small>
+                </div>
+                <img src="/img/sucess.png" alt="icon" width="25px" height="25px" style="background-color: #ffa705; border-radius: 50%;">
+            </div>
+        </div>
+        <div class="customer">
+            <div class="info" th:if="${#lists.isEmpty(emolumentos)}">
+                <div>
+                    <h3>Nenhum Resultado Encontrado</h3>
                 </div>
             </div>
         </div>

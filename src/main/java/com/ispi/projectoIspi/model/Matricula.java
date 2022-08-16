@@ -150,7 +150,7 @@ public class Matricula extends GenericDomin {
     }
 
     public void setBi(String bi) {
-        this.bi = bi;
+        this.bi = bi.toUpperCase();
     }
 
     public Date getDataNascimento() {

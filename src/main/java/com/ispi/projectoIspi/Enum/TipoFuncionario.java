@@ -11,8 +11,8 @@ package com.ispi.projectoIspi.Enum;
  */
 public enum TipoFuncionario {
     SECRETARIA("Secretaria"),
-    PROFESSOR("Professor"),
-    MOTORISTA("Motorista");
+    LIMPEZA("Limpeza"),
+    PROFESSOR("Professor");
     private String tipoFuncionario;
     private TipoFuncionario(String tipoFuncionario){
         this.tipoFuncionario= tipoFuncionario;

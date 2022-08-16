@@ -30,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author PEDRO P MULENGA
  */
 @Controller
+@RequestMapping("/provincias")
 public class ProvinciaController {
 
     @Autowired
@@ -38,8 +39,18 @@ public class ProvinciaController {
     @GetMapping("/cadastrarProvincia")
     public ModelAndView carregarForm(Provincia provincia) {
         ModelAndView mv = new ModelAndView("outros/provincia");
-        mv.addObject("provincia", new Provincia());
         return mv;
+    }
+
+    @PostMapping("/cadastrarProvincia")
+    public ModelAndView cadastrarProvincia(@Valid Provincia provincia, BindingResult result, RedirectAttributes attribute) {
+        if (result.hasErrors()) {
+            return carregarForm(provincia);
+        }
+        provinciaService.addNew(provincia);
+        attribute.addFlashAttribute("success", "Província salva com sucesso!");
+        return new ModelAndView("redirect:/provincias/cadastrarProvincia");
+
     }
 
     @RequestMapping("/listarProvincias")
@@ -47,52 +58,37 @@ public class ProvinciaController {
         return listByPage(1);
     }
 
-    @GetMapping("/page/{pageNumber}")
+    @GetMapping("/listarProvincias/{pageNumber}")
     public ModelAndView listByPage(@PathVariable("pageNumber") int paginaCorrente) {
-        ModelAndView mv = new ModelAndView("outros/provincia");
+        ModelAndView mv = new ModelAndView("outros/listaProvincias");
         Page<Provincia> page = provinciaService.getAll(paginaCorrente);
         List<Provincia> listaDeProvincia = page.getContent();
-        //paginaCorrente= 1;
         long totalDeItens = page.getTotalElements();
         int totalDePaginas = page.getTotalPages();
-        //int numeroPagina = page.getNumber();
-        //int primeiroRegisto= paginaActual * totalRegistoPorPaginas;
         mv.addObject("paginaCorrente", paginaCorrente);
         mv.addObject("totalDeItens", totalDeItens);
-        mv.addObject("provincia", new Provincia());
-        //mv.addObject("totalRegistoPorPaginas", totalRegistoPorPaginas);
         mv.addObject("totalDePaginas", totalDePaginas);
         mv.addObject("listaProvincia", listaDeProvincia);
         return mv;
     }
 
-    @PostMapping("/cadastrarProvincia")
-    public ModelAndView cadastrarProvincia(@Valid Provincia provincia, BindingResult result, RedirectAttributes attribute) {
-        if (result.hasErrors()) {
-            return listByPage(1);
-        }
-        provinciaService.addNew(provincia);
-        return new ModelAndView("redirect:/listarProvincias");
+    @GetMapping("/editarProvincia/{codigo}")
+    public ModelAndView editar(@PathVariable("codigo") Long codigo) {
+        ModelAndView mv = new ModelAndView("outros/provincia");
+        Optional<Provincia> provinciaOptional = provinciaService.getOne(codigo);
+        mv.addObject("provincia", provinciaOptional.get());
+        return mv;
 
     }
 
-    @RequestMapping("/getOne")
+    @GetMapping(value = "/eliminarProvincia/{codigo}")
     @ResponseBody
-    public Optional<Provincia> getOne(Long codigo) {
-        return provinciaService.getOne(codigo);
-    }
-
-    @RequestMapping(value = "/editarProvincia", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String editar(Provincia provincia) {
-        provinciaService.update(provincia);
-        return "redirect:/listarProvincias";
-
-    }
-
-    @RequestMapping(value = "/eliminarProvincia", method = {RequestMethod.DELETE, RequestMethod.GET})
-    public String delete(Long codigo) {
+    public boolean delete(@PathVariable("codigo") Long codigo) {
         provinciaService.delete(codigo);
-        return "redirect:/listarProvincias";
+        if (codigo == null) {
+            return false;
+        }
+        return true;
 
     }
 

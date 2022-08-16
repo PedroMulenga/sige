@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,7 +30,9 @@ public class MunicipioService {
         return (List<Municipio>) municipioRepository.findAll();
     }
 
-    public Page<Municipio> findAll(Pageable pageable) {
+    public Page<Municipio> findAll(int pageNumber) {
+        Sort sort = Sort.by("provincia.nome").ascending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, 5, sort);
         return municipioRepository.findAll(pageable);
     }
 

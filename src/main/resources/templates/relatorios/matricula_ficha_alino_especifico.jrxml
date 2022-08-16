@@ -94,7 +94,7 @@ WHERE
 			</rectangle>
 			<image>
 				<reportElement x="96" y="12" width="50" height="50" uuid="be6e981d-3bca-4de2-85ca-4040d8ca7b4c"/>
-				<imageExpression><![CDATA["C:/Users/PEDRO P MULENGA/Pictures/book.png"]]></imageExpression>
+				<imageExpression><![CDATA["book.png"]]></imageExpression>
 			</image>
 			<line>
 				<reportElement x="0" y="236" width="553" height="1" uuid="922402ff-18c6-409c-95ff-4b0f13e29ff9"/>

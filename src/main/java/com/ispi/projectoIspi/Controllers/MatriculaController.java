@@ -81,8 +81,6 @@ public class MatriculaController {
     @Autowired
     @Qualifier("jdbcTemplate")
     private JdbcTemplate jdbcTemplate;
-    @Autowired
-    private ResourceLoader resourceLoader;
 
     @GetMapping("/matriculaAluno")
     public ModelAndView novaMatricula(Matricula matricula) {
@@ -230,13 +228,13 @@ public class MatriculaController {
     }
 
     @PostMapping("/relatorio_lista_alunos")
-    public void imprimirListaAlunos(@RequestParam("turma") Matricula matricula, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, InterruptedException {
-        List<Matricula> matriculaOptional = matriculaService.findByTurma(matricula.getTurma());
+    public void imprimirListaAlunos(@RequestParam("turma") Turma turma, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, InterruptedException {
+        List<Matricula> matriculaOptional = matriculaService.findByTurma(turma);
         try {
             Connection conexao = jdbcTemplate.getDataSource().getConnection();
             JasperReport inputStream = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/templates/relatorios/lista_alunos_turma.jrxml"));
             Map<String, Object> parametros = new HashMap<>();
-            parametros.put("CODIGOTURMA", matricula.getTurma().getCodigo());
+            parametros.put("CODIGOTURMA", turma.getCodigo());
             JasperPrint print = JasperFillManager.fillReport(inputStream, parametros, conexao);
             response.setContentType("application/pdf");
             response.setHeader("Content-disposition", "inline; lista_alunos.pdf");

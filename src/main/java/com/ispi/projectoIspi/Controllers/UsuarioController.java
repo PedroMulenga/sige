@@ -89,7 +89,7 @@ public class UsuarioController {
     @PostMapping(value = "/usuarios/usuarioFuncionario/{bi}", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Funcionario findFuncionarioByBi(@PathVariable("bi") String bi, TipoFuncionario tipoFuncionario) {
-        funcionario = funcionarioService.findByBiIgnoreCaseAndEstadoIsTrue(bi, tipoFuncionario.MOTORISTA);
+        funcionario = funcionarioService.findByBiIgnoreCaseAndEstadoIsTrue(bi, tipoFuncionario.SECRETARIA);
         return funcionario;
     }
 

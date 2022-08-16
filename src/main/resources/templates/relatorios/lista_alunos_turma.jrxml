@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2022-08-11T20:52:12 -->
+<!-- 2022-08-16T16:13:56 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lista_alunos_turma" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="881a6c71-224f-4f3e-933d-733d2cd14589">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="EASY"/>
@@ -15,14 +15,15 @@
 	api.cursos.nome AS curso,
 	api.turma.periodo,
 	api.matricula.ano_academico,
-	COUNT(api.matricula.codigo) AS totalAlunos
+	matricula.codigo as totalAlunos
 FROM api.matricula
 	INNER JOIN api.turma ON 
 	 api.matricula.turma_codigo = api.turma.codigo 
 	INNER JOIN api.cursos ON 
 	 api.turma.curso_codigo = api.cursos.codigo
-	 WHERE 
-	 api.turma.codigo = $P{CODIGOTURMA}]]>
+	 	 WHERE 
+	 api.matricula.turma_codigo = $P{CODIGOTURMA}
+]]>
 	</queryString>
 	<field name="aluno" class="java.lang.String"/>
 	<field name="sobrenome" class="java.lang.String"/>
@@ -34,6 +35,9 @@ FROM api.matricula
 	<field name="periodo" class="java.lang.String"/>
 	<field name="ano_academico" class="java.lang.Integer"/>
 	<field name="totalAlunos" class="java.lang.Integer"/>
+	<variable name="totalAlunos1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{totalAlunos}]]></variableExpression>
+	</variable>
 	<group name="aluno">
 		<groupExpression><![CDATA[$F{aluno}]]></groupExpression>
 	</group>
@@ -44,7 +48,7 @@ FROM api.matricula
 		<band height="237" splitType="Stretch">
 			<image>
 				<reportElement x="105" y="12" width="50" height="50" uuid="7a9a81bb-bae8-40c2-bbd7-c0416d36790c"/>
-				<imageExpression><![CDATA["C:/Users/PEDRO P MULENGA/Pictures/book.png"]]></imageExpression>
+				<imageExpression><![CDATA["book.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="155" y="20" width="330" height="30" uuid="27be458f-f7ee-4c55-a245-15830e2c8b48"/>
@@ -103,23 +107,10 @@ FROM api.matricula
 			</textField>
 		</band>
 	</title>
-	<detail>
-		<band height="125" splitType="Stretch">
-			<textField>
-				<reportElement x="30" y="41" width="272" height="30" uuid="ffcb3a8d-54e0-4f08-a5d2-a8980dc5bfeb"/>
-				<box>
-					<topPen lineWidth="2.0"/>
-					<leftPen lineWidth="2.0"/>
-					<bottomPen lineWidth="2.0"/>
-					<rightPen lineWidth="2.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="SansSerif" size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{aluno} +" "+ $F{sobrenome}]]></textFieldExpression>
-			</textField>
+	<columnHeader>
+		<band height="40">
 			<staticText>
-				<reportElement x="30" y="10" width="272" height="30" uuid="c6429aad-96e3-456d-8e26-074224e6a1c3"/>
+				<reportElement x="30" y="10" width="272" height="30" uuid="37dc8bb5-0189-467b-8a2c-13a9b14c8d78"/>
 				<box>
 					<topPen lineWidth="2.0"/>
 					<leftPen lineWidth="2.0"/>
@@ -131,21 +122,8 @@ FROM api.matricula
 				</textElement>
 				<text><![CDATA[Nome do Aluno]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="302" y="41" width="100" height="30" uuid="51484464-b8e0-4ab3-99bf-10c0560d06ae"/>
-				<box>
-					<topPen lineWidth="2.0"/>
-					<leftPen lineWidth="2.0"/>
-					<bottomPen lineWidth="2.0"/>
-					<rightPen lineWidth="2.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="SansSerif" size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{genero}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="302" y="10" width="100" height="30" uuid="4a36f00d-6d9b-4276-8fad-939ea8cad9ea"/>
+				<reportElement x="302" y="10" width="100" height="30" uuid="97069785-74c1-4bc2-a0cf-01aa38c9b874"/>
 				<box>
 					<topPen lineWidth="2.0"/>
 					<leftPen lineWidth="2.0"/>
@@ -157,21 +135,8 @@ FROM api.matricula
 				</textElement>
 				<text><![CDATA[Género]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="402" y="41" width="97" height="30" uuid="e79b4069-574c-4fca-81b3-4173ac6c8a15"/>
-				<box>
-					<topPen lineWidth="2.0"/>
-					<leftPen lineWidth="2.0"/>
-					<bottomPen lineWidth="2.0"/>
-					<rightPen lineWidth="2.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="SansSerif" size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{numero_estudante}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="402" y="10" width="97" height="30" uuid="c5187112-808a-423c-b13a-6c35bb915edc"/>
+				<reportElement x="402" y="10" width="97" height="30" uuid="aa960ac1-70c8-409f-9603-c92b7aadb25f"/>
 				<box>
 					<topPen lineWidth="2.0"/>
 					<leftPen lineWidth="2.0"/>
@@ -183,6 +148,49 @@ FROM api.matricula
 				</textElement>
 				<text><![CDATA[Nº do Aluno]]></text>
 			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="0" width="272" height="30" uuid="b6648510-7f92-4812-87fe-ea9907e0f585"/>
+				<box>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aluno} +" "+ $F{sobrenome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="302" y="0" width="100" height="30" uuid="e5d1dcba-2d8b-4eb4-8351-5596c2e04ef5"/>
+				<box>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{genero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="0" width="97" height="30" uuid="28304654-862d-4002-9034-ff4d29c92081"/>
+				<box>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_estudante}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>
@@ -217,13 +225,13 @@ FROM api.matricula
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="52" splitType="Stretch">
+		<band height="78" splitType="Stretch">
 			<textField>
-				<reportElement x="280" y="20" width="229" height="30" uuid="21d4159f-4379-4c89-9272-6d27fb8356b5"/>
+				<reportElement x="280" y="30" width="210" height="30" uuid="4addec5a-6738-403a-a4c6-d11c673c0141"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Total de Alunos: "+$F{totalAlunos}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Total de Alunos: "+ $V{totalAlunos1}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
