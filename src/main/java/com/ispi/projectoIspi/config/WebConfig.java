@@ -33,7 +33,7 @@ public class WebConfig {
     public JdbcTemplate jdbcTemplate(@Qualifier("db") DataSource ds) {
         return new JdbcTemplate(ds);
     }
-
+/*
     @Bean
     public DataSourceInitializer dataSourceInitializer(@Qualifier("db") DataSource dataSource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
@@ -44,5 +44,5 @@ public class WebConfig {
         return dataSourceInitializer;
 
     }
-
+*/
 }
