@@ -10,12 +10,12 @@ and open the template in the editor.
             <div class="info">
                 <div>
                     <th:block th:if="${emolumento.mesReferente== #dates.format(#dates.createNow(), 'MMMM')}">
-                        <h3 style="background: #ffa705; color: #fff; border: none; border-radius: 5%; padding: 10px;" th:text="${emolumento.mesReferente}"></h3>
+                        Mês Referente: <h3 style="color: #ffa705; border: none; padding: 5px;" th:text="${emolumento.mesReferente}"></h3>
                     </th:block>
                     <th:block th:if="${emolumento.mesReferente!= #dates.format(#dates.createNow(), 'MMMM')}">
-                        <h3 style="border: none; padding: 10px; font-size: 1.2rem;" th:text="${emolumento.mesReferente}"></h3>
+                        Mês Referente: <h3 style="border: none; padding: 5px; font-size: 1.2rem;" th:text="${emolumento.mesReferente}"></h3>
                     </th:block>
-                    <small th:text="${#dates.format(emolumento.dataPagamento, 'dd/MM/yyyy')}">Direcor Geral</small>
+                    Data Pagamento: <small th:text="${#dates.format(emolumento.dataPagamento, 'dd/MM/yyyy')}"></small>
                 </div>
                 <img src="/img/sucess.png" alt="icon" width="25px" height="25px" style="background-color: #ffa705; border-radius: 50%;">
             </div>

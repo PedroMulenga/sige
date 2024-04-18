@@ -81,9 +81,13 @@ public class FuncionarioService {
 
     }
 
-    public Funcionario findByBiIgnoreCaseAndEstadoIsTrue(String Bi, TipoFuncionario tipoFuncionario) {
-        Funcionario funcionario = funcionarioRepository.findByBiIgnoreCaseAndTipoFuncionarioAndEstadoIsTrue(Bi, tipoFuncionario.SECRETARIA);
+    public Funcionario findByBiIgnoreCaseAndEstadoIsTrue(String Bi) {
+        Funcionario funcionario = funcionarioRepository.findByBiIgnoreCaseAndEstadoIsTrue(Bi);
         return funcionario;
+    }
+
+    public List<Funcionario> findByTipoFuncionarioAndEstadoIsTrue() {
+        return (List<Funcionario>) funcionarioRepository.findByTipoFuncionarioAndEstadoIsTrue(TipoFuncionario.PROFESSOR);
     }
 
 }

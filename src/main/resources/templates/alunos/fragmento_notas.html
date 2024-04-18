@@ -1,0 +1,36 @@
+<th:block th:fragment="fragmentoLitaNotas" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="table-responsive">
+        <table class="content-table" width="100%">
+            <thead>
+                <tr>
+                    <th>DISCIPLINA</th>
+                    <th>MDT-1</th>
+                    <th>MDT-2</th>
+                    <th>MDT-3</th>
+                    <th>MD-FINAL</th>
+                    <th>SITUAÇÃO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="nota : ${litaDeNotas}">
+                    <td th:text="${nota.disciplina.nome}"></td>
+                    <td th:text="${nota.medtrimestral_um}"></td>
+                    <td th:text="${nota.medtrimestral_dois}"></td>
+                    <td th:text="${nota.medtrimestral_tres}"></td>
+                    <td th:text="${nota.medfinal}"></td>
+                    <td>
+                        <th:block th:if="${nota.situacao=='Apto'}">
+                            <span style="color: #06AC15;" th:text="${nota.situacao}"></span>
+                        </th:block>
+                        <th:block th:if="${nota.situacao=='Não Apto'}">
+                            <span style="color: #B6142B;" th:text="${nota.situacao}"></span>
+                        </th:block> 
+                    </td>
+                </tr> 
+                <tr th:if="${#lists.isEmpty(litaDeNotas)}">
+                    <td colspan="7">Nenhum valor por apresentar</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</th:block>

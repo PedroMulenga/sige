@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <title>EASYMULL</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+        <link rel="stylesheet" href="/css/formularios.css"/>
+        <link rel="stylesheet" href="/css/dashboard.css" />
+        <link rel="stylesheet" href="/css/bootstrap-switch.min.css"/>
+
+    </head>
+
+    <body>
+        <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
+        <div class="container">
+            <div class="title">Registo de Ano Académico</div>
+            <div class="card-header">
+                <a href="/outros/listarAnoLectivos">Listar Todos</a>
+            </div>
+            <!--MESSAGENS-->
+            <th:block th:include="fragmentos/MessagensDeAlertas"></th:block>
+            <form method="POST" th:object="${anoLectivo}"  th:action="@{/outros/cadastrarAnoLectivo}">
+                <input type="hidden" th:field="*{codigo}">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Nome</span>
+                        <input type="text" th:field="*{nome}" placeholder="Digite o nome">
+                        <span class="error-filds" th:if="${#fields.hasErrors('nome')}" 
+                              th:errors="*{nome}">
+                        </span>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Estado</span>
+                        <input class="js-status" type="checkbox" th:field="*{estado}" data-off-color="danger" data-on-color="success"
+                               data-on-text="Activo" data-off-text="Inactivo">                                   
+                    </div>
+                    <div class="button">
+                        <button type="submit" class="btn">Salvar</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap-switch.min.js"/></script>
+    <script>
+        $('.js-status').bootstrapSwitch();
+    </script>
+    <script src="/js/vendors.min.js"></script>
+    <script src="/js/main.js"></script> 
+</body>
+
+</html>

@@ -53,5 +53,10 @@ public class PagesControllers {
         ModelAndView mv = new ModelAndView("security/menuUser");
         return mv;
     }
+    @GetMapping("/paginas/menu_estudantes")
+    public ModelAndView estudantes() {
+        ModelAndView mv = new ModelAndView("secretaria/menu_estudante");
+        return mv;
+    }
 
 }

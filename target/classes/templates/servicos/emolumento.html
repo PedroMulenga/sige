@@ -24,8 +24,12 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="title">Registo de Emolumentos</h3>
-                                <a href="/listarPagamentosAlunos" >Listar Pagamento</a>
+                                <div>
+                                    <a  href="/listarPagamentosAlunos" >Listar</a>                                  
+                                </div>
+                                <a class="btn_print" href="/gerar_factura">Imprimir/Factura</a>
                             </div>
+
                             <div class="user-details">
                                 <div class="input-box">                       
                                     <span class="details">Número de Estudante</span>
@@ -60,23 +64,23 @@
                                     <input type="text"  id="periodo" disabled="true" style="background-color: #fff; color: #434343;">
                                 </div>
                                 <div class="input-box">
-                                    <span class="details">Ano Curricular</span>
+                                    <span class="details">Ano Académico</span>
                                     <input type="text"  id="anoCurricular" disabled="true" style="background-color: #fff; color: #434343;">
                                 </div>
+
                                 <div class="input-box">
-                                    <span class="details">Tipo de Emolumento</span>
-                                    <select th:field="*{tipoEmolumento}">
-                                        <option value="">Selecione o tipo de Emolumento</option>
-                                        <option th:each="tipoEmolumento : ${T(com.ispi.projectoIspi.Enum.TipoEmolumento).values()}"
-                                                th:value="${tipoEmolumento}" th:text="${tipoEmolumento}"></option>
+                                    <span class="details">Tipo de Emolumento </span>
+                                    <select class="form-control" id="servico" onchange="onSelectTipoServicoEmolumento()" th:field="*{servico}">
+                                        <option value="" >Selecione o Tipo de Emolumento</option>
+                                        <option th:each="servico : ${servicos}"   th:value="${servico.codigo}" th:text="${servico.nomeServico}"></option>
                                     </select>
-                                    <span class="error-filds" th:if="${#fields.hasErrors('tipoEmolumento')}" 
-                                          th:errors="*{tipoEmolumento}">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('servico')}" 
+                                          th:errors="*{servico}">
                                     </span>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Valor a Pagar</span>
-                                    <input type="text" class="js-maskMoney" th:field="*{valorApagar}">
+                                    <input type="text" id="valorApagar" th:field="*{valorApagar}">
                                     <span class="error-filds" th:if="${#fields.hasErrors('valorApagar')}" 
                                           th:errors="*{valorApagar}">
                                     </span>
@@ -93,24 +97,16 @@
                                     </span>
                                 </div>
                                 <div class="input-box">
-                                    <span class="details">Ano Académico Referente</span>
-                                    <input type="text" class="anoAcademico" th:field="*{anoAcademicoReferente}">
-                                    <span class="error-filds" th:if="${#fields.hasErrors('anoAcademicoReferente')}" 
-                                          th:errors="*{anoAcademicoReferente}">
+                                    <span class="details">Forma Pagamento</span>
+                                    <select th:field="*{formaDePagamento}">
+                                        <option value="">Informe a forma de Pagamento</option>
+                                        <option th:each="formaDePagamento : ${T(com.ispi.projectoIspi.Enum.FormaPagamentos).values()}"
+                                                th:value="${formaDePagamento}" th:text="${formaDePagamento}"></option>
+                                    </select>
+                                    <span class="error-filds" th:if="${#fields.hasErrors('formaDePagamento')}" 
+                                          th:errors="*{formaDePagamento}">
                                     </span>
                                 </div>
-                                <div class="input-box">
-                                    <span class="details">Situação</span>
-                                    <select th:field="*{situacao}">
-                                        <option value="">Selecione a situação</option>
-                                        <option th:each="situacao : ${T(com.ispi.projectoIspi.Enum.SituacaoEmolumento).values()}"
-                                                th:value="${situacao}" th:text="${situacao}"></option>
-                                    </select>
-                                    <span class="error-filds" th:if="${#fields.hasErrors('situacao')}" 
-                                          th:errors="*{situacao}">
-                                    </span>
-
-                                </div>                                                        
                             </div>
                         </div>
                     </div>

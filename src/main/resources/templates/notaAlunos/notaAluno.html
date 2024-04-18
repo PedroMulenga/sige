@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SIGE</title>
+        <link rel="stylesheet" href="/css/outros.css">
+        <link rel="stylesheet" href="/css/sweetAlert.min.css"/>     
+    </head>
+
+    <body>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        <input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}"/>
+        <main class="container">
+
+            <h1 class="heading">
+                <ion-icon name="cart-outline"></ion-icon>APROVEITAMENTO ACADÉMICO
+            </h1>
+            <form method="POST" th:object="${notaAluno}" enctype="multipart/form-data"  th:action="@{/funcionarios/cadastrarNotaAluno}">
+                <div class="item-flex">
+                    <section class="checkout">
+                        <div th:each="proTurm : ${professorTurma}">
+                            <h3>PROFESSOR: <span th:text="${proTurm.funcionario.nome}+' '+ ${proTurm.funcionario.sobrenome}" style="text-transform: uppercase; color: #004085;"></span></h3>
+                            <h3>TURMA:[ <span th:text="${proTurm.turma.nome}+', '+ ${proTurm.turma.classe}" style="text-transform: uppercase; color: #9C0B3C;"></span> ]</h3>
+                            <h3>DISCIPLINA:[ <span th:text="${proTurm.disciplina.nome}"  style="text-transform: uppercase; color: #0BC04D;"></span> ]</h3>
+                            <h3>CURSO: <span th:text="${proTurm.turma.curso.nome}" style="text-transform: uppercase; color: #0BC04D;"></span></h3>
+                            <h3>PERÍODO: <span th:text="${proTurm.turma.periodo}" style="text-transform: uppercase; color: #CA8308;"></span></h3>
+
+                        </div>
+                        <br>
+                        <h2 class="section-heading">Lançamento de Notas</h2>
+
+                        <div class="payment-form">
+
+                            <div class="payment-method">
+
+                                <a class="method selected" href="/funcionarios/listarNotaAlunos">
+                                    <ion-icon name="card"></ion-icon>
+
+                                    <span>Listar Notas Lançadas</span>
+
+                                    <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
+                                </a>
+
+                                <a class="method" href="/funcionarios/listarDisciplinaTurmas">
+                                    <ion-icon name="logo-paypal"></ion-icon>
+
+                                    <span>Listar Minhas Turmas</span>
+
+                                    <ion-icon class="checkmark" name="checkmark-circle-outline"></ion-icon>
+                                </a>
+
+                            </div>
+                            <th:block th:include="fragmentos/MessagensDeAlertas"></th:block>
+                            <br>
+                            <input type="hidden" th:field="*{codigo}">
+                            <div class="expire-date">
+                                <div class="cardholder-name">
+                                    <label for="expire-date" class="label-default">ALUNO</label>
+                                    <select id="matricula" class="input-default" th:field="*{matricula}">
+                                        <option value="">Selecione o Aluno</option>
+                                        <option th:each="matricula : ${matriculas}" th:value="${matricula.codigo}" th:text="${matricula.aluno.nome}+' ' + ${matricula.aluno.sobrenome}"></option>
+                                    </select>
+                                    <span style="color: red;" th:if="${#fields.hasErrors('matricula')}" 
+                                          th:errors="*{matricula}">
+                                    </span>
+                                </div>
+                                <div class="expire-date">
+                                    <label for="expire-date" class="label-default">Iº TRIMESTRE</label>
+
+                                    <div class="input-flex">
+
+                                        <input type="number" value="0" id="mac_um" onchange="calcularNotaTrim_Um()" min="0.0" max="20" th:field="*{mac_um}" placeholder="M.A.C"
+                                               class="input-default">
+                                        /
+                                        <input type="number"  value="0" id="npp_um" onchange="calcularNotaTrim_Um()" min="0.0" max="20" th:field="*{npp_um}" placeholder="N.P.P"
+                                               class="input-default">
+                                        /
+                                        <input type="number"  value="0" id="npt_um" onchange="calcularNotaTrim_Um()" min="0.0" max="20" th:field="*{npt_um}" placeholder="N.P.T"
+                                               class="input-default">
+                                        /
+                                        <input type="number"  value="0" id="medtrimestral_um" min="0.0" max="20"  th:field="*{medtrimestral_um}" placeholder="MED-TR"
+                                               class="input-default">
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="expire-date">
+                                    <label for="expire-date" class="label-default">IIº TRIMESTRE</label>
+
+                                    <div class="input-flex">
+
+                                        <input type="number" min="0.0" onchange="calcularNotaTrim_Dois()" th:field="*{mac_dois}" max="20" placeholder="M.A.C"
+                                               class="input-default">
+                                        /
+                                        <input type="number"  min="0.0" onchange="calcularNotaTrim_Dois()"  th:field="*{npp_dois}" max="20" placeholder="N.P.P"
+                                               class="input-default">
+                                        /
+                                        <input type="number"  min="0.0" onchange="calcularNotaTrim_Dois()"  th:field="*{npt_dois}" max="20" placeholder="N.P.T"
+                                               class="input-default">
+                                        /
+                                        <input type="number"   min="0.0" th:field="*{medtrimestral_dois}" max="20" placeholder="MED-TR"
+                                               class="input-default">
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="expire-date">
+                                    <label for="expire-date" class="label-default">IIIº TRIMESTRE</label>
+
+                                    <div class="input-flex">
+
+                                        <input type="number" min="0.0" onchange="calcularNotaTrim_Tres()" th:field="*{mac_tres}" max="20" placeholder="M.A.C"
+                                               class="input-default">
+                                        /
+                                        <input type="number"  min="0.0" onchange="calcularNotaTrim_Tres()" th:field="*{npp_tres}" max="20" placeholder="N.P.P"
+                                               class="input-default">
+                                        /
+                                        <input type="number"  min="0.0" onchange="calcularNotaTrim_Tres()" th:field="*{npt_tres}" max="20" placeholder="N.P.T"
+                                               class="input-default">
+                                        /
+                                        <input type="number"  min="0.0" th:field="*{medtrimestral_tres}" max="20" placeholder="MED-TR"
+                                               class="input-default">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="cardholder-name">
+                                <label for="cardholder-name" class="label-default">MEDIA FINAL</label>
+                                <div class="input-flex">
+                                    <input type="number" min="0.0" id="medfinal" th:field="*{medfinal}" max="20" placeholder="0" class="input-default">
+                                    /
+                                    <input type="text" th:field="*{situacao}" id="situacao" placeholder="Situação"
+                                           class="input-default">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <button class="btn btn-primary" type="submit">
+                            Salvar Notas
+                        </button>
+                    </section>
+                </div>
+            </form>
+        </main>
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{js/vendors.min.js}"></script>
+        <script th:src="@{/js/multiseleccao.js}"></script> 
+        <script th:src="@{/js/jquery.mask.js}"></script>
+        <script th:src="@{/js/main.js}"></script> 
+        <script th:src="@{/js/script.js}"></script> 
+    </body>
+
+</html>

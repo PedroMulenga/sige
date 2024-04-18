@@ -1,6 +1,6 @@
 /*====IMPORTAÇÕES====*/
 
-@import "./_login.css";
+
 html {
     min-height: 100%;
 }
@@ -44,7 +44,6 @@ ul {
 }
 
 
-/* */
 
 @media screen and (max-width:600px) {
     .m-siz-a {
@@ -59,4 +58,187 @@ ul {
         line-height: 50px;
         margin-bottom: 20px
     }
+}
+.conteiner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.main-content {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+    padding: 30px;
+}
+
+.m-log {
+    flex: 1 1 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0 50px
+}
+
+.m-siz {
+    position: relative;
+    width: 100%
+}
+
+.m-siz-a {
+    width: 100%;
+    -moz-box-pack: justify;
+    display: flex;
+    justify-content: space-between;
+}
+
+.t-label {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+    max-width: 450px;
+}
+
+.logo-name {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.logo-name h3 {
+    font-weight: 300;
+    font-size: 1.3em;
+    font-family: "Phantom Rider", sans-serif
+}
+
+.label {
+    font-size: 30px;
+    line-height: 64px;
+    margin-bottom: 30px
+}
+.label h1 {
+    font-weight: 700;
+
+}
+.label h1 span{
+    font-size: 25px;
+    width: 100px;
+    height: 90px;
+    border: 10px solid #038A0C;
+    border-radius: 50%;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, .9);
+}
+.label img{
+    width: 120px;
+    height: 120px;
+    border: 10px solid #038A0C;
+    border-radius: 50%;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, .8);
+}
+
+.m-siz-a form {
+    display: flex;
+    flex-direction: column;
+}
+
+.i-dt {
+    width: 100%;
+    max-width: 750px;
+    background: #f6f6f6;
+    border-radius: 7px;
+    padding: 60px;
+    border: 4px solid #035329;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, .8);
+}
+
+.inputs {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 10px;
+}
+
+.mail input,
+.pass input,
+.pass select {
+    width: 100%;
+    height: 65px;
+    font-size: 19px;
+    background: #E9E9E9;
+    border-radius: 8px;
+    color: #036E26;
+    padding: 0 1rem;
+    border: .2rem solid #035329;
+}
+
+.f-ps {
+    font-size: 18px;
+    margin: 10px 0 24px 0;
+    font-weight: 500;
+    opacity: .7;
+    color: #116B01;
+    cursor: pointer;
+}
+
+.f-ps:hover {
+    color: #038A0C;
+}
+
+.in-btn {
+    height: 65px;
+    border-radius: 8px;
+    font-size: 19px;
+    font-weight: 600;
+    background: #036E26;
+    color: rgba(255, 255, 255, .5);
+    cursor: pointer;
+    border: none;
+    transition: .3s all;
+}
+
+.in-btn:hover {
+    background: #038A0C;
+    color: rgba(255, 255, 255, .9);
+}
+.error span{
+    font-size: 18px;
+    color: rgb(241, 32, 32);
+}
+
+.line {
+    font-size: 18px;
+    text-align: center;
+    margin: 40px 0;
+}
+
+.cad-btn {
+    height: 55px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    background: #B9408D;
+    color: rgba(255, 255, 255, .5);
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    transition: .3s all;
+    padding: 15px;
+}
+.cad-btn:hover {
+    background: #B9408F;
+    color: rgba(255, 255, 255, .9);
+}
+.success {
+    padding: 18px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: linear-gradient(to left, #218F09, #116B01);;
+    margin-bottom: 20px;
 }

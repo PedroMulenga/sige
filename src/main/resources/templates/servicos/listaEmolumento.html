@@ -38,10 +38,10 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="emolumento : ${listaPagamentosAlunos}">
-                                        <td th:text="${emolumento.matricula.nome} +' ' + ${emolumento.matricula.sobrenome}"></td>
+                                        <td th:text="${emolumento.matricula.aluno.nome} +' ' + ${emolumento.matricula.aluno.sobrenome}"></td>
                                         <td th:text="${emolumento.mesReferente}"></td>
-                                        <td th:text="${emolumento.tipoEmolumento}"></td>
-                                        <td th:text="${emolumento.anoAcademicoReferente}"></td>
+                                        <td th:text="${emolumento.servico.nomeServico}"></td>
+                                        <td th:text="${emolumento.matricula.anoLectivo.nome}"></td>
                                         <td>
                                 <th:block th:if="${emolumento.situacao=='PAGO'}">
                                     <span style="background: #06AC15; color: #fff; border: none; border-radius: 7%; padding: 10px;" th:text="${emolumento.situacao}"></span>
@@ -124,10 +124,9 @@
                 }, function () {
                     setTimeout(function () {
                         $.get("/eliminarPagamentoAluno/" + codigo, function (data) {
+                            location.reload(true);
                         });
                         swal("Excluído!", "Registo Eliminado com sucesso.", "success");
-                        location.reload(true);
-
                     }, 1000);
                 });
             });

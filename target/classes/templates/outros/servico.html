@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <title>SIGE</title>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+        <link rel="stylesheet" href="/css/formularios.css"/>
+        <link rel="stylesheet" href="/css/dashboard.css" />
+        <link rel="stylesheet" href="/css/bootstrap-switch.min.css"/>
+
+    </head>
+
+    <body>
+        <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
+        <div class="container">
+            <form method="POST" th:object="${servico}"  th:action="@{/cadastrarServico}">
+                <div class="recent-grid">
+                    <div class="projects">
+                        <!--MESSAGENS-->
+                        <th:block th:include="fragmentos/MessagensDeAlertas"></th:block>
+                        <div class="card">
+                            <div class="card-header" sec:authorize-url="/listarServicos">
+                                <h3 class="title">Registo de Elomunetos</h3>
+                                <a href="/listarServicos" >Listar Serviços</a>
+                            </div>
+                            <input type="hidden" th:field="*{codigo}">
+                            <div class="user-details">
+                                <div class="input-box">
+                                    <span class="details">Nome Serviço</span>
+                                    <input type="text" th:field="*{nomeServico}" placeholder="Digite o nome do Serviço">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('nomeServico')}" 
+                                          th:errors="*{nomeServico}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Custo do Serviço</span>
+                                    <input type="text" th:field="*{custoServico}">
+                                    <span class="error-filds" th:if="${#fields.hasErrors('custoServico')}" 
+                                          th:errors="*{custoServico}">
+                                    </span>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Estado</span>
+                                    <input class="js-status" type="checkbox" th:field="*{estado}" data-off-color="danger" data-on-color="success"
+                                           data-on-text="Activo" data-off-text="Inactivo">                                   
+                                </div>
+                                <div class="button">
+                                    <button type="submit" class="btn">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap-switch.min.js" ></script>
+        <script>
+            $('.js-status').bootstrapSwitch();
+        </script>
+        <script src="/js/vendors.min.js"></script>
+        <script src="/js/main.js"></script> 
+        <script th:src="@{/js/jquery.mask.js}"></script>
+    </body>
+
+</html>

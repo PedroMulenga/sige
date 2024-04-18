@@ -38,6 +38,17 @@ public class Turma extends GenericDomin {
     private String estadoFormato;
     private boolean estado = true;
 
+    public Turma() {
+    }
+
+    public Turma(String nome, String classe, Cursos curso, String periodo, String estadoFormato) {
+        this.nome = nome;
+        this.classe = classe;
+        this.curso = curso;
+        this.periodo = periodo;
+        this.estadoFormato = estadoFormato;
+    }
+
     public String getNome() {
         return nome;
     }

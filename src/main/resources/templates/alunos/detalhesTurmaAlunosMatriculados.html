@@ -30,8 +30,11 @@
                         <h3 class="title">Lista de Estudantes Matriculados</h3>
                         <a href="/matriculas/matriculaAluno" >Nova Matricula</a>
                     </div>
+                    <br>
+                    <a class="btn_print" href="/matriculas/lista_alunos" >Imprimir Lista</a>
                     <div class="card-body">
                         <div class="table-responsive">
+
                             <table class="content-table" width="100%">
                                 <thead>
                                     <tr>
@@ -44,9 +47,9 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="matricula : ${listaMatriculasAlunos}">
-                                        <td><img th:src="@{/matriculas/mostrarImagem/{imagem}(imagem=${matricula.nomeImagen})}" width="30" height="30" style="border-radius: 50%;"/></td>
-                                        <td th:text="${matricula.nome}+ ' '+ ${matricula.sobrenome}"></td>
-                                        <td th:text="${matricula.bi}"></td> 
+                                        <td><img th:src="@{/inscricoes/mostrarImagem/{imagem}(imagem=${matricula.aluno.nomeImagen})}" width="30" height="30" style="border-radius: 50%;"/></td>
+                                        <td th:text="${matricula.aluno.nome}+ ' '+ ${matricula.aluno.sobrenome}"></td>
+                                        <td th:text="${matricula.aluno.bi}"></td> 
                                         <td th:text="${matricula.situacao}"></td>
                                         <td>
                                             <a th:href="@{/matriculas/gerar_ficha_pdf/}+${matricula.codigo}" target="_blank" style="padding-right: 10px;">

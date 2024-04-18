@@ -15,7 +15,7 @@
     <body>
         <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
         <div class="container">
-            <form method="POST" th:object="${usuario}"  th:action="@{/usuarios/cadastroUsuarios}">
+            <form method="POST" th:object="${usuario}"  th:action="@{/usuarios/editarUsuario}">
                 <div class="recent-grid">
                     <div class="projects">
                         <!--MESSAGENS-->
@@ -26,7 +26,6 @@
                                 <a href="/usuarios/listarUsuarios" >Listar Usuários</a>
                             </div>
                             <input type="hidden" th:field="*{codigo}">
-                            <input type="hidden" th:field="*{funcionario}">
                             <div class="user-details">
                                 <div class="input-box">
                                     <span class="details">Nome do Usuário</span>
@@ -34,14 +33,6 @@
                                     <span class="error-filds" th:if="${#fields.hasErrors('nomeUsuario')}" 
                                           th:errors="*{nomeUsuario}">
                                     </span>
-                                </div>
-                                <div class="input-box">                       
-                                    <span class="details">B.I</span>
-                                    <input type="text" id="bi" class="bi"  name="bi" th:field="*{bi}" placeholder="Ex: 999999999XX999"/>
-                                    <span class="error-filds" th:if="${#fields.hasErrors('bi')}" 
-                                          th:errors="*{bi}">
-                                    </span>
-
                                 </div>
                                 <div class="input-box">
                                     <span class="details">E-mail</span>

@@ -9,14 +9,30 @@ import com.ispi.projectoIspi.Enum.SituacaoMatricula;
 import com.ispi.projectoIspi.ExceptionMessages.PagamentoUsuarioExistenteException;
 import com.ispi.projectoIspi.Service.EmolumentoService;
 import com.ispi.projectoIspi.Service.MatriculaService;
+import com.ispi.projectoIspi.Service.ServicoService;
+import com.ispi.projectoIspi.model.Aluno;
 import com.ispi.projectoIspi.model.Emolumento;
 import com.ispi.projectoIspi.model.Matricula;
+import com.ispi.projectoIspi.model.Servico;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,19 +55,24 @@ public class EmolumentoController {
     private EmolumentoService emolumentoService;
     @Autowired
     private MatriculaService matriculaService;
-
+    @Autowired
+    private ServicoService servicoService;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
     Matricula matricula;
+    Emolumento emolumentoArmazenado;
 
     @GetMapping("/pagamentoAluno")
     public ModelAndView novoPagamento(Emolumento emolumento) {
         ModelAndView mv = new ModelAndView("servicos/emolumento");
+        mv.addObject("servicos", servicoService.findByEstadoIsTrue());
         return mv;
     }
 
     @PostMapping(value = "/pegarMatricula/{numeroEstudante}", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Matricula findByNumeroEstudante(@PathVariable("numeroEstudante") String numeroEstudante, SituacaoMatricula situacao) {
-        matricula = matriculaService.findByNumeroEstudanteAndSituacao(numeroEstudante, situacao.MATRICULADO);
+    public Matricula findByNumeroEstudante(@PathVariable("numeroEstudante") Long numEstudante, SituacaoMatricula situacao) {
+        matricula = matriculaService.findByNumeroEstudanteAndSituacao(numEstudante, situacao.MATRICULADO);
         return matricula;
     }
 
@@ -64,12 +85,11 @@ public class EmolumentoController {
         }
         try {
             emolumento.setMatricula(matricula);
+            emolumento.setSituacao("PAGO".toUpperCase());
             emolumentoService.addNew(emolumento);
-            if (emolumento.getCodigo() == null) {
-                attribute.addFlashAttribute("success", "Pagamento efectuado com sucesso!");
-            } else {
-                attribute.addFlashAttribute("success", "Registo actualizado com sucesso!");
-            }
+            emolumentoArmazenado = emolumento;
+            attribute.addFlashAttribute("success", "Pagamento efectuado com sucesso! Clique em Print para Gerar a Factura");
+
         } catch (PagamentoUsuarioExistenteException e) {
             result.rejectValue("mesReferente", e.getMessage(), e.getMessage());
             return novoPagamento(emolumento);
@@ -103,7 +123,9 @@ public class EmolumentoController {
         ModelAndView mv = new ModelAndView("servicos/editarEmolumento");
         Optional<Emolumento> emolumentoOptional = emolumentoService.getOne(codigo);
         mv.addObject("emolumento", emolumentoOptional.get());
+        mv.addObject("servicos", servicoService.findByEstadoIsTrue());
         matricula = emolumentoOptional.get().getMatricula();
+        emolumentoArmazenado = emolumentoOptional.get();
         return mv;
 
     }
@@ -119,4 +141,24 @@ public class EmolumentoController {
 
     }
 
+    @GetMapping("/gerar_factura")
+    public void gerarFactura(Emolumento emolumento, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, JRException {
+        Connection conexao = jdbcTemplate.getDataSource().getConnection();
+        //Optional<Emolumento> emolumentoOptional = emolumentoService.getOne(emolumentoArmazenado.getCodigo());
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("CODIGO", emolumentoArmazenado.getCodigo());
+        JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/templates/relatorios/factura_aluno_pagamento.jasper"), parametros, conexao);
+        response.setContentType("application/pdf");
+        response.setHeader("Content-disposition", "inline; factura_recibo.pdf");
+        OutputStream stream = response.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(print, stream);
+
+    }
+
+    @PostMapping(value = "/tipoServico/{codigo}", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public Servico findByTipoServico(@PathVariable("codigo") Long codigo) {
+        Servico servico = servicoService.getOne(codigo);
+        return servico;
+    }
 }

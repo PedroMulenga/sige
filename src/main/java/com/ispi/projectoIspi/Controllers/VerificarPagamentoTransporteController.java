@@ -6,11 +6,12 @@
 package com.ispi.projectoIspi.Controllers;
 
 import com.ispi.projectoIspi.Enum.SituacaoMatricula;
-import com.ispi.projectoIspi.Enum.TipoEmolumento;
 import com.ispi.projectoIspi.Service.EmolumentoService;
 import com.ispi.projectoIspi.Service.MatriculaService;
+import com.ispi.projectoIspi.Service.ServicoService;
 import com.ispi.projectoIspi.model.Emolumento;
 import com.ispi.projectoIspi.model.Matricula;
+import com.ispi.projectoIspi.model.Servico;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -34,24 +35,26 @@ public class VerificarPagamentoTransporteController {
     private EmolumentoService emolumentoService;
     @Autowired
     private MatriculaService matriculaService;
-
+    @Autowired
+    private ServicoService servicoService;
     Emolumento emolumento = new Emolumento();
     Matricula matricula = new Matricula();
     Iterable<Emolumento> emolumentos;
-    Iterable<Matricula> matriculas;
+    Matricula matriculas;
 
     @RequestMapping(value = "/listarPagamentoTransporte", method = RequestMethod.GET)
-    public ModelAndView carregarPagina(TipoEmolumento tipoEmolumento) {
+    public ModelAndView carregarPagina(Servico tipoEmolumento) {
         ModelAndView mv = new ModelAndView("servicos/controlTransporte");
+        mv.addObject("servicos", servicoService.findByEstadoIsTrue());
         return mv;
     }
 
-    @PostMapping(value = "/pagamentoTransporte/{numeroEstudante}", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "/pagamentoTransporte/{numeroEstudante}/{servico}", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Matricula findByNumeroEstudante(@PathVariable("numeroEstudante") String numeroEstudante, SituacaoMatricula situacao, TipoEmolumento tipoEmolumento) {
-        matricula = matriculaService.findByNumeroEstudanteAndSituacao(numeroEstudante, situacao.MATRICULADO);
+    public Matricula findByNumeroEstudante(@PathVariable("numeroEstudante") Long numEstudante,@PathVariable("servico")Servico servico, SituacaoMatricula situacao) {
+        matricula = matriculaService.findByNumeroEstudanteAndSituacao(numEstudante, situacao.MATRICULADO);
         if (matricula != null) {
-            emolumentos = emolumentoService.findByMatriculaAndTipoEmolumento(matricula, tipoEmolumento.TRANSPORTE);
+            emolumentos = emolumentoService.findByMatriculaAndTipoEmolumento(matricula, servico);
         } else {
             emolumentos = null;
         }
@@ -60,7 +63,7 @@ public class VerificarPagamentoTransporteController {
 
     @PostMapping(value = "/verificacaoRapida/{numeroEstudante}", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Emolumento findByMesReferente(@PathVariable("numeroEstudante") String numeroEstudante) {
+    public Emolumento findByMesReferente(@PathVariable("numeroEstudante") Long numeroEstudante) {
         emolumento = emolumentoService.findByNumeroEstudanteAndMesReferente(numeroEstudante);
         if (emolumento != null) {
             matriculas = matriculaService.findById(emolumento.getMatricula().getCodigo());
@@ -83,6 +86,7 @@ public class VerificarPagamentoTransporteController {
         mv.addObject("matriculas", matricula);
         return mv;
     }
+
     @RequestMapping(value = "/carregarPaginaFragmentoFotoMatricula", method = RequestMethod.GET)
     public ModelAndView carregarPaginaFragmentoFotoMatricula() {
         ModelAndView mv = new ModelAndView("servicos/fragmentoFotoMatricula");

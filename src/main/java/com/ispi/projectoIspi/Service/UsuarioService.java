@@ -10,6 +10,7 @@ import com.ispi.projectoIspi.ExceptionMessages.BiUsuarioExistenteException;
 import com.ispi.projectoIspi.ExceptionMessages.SenhaObrigatoriaNovoUsuario;
 import com.ispi.projectoIspi.ExceptionMessages.EmailUsuarioExistenteException;
 import com.ispi.projectoIspi.Repository.UsuarioRepository;
+import com.ispi.projectoIspi.model.Funcionario;
 import com.ispi.projectoIspi.model.Usuario;
 import java.util.List;
 import java.util.Optional;
@@ -56,13 +57,13 @@ public class UsuarioService {
 
     @Transactional
     public void addNew(Usuario usuario) {
-        Optional<Usuario> emailExistente = usuarioRepository.findByEmailIgnoreCase(usuario.getEmail());
-        Optional<Usuario> biExistente = usuarioRepository.findByBiIgnoreCase(usuario.getBi());
-        if (emailExistente.isPresent() && !emailExistente.get().equals(usuario)) {
-            throw new EmailUsuarioExistenteException("Este Email já se encontra registado no ISPI Payment!");
+        Usuario emailExistente = usuarioRepository.findByEmailIgnoreCase(usuario.getEmail());
+        Optional<Usuario> usuarioExistente = usuarioRepository.findByFuncionario(usuario.getFuncionario());
+        if (emailExistente!=null && !emailExistente.equals(usuario)) {
+            throw new EmailUsuarioExistenteException("Este Email já se encontra registado!");
         }
-        if (biExistente.isPresent() && !biExistente.get().equals(usuario)) {
-            throw new BiUsuarioExistenteException("Este B.I já se encontra registado no ISPI Payment!");
+        if (usuarioExistente.isPresent() && !usuarioExistente.get().equals(usuario)) {
+            throw new BiUsuarioExistenteException("O Funcionário Selecionado já se encontra registado");
         }
         if (usuario.isNovo() && usuario.getSenha() == "") {
             throw new SenhaObrigatoriaNovoUsuario("A senha é obrigatória para novo usuário!");
@@ -71,7 +72,7 @@ public class UsuarioService {
         if (usuario.isNovo() || !StringUtils.isEmpty(usuario.getSenha())) {
             usuario.setSenha(this.bCryptPasswordEncoder.encode(usuario.getSenha()));
         } else if (StringUtils.isEmpty(usuario.getSenha())) {
-            usuario.setSenha(emailExistente.get().getSenha());
+            usuario.setSenha(emailExistente.getSenha());
         }
         if(StringUtils.isEmpty(usuario.getNomeImagen())){
             usuario.setNomeImagen("userDefault.png");
@@ -80,10 +81,13 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
-    public Optional<Usuario> findByEmailIgnoreCase(String email) {
+    public Usuario findByEmailIgnoreCase(String email) {
         return usuarioRepository.findByEmailIgnoreCase(email);
     }
-
+  /*  public Optional<Usuario> findByFuncionario(Funcionario funcionario) {
+        return usuarioRepository.findByFuncionario(funcionario);
+    }
+*/
     public void delete(Long codigo) {
         usuarioRepository.deleteById(codigo);
 

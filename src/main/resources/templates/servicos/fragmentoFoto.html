@@ -3,16 +3,16 @@
 <th:block th:fragment="fragmentoFotoMatricula" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <div th:each="matricula : ${matriculas}">
         <div class="card-header">
-            <img th:src="@{/matriculas/mostrarImagem/{imagem}(imagem=${matricula.nomeImagen})}" width="130" height="130" style="border-radius: 50%; margin-left: 20%;"/>
+            <img th:src="@{/inscricoes/mostrarImagem/{imagem}(imagem=${matricula.aluno.nomeImagen})}" width="130" height="130" style="border-radius: 50%; margin-left: 20%;"/>
         </div>  
         <br/>
-        <p th:text="${matricula.nome} + ' '+ ${matricula.sobrenome}" style="text-transform: uppercase; font-size: 1.6rem; color: #06AC15; text-align: center;"></p>  
+        <p th:text="${matricula.aluno.nome} + ' '+ ${matricula.aluno.sobrenome}" style="text-transform: uppercase; font-size: 1.6rem; color: #06AC15; text-align: center;"></p>  
         <br/>
         <p th:text="'TURMA: '+${matricula.turma.nome} + ' -'+ ${matricula.turma.classe}" style="text-transform: uppercase; font-size: 1.6rem; color: #985f0d; text-align: center;"></p> 
         <br/>
         <p th:text="'PERÍODO: '+${matricula.turma.periodo}" style="text-transform: uppercase; font-size: 1.6rem; color: #985f0d; text-align: center;"></p>  
         <br/>
-        <p th:text="${matricula.turma.curso.nome}" style="text-transform: uppercase; font-size: 1.6rem; color: #985f0d; text-align: center;"></p>          
+        <p th:text="'CURSO: '+${matricula.turma.curso.nome}" style="text-transform: uppercase; font-size: 1.6rem; color: #985f0d; text-align: center;"></p>          
     </div>
     <div class="card-header">
         <img src="" width="130" th:if="${#lists.isEmpty(matriculas)}" height="130" style="border-radius: 50%; margin-left: 20%;"/>

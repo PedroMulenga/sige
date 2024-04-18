@@ -15,15 +15,15 @@
     <body>
         <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
         <div class="container">
-            <form method="POST" th:object="${turma}"  th:action="@{/cadastrarTurma}">
+            <form method="POST" th:object="${turma}"  th:action="@{/turmas/cadastrarTurma}">
                 <div class="recent-grid">
                     <div class="projects">
                         <!--MESSAGENS-->
                         <th:block th:include="fragmentos/MessagensDeAlertas"></th:block>
                         <div class="card">
-                            <div class="card-header" sec:authorize-url="/listarTurmas">
+                            <div class="card-header" sec:authorize-url="/turmas/listarTurmas">
                                 <h3 class="title">Registo de Turmas</h3>
-                                <a href="/listarTurmas" >Listar Turmas</a>
+                                <a href="/turmas/listarTurmas" >Listar Turmas</a>
                             </div>
                             <input type="hidden" th:field="*{codigo}">
                             <div class="user-details">

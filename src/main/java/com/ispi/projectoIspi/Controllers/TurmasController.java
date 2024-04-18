@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author PEDRO P MULENGA
  */
 @Controller
+@RequestMapping("/turmas")
 public class TurmasController {
 
     @Autowired
@@ -48,7 +49,7 @@ public class TurmasController {
 
     @PostMapping("/cadastrarTurma")
     public ModelAndView cadastrarTurma(@Valid @ModelAttribute Turma turma, BindingResult result, RedirectAttributes attribute) {
-        ModelAndView mv = new ModelAndView("redirect:/cadastrarTurma");
+        ModelAndView mv = new ModelAndView("redirect:/turmas/cadastrarTurma");
         if (result.hasErrors()) {
             return carregarForm(turma);
         }

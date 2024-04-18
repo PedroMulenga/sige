@@ -26,12 +26,21 @@
                                 FOTO ESTUDANTE...
                             </div>
                             <div class="user-details">
-                                <div class="input-box">                       
-                                    <div class="search-wrapper" style="width: 15rem;">
-                                        <input type="text" id="numeroEstudante" required="" name="numeroEstudante" placeholder="Nºde Estudante"/>
-                                        <span class="las"><button id="buttonVerificar" type="button"><img src="/img/search.png" width="30" height="30"></button></span>
-                                    </div>
+                                <div class="input-box">
+                                    <span class="details">Nº Estudante</span>
+                                    <input type="text" id="numeroEstudante" required="" name="numeroEstudante" placeholder="Nºde Estudante"/>
                                 </div>
+                                <div class="input-box">
+                                    <span class="details">Tipo de Emolumento </span>
+                                    <select class="form-control" id="servico" name="servico" required="">
+                                        <option value="" >Selecione o Tipo de Emolumento</option>
+                                        <option th:each="servico : ${servicos}"  th:value="${servico.codigo}" th:text="${servico.nomeServico}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="button">
+                                    <button id="buttonVerificar" type="button" class="btn">Buscar >></button>
+                                </div> 
                             </div>
 
                         </form>                        

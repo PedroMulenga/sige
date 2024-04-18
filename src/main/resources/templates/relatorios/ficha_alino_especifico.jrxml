@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ficha_alino_especifico" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="088ddd8a-236c-4ac3-bc78-294c02d3427e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="13"/>
+	<parameter name="CODIGO" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT api.municipio.nome AS municipio,
+	api.provincia.nome AS provincia,
+	api.turma.nome AS turma,
+	api.turma.classe,
+	api.turma.periodo,
+	api.cursos.nome AS curso,
+	api.aluno.bairro,
+	api.aluno.bi,
+	api.aluno.data_nascimento,
+	api.aluno.email,
+	api.aluno.genero,
+	api.aluno.nome AS nomeAluno,
+	api.aluno.nome_mae,
+	api.aluno.nome_pai,
+	api.aluno.codigo AS numero_estudante,
+	api.aluno.numcrm,
+	api.matricula.situacao,
+	api.aluno.sobrenome,
+	api.aluno.telefone,
+	api.aluno.codigo AS codigo,
+	api.ano_lectivo.nome AS anoLectivo
+FROM api.matricula
+	INNER JOIN api.aluno ON 
+	 api.matricula.aluno_codigo = api.aluno.codigo 
+	INNER JOIN api.ano_lectivo ON 
+	 api.matricula.ano_lectivo_codigo = api.ano_lectivo.codigo 
+	INNER JOIN api.turma ON 
+	 api.matricula.turma_codigo = api.turma.codigo 
+	INNER JOIN api.provincia ON 
+	 api.aluno.provincia_codigo = api.provincia.codigo 
+	INNER JOIN api.municipio ON 
+	 api.aluno.municipio_codigo = api.municipio.codigo 
+	INNER JOIN api.cursos ON 
+	 api.turma.curso_codigo = api.cursos.codigo 
+WHERE 
+	 api.matricula.codigo = $P{CODIGO}]]>
+	</queryString>
+	<field name="municipio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="municipio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="municipio"/>
+	</field>
+	<field name="provincia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="provincia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="provincia"/>
+	</field>
+	<field name="turma" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="turma"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="turma"/>
+	</field>
+	<field name="classe" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="classe"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="turma"/>
+	</field>
+	<field name="periodo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="periodo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="turma"/>
+	</field>
+	<field name="curso" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="curso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cursos"/>
+	</field>
+	<field name="bairro" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="bairro"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="bi" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="bi"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="data_nascimento" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="data_nascimento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="genero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="genero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="nomeAluno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nomeAluno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="nome_mae" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome_mae"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="nome_pai" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome_pai"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="numero_estudante" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="numero_estudante"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="numcrm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numcrm"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="situacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="situacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="matricula"/>
+	</field>
+	<field name="sobrenome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="sobrenome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="telefone" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="telefone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="codigo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="anoLectivo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="anoLectivo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ano_lectivo"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="193" splitType="Stretch">
+			<staticText>
+				<reportElement x="146" y="32" width="370" height="30" uuid="b8fc80e4-f748-4046-84b6-58ee5d96222a"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPLEXO ESCOLAR Nº705- 8 DE MARÇO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="70" width="203" height="30" uuid="69c267ab-34ab-4614-b5ec-191a9a40c2d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FICHA DE MATRÍCULA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="105" width="115" height="30" uuid="b03042cf-2b83-46da-b1ee-6a0525a4093b"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANO LECTIVO:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="406" y="70" width="110" height="111" uuid="630522cf-8990-4ad3-ad5f-f75b54a967da"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="189" width="553" height="1" uuid="922402ff-18c6-409c-95ff-4b0f13e29ff9"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="190" y="153" width="163" height="30" uuid="18822ebe-169f-415e-a0b1-385f632e61d9"/>
+				<box>
+					<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Matrícula Nº "+$F{numero_estudante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="295" y="105" width="97" height="30" uuid="27a28909-72a4-43e1-9ee2-bf6b4263b8c7"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{anoLectivo}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="-2" width="555" height="25" backcolor="#F0F0F0" uuid="36e19d34-f299-4cb6-98ec-71952a713264"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="15" y="162" width="85" height="23" uuid="f7264902-774a-4902-886b-1129e1cae0f8"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="13" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[ORIGINAL]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="2" y="97" width="144" height="25" backcolor="#F0F0F0" uuid="12ec7b4e-29a6-4180-8160-e170bd884564"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<image>
+				<reportElement x="40" y="26" width="69" height="64" uuid="fa7d28f8-9733-4453-989d-5d7b1996f2bf"/>
+				<imageExpression><![CDATA["book.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="453" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="49" y="11" width="171" height="30" uuid="04461f0c-b4c8-413c-b3b5-4d91fd037176"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="SansSerif" size="14" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeAluno} + " "+ $F{sobrenome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="11" width="41" height="30" uuid="796c685a-9178-4a38-a699-0c176a58d2b0"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="317" y="11" width="145" height="30" uuid="e61cbab3-07c0-41e8-b03b-b12cdf7d8f36"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_pai}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="224" y="11" width="93" height="30" uuid="a655d6b0-66d3-4c63-b49d-e919680bfb56"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Filho (a) de]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="7" y="54" width="145" height="30" uuid="2fe7e217-178e-44c5-9cb5-00132453a43b"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_mae}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="475" y="11" width="40" height="30" uuid="c464cc35-ae10-4707-a38e-dd4d6ca7bde0"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[e de]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="232" y="55" width="98" height="30" uuid="58133667-d9bc-4a39-8c48-e693278aac33"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{municipio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="152" y="55" width="80" height="30" uuid="ec330699-8888-4098-b063-efc4abf6b0b6"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Natural de]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="427" y="55" width="117" height="30" uuid="7b723074-f0f3-42ad-be7f-883ecd91e68b"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{provincia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="330" y="55" width="97" height="30" uuid="dcbc62fb-85dc-451f-b765-f6804db7ae95"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Província de]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="97" y="100" width="85" height="30" uuid="33eeed31-5578-495d-a04a-37dd8fb6a04e"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans" size="14"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_nascimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="100" width="90" height="30" uuid="b3195b1b-c985-46fc-8016-7b82d0f93097"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[nascido aos]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="243" y="100" width="101" height="30" uuid="f453a192-a9ba-40be-98c7-eb18c3641edb"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{genero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="186" y="100" width="57" height="30" uuid="16a5d2ed-e451-4699-9a68-b0630c8ed778"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[género]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="2" y="150" width="118" height="30" uuid="a0da830e-f847-410c-8da9-f43600874752"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="346" y="100" width="178" height="30" uuid="749e39c4-a94c-4327-8371-8527ce8d2cf9"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Portador do B.I/Cédula Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="150" width="157" height="30" uuid="e1a8722a-8085-41f8-b3c3-dc6956831ae6"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[residente no bairro de]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="277" y="150" width="109" height="30" uuid="a3c3a60a-7e44-4361-81ed-e1165419af38"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bairro}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="456" y="150" width="95" height="30" uuid="57e2d077-3cdd-479b-b9c4-f28bf78a0ed0"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="388" y="150" width="68" height="30" uuid="f8072a65-1eff-4c95-8087-72c8199501e5"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="221" width="185" height="26" uuid="1fad2463-5d69-4188-a49d-44e53e86b1e0"/>
+				<box>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true" isUnderline="false"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[Dados da Matrícula]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="54" y="270" width="38" height="30" uuid="e85c1664-af3b-4626-b96c-5ad6940986a7"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{turma}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="270" width="52" height="30" uuid="ef8efe20-c51c-4acb-9b01-77ce80f77db6"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turma]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="152" y="270" width="80" height="30" uuid="e4559fb2-1d06-4324-8c15-86c234b02c33"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{classe}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="92" y="270" width="60" height="30" uuid="6b20d11d-2579-4221-89b7-138c13c25361"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Classe]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="292" y="270" width="84" height="30" uuid="cf3921fb-afdf-4900-aba9-e2c2e123fc88"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{periodo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="233" y="270" width="59" height="30" uuid="129d5e78-b6cf-4e89-a0fc-aadbcc66dcd5"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Período]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="112" y="310" width="115" height="30" uuid="4e7e09c5-a6c8-49fe-a247-fbf1297f3f29"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_estudante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="310" width="108" height="30" uuid="1512b3b4-801e-4acb-afb7-f7525c79bd2d"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº do Estudante]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="430" y="270" width="115" height="30" uuid="1b49f47e-0aba-4dbf-870e-85c783d461d7"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{situacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="376" y="270" width="54" height="30" uuid="344c392a-4c34-4599-b462-5573e141edeb"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="280" y="310" width="264" height="30" uuid="d3b9e85e-224e-4b68-8fba-0dfe696cdb49"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="227" y="310" width="53" height="30" uuid="dc6371b9-db67-4d1d-a372-7990f2f8dd33"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="412" width="264" height="30" uuid="c67a6271-99d3-4ad2-a560-c605ae19f3f6"/>
+				<box>
+					<bottomPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[O Encarregado (a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="414" width="264" height="30" uuid="a82e83b0-46d0-4962-8419-a57eba80ec23"/>
+				<box>
+					<bottomPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[O Funcionário]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="EEEEE dd &apos;de&apos; MMMMM &apos;de&apos; yyyy HH:mm:ss">
+				<reportElement mode="Opaque" x="2" y="32" width="308" height="19" forecolor="#000000" backcolor="#FFFFFF" uuid="9963663c-651b-4969-be2e-f1e183baafd7"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="1.0" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="1.0" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="35" width="244" height="19" uuid="d33926e7-4be5-415a-92a7-2d0f6f9eecd1"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Processado Por: SIGE- Lubango-Huíla_Angola]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

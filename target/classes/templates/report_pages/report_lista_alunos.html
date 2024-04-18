@@ -15,29 +15,37 @@
     <body>
         <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
         <div class="container">
-            <form method="POST" th:object="${matricula}"  th:action="@{/matriculas/relatorio_lista_alunos}">
-                <div class="recent-grid">
-                    <div class="projects">
-                        <div class="card-header">
-                            <h3 class="title">Imprimir Lista dos Alunos</h3>
-                        </div>
-                        <div class="card">
+            <div class="card-header">
+                <h3 class="title">Imprimir Lista dos Alunos</h3>
+            </div>
+
+            <div class="recent-grid">
+                <div class="projects">
+                    <div class="card">
+                        <form method="GET" th:object="${matricula}"  th:action="@{/matriculas/relatorio_lista_alunos}">
                             <div class="user-details">
                                 <div class="input-box">
                                     <span class="details">Turma</span>
-                                    <select id="curo" required="true" th:field="*{turma}" name="turma" style="width: 20rem;">
+                                    <select id="turma" required="true" name="turma">
                                         <option value="">Selecione a Turma</option>
                                         <option th:each="turma : ${turmas}"  th:value="${turma.codigo}" th:text="${turma.nome}+' - '+ ${turma.classe} +' - '+ ${turma.periodo}"></option>
+                                    </select>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Ano Lectivo</span>
+                                    <select id="anoLectivo" name="anoLectivo">
+                                        <option value="">Selecione o Ano_Lectivo</option>
+                                        <option th:each="anoLectivo : ${anoLectivos}" th:value="${anoLectivo.codigo}" th:text="${anoLectivo.nome}"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="button">
                                 <button type="submit" class="btn">Imprimir</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
-            </form>
+            </div>      
         </div>
         <script src="/js/jquery.min.js"></script>
         <script src="/js/vendors.min.js"></script> 

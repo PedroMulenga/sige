@@ -5,11 +5,11 @@
  */
 package com.ispi.projectoIspi.Service;
 
-import com.ispi.projectoIspi.Enum.TipoEmolumento;
 import com.ispi.projectoIspi.ExceptionMessages.PagamentoUsuarioExistenteException;
 import com.ispi.projectoIspi.Repository.EmolumentoRepository;
 import com.ispi.projectoIspi.model.Emolumento;
 import com.ispi.projectoIspi.model.Matricula;
+import com.ispi.projectoIspi.model.Servico;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,7 +36,7 @@ public class EmolumentoService {
 
     //TRABALHANDO COM DATAS
     Calendar calendar = Calendar.getInstance();
-    int anoAcademicoReferente = calendar.get(Calendar.YEAR);
+   int anoAcademicoReferente = calendar.get(Calendar.YEAR);
     Date data = new Date();
     Locale local = new Locale("pt", "BR");
     DateFormat dfmt = new SimpleDateFormat("MMMM", local);
@@ -47,22 +47,22 @@ public class EmolumentoService {
     }
 
     public Page<Emolumento> findAll(int pageNumber) {
-        Sort sort = Sort.by("matricula.nome").ascending();
+        Sort sort = Sort.by("matricula.aluno.nome").ascending();
         Pageable pageable = PageRequest.of(pageNumber - 1, 5, sort);
         return emolumentoRepository.findAll(pageable);
     }
 
-    public Iterable<Emolumento> findByMatriculaAndTipoEmolumento(Matricula matricula, TipoEmolumento tipoEmolumento) {
-        return emolumentoRepository.findByMatriculaAndTipoEmolumentoAndAnoAcademicoReferente(matricula, tipoEmolumento.PROPINA, anoAcademicoReferente);
+    public Iterable<Emolumento> findByMatriculaAndTipoEmolumento(Matricula matricula, Servico tipoEmolumento) {
+        return emolumentoRepository.findByMatriculaAndServico(matricula, tipoEmolumento);
 
     }
 
     public List<Emolumento> findAllPay() {
-        return (List<Emolumento>) emolumentoRepository.findAllPay(anoAcademicoReferente, mesReferente);
+        return (List<Emolumento>) emolumentoRepository.findAllPay(mesReferente);
     }
 
-    public Emolumento findByNumeroEstudanteAndMesReferente(String numeroEstudante) {
-        Emolumento emolumento = emolumentoRepository.findByNumeroEstudante(numeroEstudante, anoAcademicoReferente, mesReferente);
+    public Emolumento findByNumeroEstudanteAndMesReferente(Long numeroEstudante) {
+        Emolumento emolumento = emolumentoRepository.findByNumeroEstudante(numeroEstudante, mesReferente);
         return emolumento;
 
     }
@@ -77,7 +77,7 @@ public class EmolumentoService {
     }
 
     public void addNew(Emolumento emolumento) {
-        Optional<Emolumento> emolumentoOptional = emolumentoRepository.finByPagamento(emolumento.getMatricula(), emolumento.getTipoEmolumento(), emolumento.getMesReferente(), emolumento.getAnoAcademicoReferente());
+        Optional<Emolumento> emolumentoOptional = emolumentoRepository.finByPagamento(emolumento.getMatricula(), emolumento.getServico(), emolumento.getMesReferente());
         if (emolumentoOptional.isPresent() && !emolumentoOptional.get().equals(emolumento)) {
             throw new PagamentoUsuarioExistenteException("O Mês informado já se encontra liquidado para o presente tipo de emolumento");
         }

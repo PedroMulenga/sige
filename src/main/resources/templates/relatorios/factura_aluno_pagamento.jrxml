@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura_aluno_pagamento" pageWidth="310" pageHeight="660" columnWidth="270" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f8f4ffc6-eff7-4500-bc3b-a0235b33b9d5">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="2"/>
+	<parameter name="CODIGO" class="java.lang.Long"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT api.emolumento.servico_codigo,
+	api.emolumento.forma_de_pagamento,
+	api.emolumento.valor_apagar,
+	api.emolumento.data_pagamento,
+	api.emolumento.codigo,
+	api.servico.nome_servico,
+	api.aluno.nome AS nomeAluno,
+	api.aluno.sobrenome,
+	api.emolumento.mes_referente
+FROM api.emolumento
+	INNER JOIN api.matricula ON 
+	 api.emolumento.codigo_matricula = api.matricula.codigo 
+	INNER JOIN api.servico ON 
+	 api.emolumento.servico_codigo = api.servico.codigo 
+	INNER JOIN api.aluno ON 
+	 api.matricula.aluno_codigo = api.aluno.codigo 
+WHERE 
+	 api.emolumento.codigo = $P{CODIGO}]]>
+	</queryString>
+	<field name="servico_codigo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="servico_codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emolumento"/>
+	</field>
+	<field name="forma_de_pagamento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="forma_de_pagamento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emolumento"/>
+	</field>
+	<field name="valor_apagar" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="valor_apagar"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emolumento"/>
+	</field>
+	<field name="data_pagamento" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="data_pagamento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emolumento"/>
+	</field>
+	<field name="codigo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emolumento"/>
+	</field>
+	<field name="nome_servico" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome_servico"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="servico"/>
+	</field>
+	<field name="nomeAluno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nomeAluno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="sobrenome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="sobrenome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="mes_referente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mes_referente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emolumento"/>
+	</field>
+	<variable name="valor_apagar1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor_apagar}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="274" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="273" width="270" height="1" uuid="9b7a05b2-aabf-41b0-82f2-4d05aa227a6a"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="11" y="236" width="240" height="19" uuid="ded40015-be48-4cb6-959a-a4aff58f4295"/>
+				<textElement>
+					<font fontName="Agency FB" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N.I.F: Consumidor Final]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="60" y="211" width="210" height="18" uuid="3dd1609d-68f5-4355-9e6a-0974408a3c9d"/>
+				<textElement markup="none">
+					<font fontName="Agency FB" size="14" isBold="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeAluno}.toUpperCase()+" "+$F{sobrenome}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="210" width="49" height="19" uuid="3e62fa2e-24fd-46bc-b274-af8957337614"/>
+				<textElement>
+					<font fontName="Agency FB" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="185" width="39" height="19" uuid="2a772cb7-7280-43d6-b945-2580d9ad214e"/>
+				<textElement>
+					<font fontName="Agency FB" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement mode="Opaque" x="56" y="185" width="191" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="d0780f28-f70a-48e1-9e0d-49ae4f8d5a44"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="1.0" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="1.0" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</box>
+				<textElement>
+					<font fontName="Agency FB" size="13" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="161" width="136" height="19" uuid="03470219-b9f5-46aa-9344-724b58f13cab"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.75" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="Agency FB" size="14" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[FACTURA RECIBO Nº ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="133" width="259" height="19" uuid="bc62dbb0-6484-47f4-9da3-96036a676efd"/>
+				<textElement>
+					<font fontName="Agency FB" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail: complexo705@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="112" width="259" height="19" uuid="906f1cb9-e4ee-4a7d-8674-2243377cf777"/>
+				<textElement>
+					<font fontName="Agency FB" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone: 920-000-000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="92" width="240" height="19" uuid="c57cf6e5-3974-4ad1-a34c-a1e6bc47cf7e"/>
+				<textElement>
+					<font fontName="Agency FB" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N.I.F: 999999999]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="70" width="260" height="19" uuid="c3f7abbd-dc41-4cee-9741-5ed5eaf4281a"/>
+				<textElement>
+					<font fontName="Agency FB" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço: Lubango, Huíla. Rua do São Paulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="49" width="250" height="18" uuid="289c6d86-3b5f-4241-aa29-b75f6a8fef7b"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[COMPLEXO ESCOLAR Nº705- 8 DE MARÇO]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="160" y="161" width="80" height="19" uuid="d6840293-04c3-468d-9eb0-5d1d8a552849"/>
+				<box>
+					<bottomPen lineWidth="1.75" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font fontName="Agency FB" size="14" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FR"+$F{codigo}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="85" y="2" width="59" height="46" uuid="d5cbd769-6cfd-42b9-8c9f-4f1cab54db7b"/>
+				<imageExpression><![CDATA["book.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="25">
+			<staticText>
+				<reportElement x="7" y="1" width="108" height="20" uuid="b8242ab2-4d3c-42c7-9529-051b86cc87d3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Agency FB" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="24" width="268" height="1" uuid="b364a23e-00ca-4db7-95d7-81f14c958be3"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="115" y="2" width="90" height="20" uuid="eec45b22-8de2-4c0c-be39-20717e6e36f0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Agency FB" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mês/Ref]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="2" width="64" height="19" uuid="fe02c3e5-9e9f-4423-83ea-4cb4e0c57b01"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Agency FB" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28">
+			<line>
+				<reportElement x="0" y="24" width="268" height="1" uuid="65d1b9e4-f6e3-46e4-b242-7571573f0ce3"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="9" y="1" width="106" height="21" uuid="199afb6c-7500-426b-9fc8-5ff903f9b80f"/>
+				<textElement>
+					<font fontName="Agency FB" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_servico}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="115" y="1" width="90" height="21" uuid="8de76cc0-bb8c-428d-a371-0817f0e27336"/>
+				<textElement>
+					<font fontName="Agency FB" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mes_referente}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###,##0.00 " isBlankWhenNull="true">
+				<reportElement x="205" y="2" width="64" height="20" uuid="3ef04130-5d4c-4777-a4be-6a657902d95c"/>
+				<textElement>
+					<font fontName="Agency FB" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor_apagar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="208">
+			<staticText>
+				<reportElement x="16" y="5" width="70" height="26" uuid="2e23512e-5750-4905-8522-14f2b19700da"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Agency FB" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="42" width="118" height="21" uuid="10506e94-427f-446f-946b-24784a4c1d51"/>
+				<textElement textAlignment="Center">
+					<font fontName="Agency FB" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Form. Pagamento:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="134" y="42" width="128" height="21" uuid="1f85ca0f-2c7a-462b-ae8d-e1fcc12cd0df"/>
+				<textElement>
+					<font fontName="Agency FB" size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{forma_de_pagamento}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="3" y="65" width="268" height="1" uuid="00f77728-6f71-4c61-9b16-a21a105ca3bd"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="33" y="73" width="203" height="21" uuid="cb33c2c0-a588-4415-a096-167e43d453c0"/>
+				<textElement>
+					<font fontName="Agency FB" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Impostos: X- Regime de Exclusão do IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="99" width="146" height="24" uuid="2fc81aea-3f95-4f1c-bdf3-7e6d759c169f"/>
+				<textElement>
+					<font fontName="Agency FB" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[IVA não aplicável, ver Regime.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="133" width="250" height="22" uuid="c9f700cd-0aa8-479d-aecf-95c75fda1490"/>
+				<textElement textAlignment="Center">
+					<font fontName="Agency FB" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[[ Processado por: SIGE, Huíla-Angola ]]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="170" width="208" height="22" uuid="c0708e9e-4d5d-4b6d-8ebc-d308286915d4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="Agency FB" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[***OBRIGADO, VOLTE SEMPRE***]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="129" width="268" height="1" uuid="2801ca5e-0dda-4169-811f-4440c10ce4f1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField pattern="###,##0.00 AKZ">
+				<reportElement x="88" y="6" width="173" height="25" uuid="1dabe31a-5eda-4caa-9509-bed78713802b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Agency FB" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{valor_apagar1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

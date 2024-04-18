@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SIGE</title>
+        <link rel="stylesheet" href="/css/outros.css">
+        <link rel="stylesheet" href="/css/sweetAlert.min.css"/>     
+    </head>
+
+    <body>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        <input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}"/>
+        <main class="container">
+
+            <h1 class="heading">
+                <ion-icon name="cart-outline"></ion-icon>MATRÍCULAS
+            </h1>
+            <form method="POST" th:object="${matricula}" enctype="multipart/form-data"  th:action="@{/matriculas/matriculaAluno}">
+                <div class="item-flex">
+                    <section class="checkout">
+                        <div th:each="turma : ${turma}">
+                            <h3>Turma:[ <span th:text="${turma.nome}" style="text-transform: uppercase; color: #9C0B3C;"></span> ]</h3>
+                            <h3>Curso: <span th:text="${turma.curso.nome}" style="text-transform: uppercase; color: #0BC04D;"></span></h3>
+                            <h3>Classe: <span th:text="${turma.classe}" style="text-transform: uppercase; color: #0BC04D;"></span></h3>
+                            <h3>Período: <span th:text="${turma.periodo}" style="text-transform: uppercase; color: #CA8308;"></span></h3>
+
+                        </div>
+                        <br>
+                        <h2 class="section-heading">Detalhes da Matrícula</h2>
+
+                        <div class="payment-form">
+
+                            <div class="payment-method">
+
+                                <a class="method selected" th:href="@{/matriculas/gerar_ficha_pdf/}+${matriculaCodigoCapturado}">
+                                    <ion-icon name="card"></ion-icon>
+
+                                    <span>IMPRIMIR FICHA TÉCNICA</span>
+
+                                    <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
+                                </a>
+
+                                <a class="method" href="/matriculas/listarMatriculas">
+                                    <ion-icon name="logo-paypal"></ion-icon>
+
+                                    <span>LISTAR A TURMA</span>
+
+                                    <ion-icon class="checkmark" name="checkmark-circle-outline"></ion-icon>
+                                </a>
+
+                            </div>
+
+                            <div class="expire-date">
+                                <label for="expire-date" class="label-default">ANO LECTIVO / ESTADO DA MATRÍCULA</label>
+
+                                <div class="input-flex">
+                                    <select id="provincia" class="input-default" th:field="*{anoLectivo}">
+                                        <option value="">Selecione o Ano_Lectivo</option>
+                                        <option th:each="anoLectivo : ${anoLectivos}" th:value="${anoLectivo.codigo}" th:text="${anoLectivo.nome}"></option>
+                                    </select>
+                                    <span class="error-filds" style="color: red;" th:if="${#fields.hasErrors('anoLectivo')}" 
+                                          th:errors="*{anoLectivo}">
+                                    </span>
+                                    /
+                                    <select id="situacao" class="input-default" th:field="*{situacao}">
+                                        <option value="">Selecione O Estado</option>
+                                        <option th:each="situacao : ${T(com.ispi.projectoIspi.Enum.SituacaoMatricula).values()}"
+                                                th:value="${situacao}" th:text="${situacao}"></option>
+                                    </select>
+                                    <span class="error-filds" style="color: red;" th:if="${#fields.hasErrors('situacao')}" 
+                                          th:errors="*{situacao}">
+                                    </span>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">
+                            Matricular
+                        </button>
+                        <br>
+                        <br>
+                        <br>
+                        <th:block th:include="fragmentos/MessagensDeAlertas"></th:block>
+                    </section>
+                    <section class="cart">
+                        <div class="cart-item-box">
+
+                            <h2 class="section-heading">Dados do Aluno</h2>
+
+                            <div class="product-card">
+
+                                <div class="card">
+                                    <div class="img-box">
+                                        <img src="/img/userDefault.png" alt="Green tomatoes" width="130px"height="130" class="product-img">
+                                    </div>
+                                    <div class="payment-form">
+                                        <br>
+                                        <div class="cardholder-name">
+                                            <label for="cardholder-name" class="label-default">NOME</label>
+                                            <input type="text" disabled="true" name="nome" id="nome" class="input-default">
+                                        </div>
+
+                                        <br>
+                                        <div class="detail">
+
+                                            <div class="expire-date">
+                                                <label for="expire-date" class="label-default">TELEFONE / DATA NASCIMENTO</label>
+
+                                                <div class="input-flex">
+
+                                                    <input type="text" disabled="true" id="telefone" placeholder="(+244) " min="1" max="31"
+                                                           class="input-default">
+                                                    /
+                                                    <input type="text" disabled="true"  id="dataNascimento" placeholder="Data Nascimento Aqui" min="1" max="12"
+                                                           class="data input-default">
+
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="expire-date">
+                                                <label for="expire-date" class="label-default">NATURALIDADE / MORADA</label>
+
+                                                <div class="input-flex">
+
+                                                    <input type="text" disabled="true"  id="naturalidade" placeholder="Naturalidade Aqui" min="1" max="31"
+                                                           class="input-default">
+                                                    /
+                                                    <input type="text" disabled="true"  id="morada" placeholder="Morada" min="1" max="12"
+                                                           class="input-default">
+
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="expire-date">
+                                                <label for="expire-date" class="label-default">E-MAIL / GÉNERO</label>
+
+                                                <div class="input-flex">
+
+                                                    <input type="text" disabled="true" id="email" placeholder="#" min="1" max="31"
+                                                           class="anoCurricular">
+                                                    /
+                                                    <input type="text" disabled="true" id="genero" placeholder="Género Aqui" min="1" max="12"
+                                                           class="input-default">
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="wrapper">
+
+                            <div class="discount-token">
+
+                                <label for="discount-token" class="label-default">Nº B.I/Nº CÉDULA</label>
+
+                                <div class="wrapper-flex">
+
+                                    <input type="text" id="bi" name="bi" required="true" class="bi input-default">
+
+                                    <button id="button" type="button" class="btn btn-outline">Consultar</button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section>
+
+                </div>
+            </form>
+        </main>
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/vendors.min.js}"></script>
+        <script th:src="@{/js/jquery.mask.js}"></script>
+        <script th:src="@{/js/main.js}"></script>
+    </body>
+
+</html>

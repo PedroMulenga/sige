@@ -1,83 +1,106 @@
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\StatusUsuario.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\ProjectoIspiApplication.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\validadores\Strings.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\model\Cursos.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\Periodo.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\TelefoneUsuarioExistenteException.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\EmailUsuarioExistenteException.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\model\Provincia.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Service\CursosService.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\NumeroEstudanteUsuarioExistenteException.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\EmolumentoController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\GrupoRepository.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\VerificarPagamentoTransporteController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\SituacaoEmolumento.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\model\Turma.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\MunicipioRepository.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\FuncionarioController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\converter\MunicipioConverter.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\AnoCurricular.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\filter\EmolumentoFilter.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\TipoFuncionario.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\security\UsuarioSistema.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Service\MunicipioService.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\PermissaoController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\BiUsuarioExistenteException.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\CursosRepository.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\TurmasRepository.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\validadores\AtributoConfirmacaoSenha.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\DataInvalidaException.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\model\Emolumento.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\model\Usuario.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\PagesControllers.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\MatriculaController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\ProvinciaRepository.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\model\Matricula.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Service\PermissaoService.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\SecurityConfig.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\converter\StringToDouble.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\Genero.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\MatriculaRepository.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\validadores\Bi.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\MunicipioController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\model\Permissao.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\dto\TotalMatricula.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\model\GenericDomin.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\config\WebConfig.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\converter\StringToInteger.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\security\AppUserDetailsService.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\FuncionarioRepository.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\model\Funcionario.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Service\FuncionarioService.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Service\MatriculaService.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Service\EmolumentoService.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\model\Disciplina.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\TurmasController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\GrupoController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Service\TurmaService.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Service\ProvinciaService.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\UsuarioController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Service\GrupoService.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\CriarContaUsuarioController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\ListaPermissoes.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\helper\UsuariosImpl.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\TipoEmolumento.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\MesReferente.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\SituacaoMatricula.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\SenhaObrigatoriaNovoUsuario.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\model\Municipio.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionHandlerController\ExceptionHandlerController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\model\Grupo.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\NomeExistenteException.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\EmolumentoRepository.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\CursosController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\UsuarioRepository.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\ProvinciaController.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\EntidadeUsuarioExistenteException.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Report\MatriculaReport.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\ListaGrupos.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Service\UsuarioService.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\PagamentoUsuarioExistenteException.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\PermissaoRepository.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\atribute\AtributoConfirmacaoValidator.java
-C:\Users\PEDRO P MULENGA\Documents\NetBeansProjects\leomullgest\src\main\java\com\ispi\projectoIspi\helper\MatriculasImpl.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\EmolumentoService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\Genero.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionHandlerController\ExceptionHandlerController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Servico.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\TipoFuncionario.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\GrupoController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\CursosService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Funcionario.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\ProvinciaRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\UsuarioRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\ConsultarNotasController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\FormaPagamentos.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\PermissaoRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\PermissaoService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\FuncionarioService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\helper\UsuariosImpl.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\AlunoService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\ProfessorTurmaRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\UsuarioService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\dto\TotalMatricula.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\ProjectoIspiApplication.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\TurmasController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\helper\MatriculasImpl.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\SituacaoEmolumento.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Cursos.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\filter\EmolumentoFilter.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\DisciplinaRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\validadores\Strings.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\TurmasRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\converter\StringToDouble.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\ListaGrupos.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\PermissaoController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\validadores\Bi.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\SituacaoMatricula.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\NumeroEstudanteUsuarioExistenteException.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\TelefoneUsuarioExistenteException.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Grupo.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\SecurityConfig.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\AnoCurricular.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\ProfessorTurmaController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\AnoLectivoRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\CursosRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\PagamentoUsuarioExistenteException.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\CursosController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Matricula.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Disciplina.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Provincia.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\Periodo.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\MunicipioRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Usuario.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\ProvinciaService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\BiUsuarioExistenteException.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Permissao.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\TrimestreList.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\FuncionarioController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\MatriculaService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\EmailUsuarioExistenteException.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\StatusUsuario.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\EmolumentoController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\SenhaObrigatoriaNovoUsuario.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\ProfessorTurmaService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\AlunoController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\MunicipioController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\NomeExistenteException.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\converter\StringToInteger.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\NotaAluno.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\FuncionarioRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Municipio.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\ProfessorTurma.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\DisciplinaService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\UsuarioController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\converter\MunicipioConverter.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Report\MatriculaReport.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\PagesControllers.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\ServicosRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\AnoLectivo.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Turma.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\AnoLectivoService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\DataInvalidaException.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\AnoLectivoController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\MatriculaController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\ServicosController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\MunicipioService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\NotaAlunoRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\GrupoService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\security\AppUserDetailsService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\TurmaService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\validadores\AtributoConfirmacaoSenha.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\atribute\AtributoConfirmacaoValidator.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\MatriculaRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\NotaAlunoService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\GrupoRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\GenericDomin.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\VerificarPagamentoTransporteController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\ProvinciaController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\ListaPermissoes.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\EmolumentoRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\CriarContaUsuarioController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Enum\MesReferente.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Repository\AlunoRepository.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Aluno.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Service\ServicoService.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\model\Emolumento.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\Controllers\DisciplinaController.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\ExceptionMessages\EntidadeUsuarioExistenteException.java
+C:\Users\LEOMULL\Documents\LEOMULL\Web\leomullgest\src\main\java\com\ispi\projectoIspi\security\UsuarioSistema.java

@@ -12,6 +12,7 @@ package com.ispi.projectoIspi.Enum;
 public enum ListaGrupos {
     Secretaria("Secretaria"),
     Gestor_Financeiro("Gestor Financeiro"),
+    Professor("Professor"),
     Administrador("Administrador");
     private String listaGrupos;
 

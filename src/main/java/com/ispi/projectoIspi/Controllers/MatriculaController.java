@@ -5,29 +5,20 @@
  */
 package com.ispi.projectoIspi.Controllers;
 
-import com.ispi.projectoIspi.Enum.Genero;
-import com.ispi.projectoIspi.ExceptionMessages.BiUsuarioExistenteException;
-import com.ispi.projectoIspi.ExceptionMessages.DataInvalidaException;
-import com.ispi.projectoIspi.ExceptionMessages.EmailUsuarioExistenteException;
 import com.ispi.projectoIspi.ExceptionMessages.EntidadeUsuarioExistenteException;
-import com.ispi.projectoIspi.ExceptionMessages.NomeExistenteException;
-import com.ispi.projectoIspi.ExceptionMessages.NumeroEstudanteUsuarioExistenteException;
-import com.ispi.projectoIspi.ExceptionMessages.TelefoneUsuarioExistenteException;
+import com.ispi.projectoIspi.Service.AlunoService;
+import com.ispi.projectoIspi.Service.AnoLectivoService;
 import com.ispi.projectoIspi.Service.MatriculaService;
-import com.ispi.projectoIspi.Service.ProvinciaService;
 import com.ispi.projectoIspi.Service.TurmaService;
 import com.ispi.projectoIspi.dto.TotalMatricula;
 import com.ispi.projectoIspi.helper.MatriculasImpl;
+import com.ispi.projectoIspi.model.Aluno;
+import com.ispi.projectoIspi.model.AnoLectivo;
 import com.ispi.projectoIspi.model.Matricula;
 import com.ispi.projectoIspi.model.Turma;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -37,15 +28,12 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -56,7 +44,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -73,90 +60,79 @@ public class MatriculaController {
     @Autowired
     private TurmaService turmasService;
     @Autowired
+    private AlunoService alunosService;
+    @Autowired
     private MatriculasImpl matriculasImpl;
     @Autowired
-    private ProvinciaService provinciaService;
-    private static String caminhoImagem = "C:/EASYMULL/imagens/";
-    private Turma turmas = new Turma();
+    private AnoLectivoService anoLectivoService;
+    private Turma turmas;
+    private Aluno aluno;
+    private Matricula matriculaCapturada = new Matricula();
+
     @Autowired
-    @Qualifier("jdbcTemplate")
     private JdbcTemplate jdbcTemplate;
 
     @GetMapping("/matriculaAluno")
     public ModelAndView novaMatricula(Matricula matricula) {
-        ModelAndView mv = new ModelAndView("alunos/matricula");
-        mv.addObject("provincias", provinciaService.findAll());
+        ModelAndView mv = new ModelAndView("alunos/matricula_aluno");
         mv.addObject("turma", turmas);
+        mv.addObject("turmas", turmasService.getAll());
+        mv.addObject("anoLectivos", anoLectivoService.findByEstadoIsTrue());
+        mv.addObject("matriculaCodigoCapturado", matriculaCapturada.getCodigo());
         return mv;
     }
 
     @PostMapping("/matriculaAluno")
     public ModelAndView matriculaAluno(@Valid @ModelAttribute Matricula matricula,
-            BindingResult result, RedirectAttributes attribute, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+            BindingResult result, RedirectAttributes attribute) {
         if (result.hasErrors()) {
             return novaMatricula(matricula);
         }
-        if (turmas != null) {
-            matricula.setTurma(turmas);
-
-        }
         try {
-            if (!multipartFile.isEmpty()) {
-                byte[] bytes = multipartFile.getBytes();
-                Path caminho = Paths.get(caminhoImagem + String.valueOf(matricula.getNumeroEstudante()) + multipartFile.getOriginalFilename());
-                Files.write(caminho, bytes);
-                matricula.setNomeImagen(String.valueOf(matricula.getNumeroEstudante()) + multipartFile.getOriginalFilename());
-            }
+
+            matricula.setAluno(aluno);
             matricula.setTurma(turmas);
             matriculaService.addNew(matricula);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (EmailUsuarioExistenteException e) {
-            result.rejectValue("email", e.getMessage(), e.getMessage());
-            return novaMatricula(matricula);
-        } catch (BiUsuarioExistenteException e) {
-            result.rejectValue("bi", e.getMessage(), e.getMessage());
-            return novaMatricula(matricula);
-        } catch (TelefoneUsuarioExistenteException e) {
-            result.rejectValue("telefone", e.getMessage(), e.getMessage());
-            return novaMatricula(matricula);
-        } catch (DataInvalidaException e) {
-            result.rejectValue("dataNascimento", e.getMessage(), e.getMessage());
-            return novaMatricula(matricula);
-        } catch (NomeExistenteException e) {
-            result.rejectValue("numCRM", e.getMessage(), e.getMessage());
-            return novaMatricula(matricula);
-        } catch (NumeroEstudanteUsuarioExistenteException e) {
-            result.rejectValue("numeroEstudante", e.getMessage(), e.getMessage());
-            return novaMatricula(matricula);
+            matriculaCapturada = matricula;
         } catch (EntidadeUsuarioExistenteException e) {
-            result.rejectValue("numeroEstudante", e.getMessage(), e.getMessage());
+            result.rejectValue("anoLectivo", e.getMessage(), e.getMessage());
             return novaMatricula(matricula);
         }
         attribute.addFlashAttribute("success", "Matrícula feita com sucesso!");
         return new ModelAndView("redirect:/matriculas/matriculaAluno");
     }
 
-    @GetMapping("/editarAlunoMatriculado/{codigo}")
-    public ModelAndView editar(@PathVariable("codigo") Long codigo) {
-        ModelAndView mv = new ModelAndView("alunos/matricula");
-        Optional<Matricula> matriculaOptional = matriculaService.getOne(codigo);
-        mv.addObject("matricula", matriculaOptional.get());
-        mv.addObject("provincias", provinciaService.findAll());
-        mv.addObject("turma", turmas);
-        mv.addObject("genero", Genero.values());
-        return mv;
+    @PostMapping("/editarAlunoMatriculado/{codigo}")
+    public ModelAndView editarMatricula(@Valid @ModelAttribute Matricula matricula,
+            BindingResult result, RedirectAttributes attribute) {
+        if (result.hasErrors()) {
+            return editar(matricula.getCodigo());
+        }
+        try {
 
+            matricula.setAluno(aluno);
+            matricula.setTurma(turmas);
+            matriculaService.addNew(matricula);
+        } catch (EntidadeUsuarioExistenteException e) {
+            result.rejectValue("anoLectivo", e.getMessage(), e.getMessage());
+            return editar(matricula.getCodigo());
+        }
+        attribute.addFlashAttribute("success", "Dados da Matrícula atualizados com sucesso!");
+        return new ModelAndView("redirect:/matriculas/editarAlunoMatriculado/" + matricula.getCodigo());
     }
 
-    @GetMapping("/mostrarImagem/{imagem}")
-    @ResponseBody
-    public byte[] carregarImagem(@PathVariable("imagem") String imagem) throws IOException {
-        File imagemArquivo = new File("C:/EASYMULL/imagens/" + imagem);
-        if (imagem != null || imagem.trim().length() > 0) {
-            return Files.readAllBytes(imagemArquivo.toPath());
-        }
-        return null;
+    @GetMapping("/editarAlunoMatriculado/{codigo}")
+    public ModelAndView editar(@PathVariable("codigo") Long codigo) {
+        ModelAndView mv = new ModelAndView("alunos/editar_matricula_aluno");
+        Optional<Matricula> matriculaOptional = matriculaService.getOne(codigo);
+        aluno = matriculaOptional.get().getAluno();
+        turmas = matriculaOptional.get().getTurma();
+        mv.addObject("matricula", matriculaOptional.get());
+        mv.addObject("anoLectivos", anoLectivoService.findByEstadoIsTrue());
+        mv.addObject("turma", turmas);
+
+        return mv;
+
     }
 
     @GetMapping(value = "/eliminarAlunoMatricula/{codigo}")
@@ -205,14 +181,20 @@ public class MatriculaController {
         return mv;
     }
 
+    @PostMapping(value = "/pegarInscricao/{bi}", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public Aluno findByBi(@PathVariable("bi") String bi) {
+        aluno = alunosService.findByBi(bi);
+        return aluno;
+    }
+
     @GetMapping("/gerar_ficha_pdf/{codigo}")
     public void gerarFichaAluno(@PathVariable("codigo") Long codigo, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, JRException {
         Connection conexao = jdbcTemplate.getDataSource().getConnection();
-        JasperReport inputStream = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/templates/relatorios/matricula_ficha_alino_especifico.jrxml"));
         Optional<Matricula> matriculaOptional = matriculaService.getOne(codigo);
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("CODIGO", matriculaOptional.get().getCodigo());
-        JasperPrint print = JasperFillManager.fillReport(inputStream, parametros, conexao);
+        JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/templates/relatorios/ficha_alino_especifico.jasper"), parametros, conexao);
         response.setContentType("application/pdf");
         response.setHeader("Content-disposition", "inline; ficha_alunos.pdf");
         OutputStream stream = response.getOutputStream();
@@ -220,28 +202,38 @@ public class MatriculaController {
 
     }
 
-    @GetMapping("/relatorio_lista_alunos")
+    @GetMapping("/relatorio_lista_alunos_pages")
     public ModelAndView relatorioListaAlunos(Matricula matricula) {
         ModelAndView mv = new ModelAndView("report_pages/report_lista_alunos");
         mv.addObject("turmas", turmasService.getAll());
+        mv.addObject("anoLectivos", anoLectivoService.findByEstadoIsTrue());
         return mv;
     }
 
-    @PostMapping("/relatorio_lista_alunos")
-    public void imprimirListaAlunos(@RequestParam("turma") Turma turma, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, InterruptedException {
-        List<Matricula> matriculaOptional = matriculaService.findByTurma(turma);
-        try {
-            Connection conexao = jdbcTemplate.getDataSource().getConnection();
-            JasperReport inputStream = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/templates/relatorios/lista_alunos_turma.jrxml"));
-            Map<String, Object> parametros = new HashMap<>();
-            parametros.put("CODIGOTURMA", turma.getCodigo());
-            JasperPrint print = JasperFillManager.fillReport(inputStream, parametros, conexao);
-            response.setContentType("application/pdf");
-            response.setHeader("Content-disposition", "inline; lista_alunos.pdf");
-            OutputStream stream = response.getOutputStream();
-            JasperExportManager.exportReportToPdfStream(print, stream);
-        } catch (JRException error) {
-            error.printStackTrace();
-        }
+    @GetMapping("/relatorio_lista_alunos")
+    public void imprimirListaAlunos(@RequestParam("turma") Turma turma, @RequestParam("anoLectivo") Long anoLectivo, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, JRException {
+        Connection conexao = jdbcTemplate.getDataSource().getConnection();
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("CODIGOTURMA", turma.getCodigo());
+        parametros.put("ANOACADEMICO", anoLectivo);
+        JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/templates/relatorios/lista_de_alunos_turmas.jasper"), parametros, conexao);
+        response.setContentType("application/pdf");
+        response.setHeader("Content-disposition", "inline; lista_alunos.pdf");
+        OutputStream stream = response.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(print, stream);
+    }
+
+    @GetMapping("/lista_alunos")
+    public void imprimirListaNominal(HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, JRException {
+        Connection conexao = jdbcTemplate.getDataSource().getConnection();
+        AnoLectivo anoLectivoEmCurso = anoLectivoService.findByAnoLectivoEmCurso();
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("CODIGOTURMA", turmas.getCodigo());
+        parametros.put("ANOACADEMICO", anoLectivoEmCurso.getCodigo());
+        JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/templates/relatorios/lista_de_alunos_turmas.jasper"), parametros, conexao);
+        response.setContentType("application/pdf");
+        response.setHeader("Content-disposition", "inline; lista_alunos.pdf");
+        OutputStream stream = response.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(print, stream);
     }
 }

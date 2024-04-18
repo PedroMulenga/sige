@@ -5,21 +5,18 @@
  */
 package com.ispi.projectoIspi.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ispi.projectoIspi.Enum.MesReferente;
-import com.ispi.projectoIspi.Enum.SituacaoEmolumento;
-import com.ispi.projectoIspi.Enum.TipoEmolumento;
-import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -34,24 +31,24 @@ public class Emolumento extends GenericDomin {
     @Column(length = 20, nullable = false)
     @NotBlank(message = "O campo mês referente é obrigatório!")
     private String mesReferente;
-    @Column(length = 15, nullable = false)
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "O campo Tipo de Emolumento é obrigatório!")
-    private TipoEmolumento tipoEmolumento;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataPagamento = new Date();
     @ManyToOne
     @JoinColumn(name = "codigo_matricula", nullable = false)
     private Matricula matricula;
-    @NotBlank(message = "A situação é obrigatória!")
     @Column(nullable = false, length = 13)
     private String situacao;
     @Column(nullable = false, precision = 7, scale = 2)
     @NotNull(message = "O valor a pagar é obrigatório!")
     private Double valorApagar;
-    @Column(length = 15, nullable = false)
-    @NotNull(message = "O campo Ano Académico Referente é obrigatório!")
-    private Integer anoAcademicoReferente;
+
+    @NotNull(message = "Selecione o Tipo de Serviço Referente")
+    @ManyToOne()
+    @JoinColumn(nullable = false)
+    private Servico servico;
+    @Column(length = 50, nullable = false)
+    @NotNull(message = "Informe a Forma de Pagamento!")
+    private String formaDePagamento;
 
     public String getMesReferente() {
         return mesReferente;
@@ -59,14 +56,6 @@ public class Emolumento extends GenericDomin {
 
     public void setMesReferente(String mesReferente) {
         this.mesReferente = mesReferente;
-    }
-
-    public TipoEmolumento getTipoEmolumento() {
-        return tipoEmolumento;
-    }
-
-    public void setTipoEmolumento(TipoEmolumento tipoEmolumento) {
-        this.tipoEmolumento = tipoEmolumento;
     }
 
     public Date getDataPagamento() {
@@ -93,20 +82,28 @@ public class Emolumento extends GenericDomin {
         this.valorApagar = valorApagar;
     }
 
-    public Integer getAnoAcademicoReferente() {
-        return anoAcademicoReferente;
-    }
-
-    public void setAnoAcademicoReferente(Integer anoAcademicoReferente) {
-        this.anoAcademicoReferente = anoAcademicoReferente;
-    }
-
     public String getSituacao() {
         return situacao;
     }
 
     public void setSituacao(String situacao) {
         this.situacao = situacao;
+    }
+
+    public Servico getServico() {
+        return servico;
+    }
+
+    public void setServico(Servico servico) {
+        this.servico = servico;
+    }
+
+    public String getFormaDePagamento() {
+        return formaDePagamento;
+    }
+
+    public void setFormaDePagamento(String formaDePagamento) {
+        this.formaDePagamento = formaDePagamento;
     }
 
 }

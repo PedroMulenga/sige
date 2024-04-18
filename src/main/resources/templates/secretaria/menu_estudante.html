@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <title>EASYMULL</title>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />     
+        <link rel="stylesheet" href="/css/dashboard.css" />
+        <link rel="stylesheet" href="/css/cardsPrincipal.css"/>
+
+    </head>
+
+    <body>
+        <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
+        <div class="main-content">
+            <div class="title">SECTOR ACADÉMICO</div>
+            <main class="cards">
+                <section class="card matricula">
+                    <div class="icon">
+                        <img src="/img/people_32px.png" alt="Matrículas">
+                    </div>
+                    <h3>Notas dos Alunos</h3>
+                    <span>Efectue a matrícula de estudantes nos variados cursos da Instituição</span>
+                    <a href="/notas/listar_notas">Consultar</a>
+                </section>
+                <section class="card matricula">
+                    <div class="icon">
+                        <img src="/img/mortarboard_80px.png" alt="Matrículas">
+                    </div>
+                    <h3>Pagamentos dos Alunos</h3>
+                    <span>Efectue a matrícula de estudantes nos variados cursos da Instituição</span>
+                    <a href="/transportes/listarPagamentoTransporte">Consultar</a>
+                </section>
+               
+            </main>
+        </div>
+    </body>
+
+</html>

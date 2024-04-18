@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <title>EASYMULL</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+        <link rel="stylesheet" href="/css/formularios.css"/>
+        <link rel="stylesheet" href="/css/dashboard.css" />
+        <link rel="stylesheet" href="/css/bootstrap-switch.min.css"/>
+
+    </head>
+    <body>
+        <div th:replace="fragmentos/menuPrincipal :: menuPrincipal"></div> 
+        <div class="container">
+            <div class="card-header">
+                <h3 class="title">Distribuição de Disciplinas</h3>
+                <a href="/funcionarios/listarProfessorTurmas" >Listar Todos</a>
+            </div>
+            <!--MESSAGENS-->
+            <th:block th:include="fragmentos/MessagensDeAlertas"></th:block>
+            <form method="POST" th:object="${professorTurma}" th:action="@{/funcionarios/cadastrarProfessorTurma}">
+                <div class="user-details">
+                    <input type="hidden" th:field="*{codigo}">
+                    <div class="input-box">
+                        <span class="details">Professor</span>
+                        <select class="form-control" th:field="*{funcionario}">
+                            <option value="" >Selecione o Funcionário</option>
+                            <option th:each="funcionario : ${professores}"  th:value="${funcionario.codigo}" th:text="${funcionario.nome}"></option>
+                        </select>
+                        <span class="error-filds" th:if="${#fields.hasErrors('funcionario')}" 
+                              th:errors="*{funcionario}">
+                        </span>
+                    </div>              
+                    <div class="input-box">
+                        <span class="details">Turma</span>
+                        <select class="form-control" th:field="*{turma}">
+                            <option value="" >Selecione a Turma</option>
+                            <option th:each="turma : ${turmas}"  th:value="${turma.codigo}" th:text="${turma.nome}"></option>
+                        </select>
+                        <span class="error-filds" th:if="${#fields.hasErrors('turma')}" 
+                              th:errors="*{turma}">
+                        </span>
+                    </div>             
+                    <div class="input-box">
+                        <span class="details">Província</span>
+                        <select class="form-control" th:field="*{disciplina}">
+                            <option value="" >Selecione a Disciplina</option>
+                            <option th:each="disciplina : ${disciplinas}"  th:value="${disciplina.codigo}" th:text="${disciplina.nome}"></option>
+                        </select>
+                        <span class="error-filds" th:if="${#fields.hasErrors('disciplina')}" 
+                              th:errors="*{disciplina}">
+                        </span>
+                    </div> 
+                    <div class="input-box">
+                        <span class="details">Ano Lectivo</span>
+                        <select id="provincia" th:field="*{anoLectivo}">
+                            <option value="">Selecione o Ano_Lectivo</option>
+                            <option th:each="anoLectivo : ${anoLectivos}" th:value="${anoLectivo.codigo}" th:text="${anoLectivo.nome}"></option>
+                        </select>
+                        <span class="error-filds" th:if="${#fields.hasErrors('anoLectivo')}" 
+                              th:errors="*{anoLectivo}">
+                        </span>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Estado</span>
+                        <input class="js-status" type="checkbox" th:field="*{estado}" data-off-color="danger" data-on-color="success"
+                               data-on-text="Activo" data-off-text="Inactivo">                                   
+                    </div>
+                </div>
+
+                <div class="button">
+                    <button type="submit" class="btn">Salvar</button>
+
+                </div>
+            </form>
+        </div>
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/vendors.min.js}"></script>
+        <script th:src="@{/js/multiseleccao.js}"></script> 
+        <script th:src="@{/js/jquery.mask.js}"></script>
+        <script th:src="@{/js/main.js}"></script> 
+        <script th:src="@{/js/bootstrap-switch.min.js}" ></script>
+        <script>
+            $('.js-status').bootstrapSwitch();
+        </script>
+    </body>
+</html>

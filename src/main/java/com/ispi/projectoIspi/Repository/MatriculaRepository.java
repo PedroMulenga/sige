@@ -6,6 +6,8 @@
 package com.ispi.projectoIspi.Repository;
 
 import com.ispi.projectoIspi.Enum.SituacaoMatricula;
+import com.ispi.projectoIspi.model.Aluno;
+import com.ispi.projectoIspi.model.AnoLectivo;
 import com.ispi.projectoIspi.model.Matricula;
 import com.ispi.projectoIspi.model.Turma;
 import java.util.List;
@@ -24,26 +26,21 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MatriculaRepository extends JpaRepository<Matricula, Long> {
 
-    Page<Matricula> findByTurma(Turma turma, Pageable pageable);
+    @Query("SELECT m FROM Matricula m JOIN m.anoLectivo a  WHERE m.turma= :turma AND a.estado=true")
+    Page<Matricula> findByTurmaAndAnoLectivoIsTrue(@Param("turma") Turma turma, Pageable pageable);
 
-    List<Matricula> findByTurma(Turma turma);
+    @Query("SELECT m FROM Matricula m JOIN m.anoLectivo a  WHERE m.turma= :turma AND a.estado=true")
+    List<Matricula> findByTurmaAndAnoLectivo(@Param("turma") Turma turma);
 
-    public Matricula findByNumeroEstudanteAndSituacao(String numeroEstudante, SituacaoMatricula situacao);
+    public Matricula findByCodigoAndSituacao(Long codigo, SituacaoMatricula situacao);
+
+    public Optional<Matricula> findByAlunoAndAnoLectivo(Aluno aluno, AnoLectivo anoLectivo);
 
     //public Set<Matricula> findByNumeroEstudante(String numeroEstudante);
-    @Query("SELECT m FROM Matricula m  WHERE m.bi= :bi AND m.numeroEstudante= :numeroEstudante AND m.situacao='MATRICULADO'")
-    public Matricula findByBiEstudanteAndSituacao(@Param("bi") String bi, @Param("numeroEstudante") String numeroEstudante);
+    /*  @Query("SELECT m FROM Matricula m  WHERE m.bi= :bi AND m.numeroEstudante= :numeroEstudante AND m.situacao='MATRICULADO'")
+    public Matricula findByBiEstudanteAndSituacao(@Param("bi") String bi, @Param("numeroEstudante") String numeroEstudante);*/
+    public Matricula findByAluno(Aluno aluno);
 
-    public Optional<Matricula> findByNumeroEstudante(String numeroEstudante);
-
-    public Iterable<Matricula> findByCodigo(Long codigo);
-
-    public Matricula findByBiIgnoreCase(String bi);
-
-    public Optional<Matricula> findByBi(String bi);
-
-    public Optional<Matricula> findByEmailIgnoreCase(String email);
-
-    public Optional<Matricula> findByTelefone(Integer telefone);
+    public Matricula findByCodigo(Long codigo);
 
 }

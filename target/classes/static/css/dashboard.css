@@ -256,6 +256,7 @@ header label span {
     font-size: .8rem;
     padding: .5rem 1rem;
     border: 1px solid var(--main-color);
+    cursor: pointer;
 }
 
 table {

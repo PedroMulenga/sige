@@ -7,6 +7,7 @@ package com.ispi.projectoIspi.Repository;
 
 import com.ispi.projectoIspi.Enum.TipoFuncionario;
 import com.ispi.projectoIspi.model.Funcionario;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
-    Funcionario findByBiIgnoreCaseAndTipoFuncionarioAndEstadoIsTrue(String bi, TipoFuncionario tipoFuncionario);
+    Funcionario findByBiIgnoreCaseAndEstadoIsTrue(String bi);
+   List<Funcionario> findByTipoFuncionarioAndEstadoIsTrue(TipoFuncionario tipoFuncionario);
 
     public Optional<Funcionario> findByEmailIgnoreCase(String email);
 

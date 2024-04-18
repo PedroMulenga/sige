@@ -51,26 +51,15 @@ public class UsuarioController {
         return mv;
     }
 
-    @GetMapping("/usuarios/editarUsuario/{codigo}")
-    public ModelAndView editar(@PathVariable("codigo") Long codigo) {
-        ModelAndView mv = new ModelAndView("security/editarUsuario");
-        Usuario usuario = usuariosQueries.buscarComGrupos(codigo);
-        mv.addObject("grupos", grupoRepository.findAll());
-        mv.addObject("usuario", usuario);
-        return mv;
-
-    }
-
     @PostMapping("/usuarios/cadastroUsuarios")
     public ModelAndView cadastroUsuarios(@Valid Usuario usuario, BindingResult result, RedirectAttributes attribute) {
         if (result.hasErrors()) {
             return novoUsuario(usuario);
         }
-        if (usuario.getCodigo() == null) {
-            usuario.setFuncionario(funcionario);
-        }
         try {
+            usuario.setFuncionario(funcionario);
             usuarioService.addNew(usuario);
+            //funcionario = new Funcionario();
             attribute.addFlashAttribute("success", "Usuário salvo com sucesso!");
         } catch (EmailUsuarioExistenteException e) {
             result.rejectValue("email", e.getMessage(), e.getMessage());
@@ -79,17 +68,56 @@ public class UsuarioController {
             result.rejectValue("senha", e.getMessage(), e.getMessage());
             return novoUsuario(usuario);
         } catch (BiUsuarioExistenteException e) {
-            result.rejectValue("bi", e.getMessage(), e.getMessage());
+            result.rejectValue("email", e.getMessage(), e.getMessage());
             return novoUsuario(usuario);
         }
 
         return new ModelAndView("redirect:/usuarios/cadastroUsuarios");
     }
 
+    @GetMapping("/usuarios/editarUsuario/{codigo}")
+    public ModelAndView editar(@PathVariable("codigo") Long codigo
+    ) {
+        ModelAndView mv = new ModelAndView("security/editarUsuario");
+        Usuario usuario = usuariosQueries.buscarComGrupos(codigo);
+        mv.addObject("grupos", grupoRepository.findAll());
+        mv.addObject("usuario", usuario);
+        this.funcionario = usuario.getFuncionario();
+        return mv;
+
+    }
+
+    @PostMapping("/usuarios/editarUsuario")
+    public ModelAndView updateUsuario(@Valid Usuario usuario, BindingResult result,
+            RedirectAttributes attribute
+    ) {
+        if (result.hasErrors()) {
+            return editar(usuario.getCodigo());
+        }
+        try {
+            usuario.setFuncionario(funcionario);
+            usuarioService.addNew(usuario);
+            //funcionario = new Funcionario();
+            attribute.addFlashAttribute("success", "Dados do Usuário actualizados com sucesso!");
+        } catch (EmailUsuarioExistenteException e) {
+            result.rejectValue("email", e.getMessage(), e.getMessage());
+            return novoUsuario(usuario);
+        } catch (SenhaObrigatoriaNovoUsuario e) {
+            result.rejectValue("senha", e.getMessage(), e.getMessage());
+            return novoUsuario(usuario);
+        } catch (BiUsuarioExistenteException e) {
+            result.rejectValue("email", e.getMessage(), e.getMessage());
+            return novoUsuario(usuario);
+        }
+
+        return new ModelAndView("redirect:/usuarios/editarUsuario/"+usuario.getCodigo());
+    }
+
     @PostMapping(value = "/usuarios/usuarioFuncionario/{bi}", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Funcionario findFuncionarioByBi(@PathVariable("bi") String bi, TipoFuncionario tipoFuncionario) {
-        funcionario = funcionarioService.findByBiIgnoreCaseAndEstadoIsTrue(bi, tipoFuncionario.SECRETARIA);
+    public Funcionario findFuncionarioByBi(@PathVariable("bi") String bi
+    ) {
+        funcionario = funcionarioService.findByBiIgnoreCaseAndEstadoIsTrue(bi);
         return funcionario;
     }
 

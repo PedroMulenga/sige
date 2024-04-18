@@ -19,9 +19,9 @@
             <th:block th:include="fragmentos/MessagensDeAlertas"></th:block>
             <div class="projects">
                 <div class="card">
-                    <div class="card-header" sec:authorize-url="/cadastrarTurma">
+                    <div class="card-header" sec:authorize-url="/turmas/cadastrarTurma">
                         <h3 class="title">Lista de Turmas</h3>
-                        <a href="/cadastrarTurma" >Nova Turma</a>
+                        <a href="/turmas/cadastrarTurma" >Nova Turma</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -37,7 +37,7 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="turma : ${listaDeTurmas}">
-                                        <td><a th:href="@{/matriculas/{codigo}(codigo=${turma.codigo})}"><span style="border: 0; color: #0BC04D; font-size: 1.3rem; font-weight: 600; text-transform: uppercase;" th:text="${turma.nome}"></span></a></td>
+                                        <td><a th:href="@{/matriculas/{codigo}(codigo=${turma.codigo})}"><span style="border: 0; color: #0BC04D; font-size: 1.3rem; font-weight: 600; text-transform: uppercase; text-decoration: underline;" th:text="${turma.nome}"></span></a></td>
                                         <td th:text="${turma.curso.nome}"></td>
                                         <td th:text="${turma.classe}"></td>
                                         <td th:text="${turma.periodo}"></td>
@@ -45,7 +45,7 @@
                                             <a th:href="@{/matriculas/{codigo}(codigo=${turma.codigo})}" style="padding-right: 10px;">
                                                 <i class="fas"><img src="/img/eye_30px.png" alt="Visualizar" width="20px" height="20px"></i>
                                             </a>
-                                            <a th:href="@{/editarTurma/}+${turma.codigo}" style="padding-right: 10px;">
+                                            <a th:href="@{/turmas/editarTurma/}+${turma.codigo}" style="padding-right: 10px;">
                                                 <i class="fas fa-edit"><img src="/img/edit.png" alt="Editar" width="20px" height="20px"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="delete" th:attr="attr-codigo = ${turma.codigo}">
@@ -63,25 +63,25 @@
                                 <span>Total de Registo: [[${totalDeItens}]] - Pagina [[${paginaCorrente}]] de [[${totalDePaginas}]]</span>
                                 <ul>
                                     <li class="btnPaginatio prev">
-                                        <a th:if="${paginaCorrente > 1}" th:href="@{/listarTurmas/1}">«</a>
+                                        <a th:if="${paginaCorrente > 1}" th:href="@{/turmas/listarTurmas/1}">«</a>
                                         <a  th:unless="${paginaCorrente > 1}">«</a>
                                     </li>
                                     <li class="btnPaginatio prev">
-                                        <a th:if="${paginaCorrente > 1}" th:href="@{'/listarTurmas/' + ${paginaCorrente - 1}}"><i class="fas fa-angle-left">Prev</i></a>
+                                        <a th:if="${paginaCorrente > 1}" th:href="@{'/turmas/listarTurmas/' + ${paginaCorrente - 1}}"><i class="fas fa-angle-left">Prev</i></a>
                                         <a th:unless="${paginaCorrente > 1}"><span>Prev</span></a>
                                     </li>
                                     <th:block th:each="i: ${#numbers.sequence(1, totalDePaginas)}">                  
                                         <li class="numb">
-                                            <a th:if="${i != paginaCorrente}" th:href="@{'/listarTurmas/' + ${i}}">[[${i}]]</a>  
+                                            <a th:if="${i != paginaCorrente}" th:href="@{'/turmas/listarTurmas/' + ${i}}">[[${i}]]</a>  
                                             <span class="active" th:unless="${i != paginaCorrente}">[[${i}]]</span>  
                                         </li>
                                     </th:block>
                                     <li class="btnPaginatio next">
-                                        <a th:if="${paginaCorrente < totalDePaginas}" th:href="@{'/listarTurmas/' + ${paginaCorrente + 1}}"><i class="fas fa-angle-right">Next</i></a>
+                                        <a th:if="${paginaCorrente < totalDePaginas}" th:href="@{'/turmas/listarTurmas/' + ${paginaCorrente + 1}}"><i class="fas fa-angle-right">Next</i></a>
                                         <a th:unless="${paginaCorrente < totalDePaginas}"><span>Next</span></a>
                                     </li>
                                     <li class="btnPaginatio next">
-                                        <a th:if="${paginaCorrente < totalDePaginas}" th:href="@{'/listarTurmas/' + ${totalDePaginas}}"><span>»</span></a>
+                                        <a th:if="${paginaCorrente < totalDePaginas}" th:href="@{'/turmas/listarTurmas/' + ${totalDePaginas}}"><span>»</span></a>
                                         <a  th:unless="${paginaCorrente < totalDePaginas}"><span>»</span></a>
                                     </li>
                                 </ul>
@@ -112,7 +112,7 @@
                     showLoaderOnConfirm: true
                 }, function () {
                     setTimeout(function () {
-                        $.get("/eliminarTurma/" + codigo, function (data) {
+                        $.get("/turmas/eliminarTurma/" + codigo, function (data) {
                         });
                         swal("Excluído!", "Registo Eliminado com sucesso.", "success");
 

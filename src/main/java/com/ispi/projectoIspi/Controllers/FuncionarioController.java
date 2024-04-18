@@ -36,6 +36,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author PEDRO P MULENGA
  */
 @Controller
+@RequestMapping("/funcionarios")
 public class FuncionarioController {
 
     @Autowired
@@ -54,7 +55,7 @@ public class FuncionarioController {
 
     @PostMapping("/cadastrarFuncionarios")
     public ModelAndView cadastroFuncionarios(@Valid @ModelAttribute Funcionario funcionario, BindingResult result, RedirectAttributes attribute) {
-        ModelAndView mv = new ModelAndView("redirect:/cadastrarFuncionarios");
+        ModelAndView mv = new ModelAndView("redirect:/funcionarios/cadastrarFuncionarios");
         if (result.hasErrors()) {
             return novoFuncionario(funcionario);
         }

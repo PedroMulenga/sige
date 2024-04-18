@@ -63,17 +63,17 @@ public class CriarContaUsuarioController {
     @Autowired
     private FuncionarioService funcionarioService;
     private List<Grupo> grupos = new ArrayList<>();
-    private Optional<Usuario> usuarioSistema;
-    private static String caminhoImagem = "C:/EASYMULL/imagens/usuarios/";
+    private Usuario usuarioSistema;
+    private static String caminhoImagem = "C:/sige/usuarios/";
 
-   /* @GetMapping("/")
+    @GetMapping("/")
     public ModelAndView index(@AuthenticationPrincipal User user, Usuario usuario, RedirectAttributes attribute) {
         if (user != null) {
             return new ModelAndView("redirect:/dashboard");
         }
         return new ModelAndView("login");
     }
-*/
+
     @GetMapping("/login")
     public ModelAndView login(@AuthenticationPrincipal User user, Usuario usuario, RedirectAttributes attribute) {
         if (user != null) {
@@ -102,7 +102,7 @@ public class CriarContaUsuarioController {
     //@ResponseBody
     public void atualizarEstatus(@RequestBody @RequestParam("codigos[]") Long[] codigos, @RequestParam("status") StatusUsuario statusUsuario) {
         Arrays.asList(codigos).forEach(System.out::println);
-        System.out.println("Status »»»»»" + statusUsuario);
+        //System.out.println("Status »»»»»" + statusUsuario);
         usuarioService.alterarStatus(codigos, statusUsuario);
 
     }
@@ -193,7 +193,7 @@ public class CriarContaUsuarioController {
         if (user != null) {
             usuarioSistema = usuarioService.findByEmailIgnoreCase(user.getUsername());
         }
-        mv.addObject("listaDeUsuarios", usuarioSistema.get());
+        mv.addObject("listaDeUsuarios", usuarioSistema);
         return mv;
     }
     //EDITANDO O PERFIL DO USUÁRIO ESPECÍFICO
@@ -202,7 +202,7 @@ public class CriarContaUsuarioController {
     public ModelAndView editar(@PathVariable("codigo") Long codigo) {
         ModelAndView mv = new ModelAndView("security/editarPerfil");
         Optional<Usuario> usuario = usuarioService.getOne(codigo);
-        mv.addObject("grupos", grupos = usuarioSistema.get().getGrupos());
+        mv.addObject("grupos", grupos = usuarioSistema.getGrupos());
         mv.addObject("usuario", usuario.get());
         return mv;
 
@@ -228,7 +228,9 @@ public class CriarContaUsuarioController {
                 Files.write(caminho, bytes);
                 usuario.setNomeImagen(String.valueOf(usuario.getFuncionario()) + multipartFile.getOriginalFilename());
             }
+            //usuario.setFuncionario(usuario.getFuncionario());
             usuario.setGrupos(grupos);
+            //System.out.println("Funcionario Selecionado===="+ usuario.getFuncionario().getNome()+" "+ usuario.getEmail());
             usuarioService.addNew(usuario);
 
         } catch (EmailUsuarioExistenteException e) {
@@ -238,7 +240,7 @@ public class CriarContaUsuarioController {
             result.rejectValue("senha", e.getMessage(), e.getMessage());
             return atualizarUsuario(usuario);
         } catch (BiUsuarioExistenteException e) {
-            result.rejectValue("bi", e.getMessage(), e.getMessage());
+            result.rejectValue("email", e.getMessage(), e.getMessage());
             return atualizarUsuario(usuario);
         } catch (IOException e) {
             e.printStackTrace();
@@ -249,7 +251,7 @@ public class CriarContaUsuarioController {
     @GetMapping("/mostrarImagemUsuario/{imagem}")
     @ResponseBody
     public byte[] carregarImagem(@PathVariable("imagem") String imagem) throws IOException {
-        File imagemArquivo = new File("C:/EASYMULL/imagens/usuarios/" + imagem);
+        File imagemArquivo = new File("C:/sige/usuarios/" + imagem);
         if (imagem != null || imagem.trim().length() > 0) {
             return Files.readAllBytes(imagemArquivo.toPath());
         }

@@ -20,7 +20,7 @@
                         <!--MESSAGENS-->
                         <th:block th:include="fragmentos/MessagensDeAlertas"></th:block>
                         <div class="card">
-                            <input type="hidden" th:field="*{codigo}">             
+                            <input type="hidden" th:field="*{codigo}">
                             <div class="card-header">
 
                                 <div class="input-box">                                    
@@ -35,14 +35,6 @@
                                     <span class="error-filds" th:if="${#fields.hasErrors('nomeUsuario')}" 
                                           th:errors="*{nomeUsuario}">
                                     </span>
-                                </div>
-                                <div class="input-box">                       
-                                    <span class="details">B.I</span>
-                                    <input type="text" id="bi" class="bi"  name="bi" th:field="*{bi}" placeholder="Ex: 999999999XX999"/>
-                                    <span class="error-filds" th:if="${#fields.hasErrors('bi')}" 
-                                          th:errors="*{bi}">
-                                    </span>
-
                                 </div>
                                 <div class="input-box">
                                     <span class="details">E-mail</span>

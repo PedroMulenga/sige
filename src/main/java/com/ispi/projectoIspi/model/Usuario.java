@@ -46,15 +46,8 @@ public class Usuario extends GenericDomin {
     private String senha;
     @Transient
     private String confirmacaoSenha;
-    @Bi
-    @Column(length = 16, nullable = false)
-    @NotBlank(message = "O campo B.I é obrigatório!")
-    private String bi;
-    @Column(length = 14)
-    @Transient
-    private String numeroEstudante;
     @ManyToOne
-    @JoinColumn(nullable = true)
+    @JoinColumn(nullable = false)
     private Funcionario funcionario;
     @Temporal(TemporalType.DATE)
     private Date dataRegisto = new Date();
@@ -153,23 +146,6 @@ public class Usuario extends GenericDomin {
 
     public void setConfirmacaoSenha(String confirmacaoSenha) {
         this.confirmacaoSenha = confirmacaoSenha;
-    }
-
-    public String getBi() {
-        return bi;
-    }
-
-    public void setBi(String bi) {
-        bi = bi.toUpperCase();
-        this.bi = bi;
-    }
-
-    public String getNumeroEstudante() {
-        return numeroEstudante;
-    }
-
-    public void setNumeroEstudante(String numeroEstudante) {
-        this.numeroEstudante = numeroEstudante;
     }
 
     public String getNomeImagen() {

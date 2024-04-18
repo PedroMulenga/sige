@@ -5,9 +5,10 @@
  */
 package com.ispi.projectoIspi.Repository;
 
-import com.ispi.projectoIspi.Enum.TipoEmolumento;
+
 import com.ispi.projectoIspi.model.Emolumento;
 import com.ispi.projectoIspi.model.Matricula;
+import com.ispi.projectoIspi.model.Servico;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,16 +26,16 @@ public interface EmolumentoRepository extends JpaRepository<Emolumento, Long> {
     // @Query(value = "select e from emolumento e Where e.tipo_emolumento='TRANSPORTE' ORDER BY data_pagamento DESC limit 1", nativeQuery = true)
     // List<Emolumento> findAllATransporte();
     //@Query("SELECT distinct e FROM Emolumento e JOIN e.matricula m WHERE m.numeroEstudante= :numeroEstudante AND e.tipoEmolumento='TRANSPORTE' ORDER BY e.dataPagamento DESC")
-    Iterable<Emolumento> findByMatriculaAndTipoEmolumentoAndAnoAcademicoReferente(Matricula matricula, TipoEmolumento tipoEmolumento, Integer anoAcademicoReferente);
+    Iterable<Emolumento> findByMatriculaAndServico(Matricula matricula, Servico servico);
 
-    @Query("SELECT e FROM Emolumento e JOIN e.matricula m WHERE m.numeroEstudante= :numeroEstudante AND e.tipoEmolumento='PROPINA' AND e.mesReferente= :mesReferente AND e.anoAcademicoReferente= :anoAcademicoReferente AND e.situacao='PAGO'")
-    Emolumento findByNumeroEstudante(@Param("numeroEstudante") String numeroEstudante, @Param("anoAcademicoReferente") Integer anoAcademicoReferente, @Param("mesReferente") String mesReferente);
+    @Query("SELECT e FROM Emolumento e JOIN e.matricula m JOIN e.servico s WHERE m.codigo= :numeroEstudante AND s.nomeServico='Propina' AND e.mesReferente= :mesReferente AND e.situacao='PAGO'")
+    Emolumento findByNumeroEstudante(@Param("numeroEstudante") Long numeroEstudante, @Param("mesReferente") String mesReferente);
 
-    @Query("SELECT e FROM Emolumento e WHERE e.matricula= :matricula AND e.tipoEmolumento= :tipoEmolumento AND e.mesReferente= :mesReferente AND e.anoAcademicoReferente= :anoAcademicoReferente AND e.situacao='PAGO'")
-    public Optional<Emolumento> finByPagamento(@Param("matricula") Matricula matricula, @Param("tipoEmolumento") TipoEmolumento tipoEmolumento, @Param("mesReferente") String mesReferente, @Param("anoAcademicoReferente") Integer anoAcademicoReferente);
+    @Query("SELECT e FROM Emolumento e WHERE e.matricula= :matricula AND e.servico= :servico AND e.mesReferente= :mesReferente  AND e.situacao='PAGO'")
+    public Optional<Emolumento> finByPagamento(@Param("matricula") Matricula matricula, @Param("servico") Servico servico, @Param("mesReferente") String mesReferente);
 
-    @Query("SELECT e FROM Emolumento e JOIN e.matricula m WHERE  e.tipoEmolumento='PROPINA' AND e.mesReferente= :mesReferente AND e.anoAcademicoReferente= :anoAcademicoReferente AND e.situacao='PAGO'")
-    List<Emolumento> findAllPay(@Param("anoAcademicoReferente") Integer anoAcademicoReferente, @Param("mesReferente") String mesReferente);
+    @Query("SELECT e FROM Emolumento e JOIN e.matricula m WHERE  e.servico.nomeServico='Propina' AND e.mesReferente= :mesReferente  AND e.situacao='PAGO'")
+    List<Emolumento> findAllPay(@Param("mesReferente") String mesReferente);
 
 
 }

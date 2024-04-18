@@ -32,10 +32,7 @@
                             <div class="user-details">
                                 <div class="input-box">                       
                                     <span class="details">B.I</span>
-                                    <input type="text" id="bi" class="bi"  name="bi" th:field="*{bi}" placeholder="Ex: 999999999XX999"/>
-                                    <span class="error-filds" th:if="${#fields.hasErrors('bi')}" 
-                                          th:errors="*{bi}">
-                                    </span>
+                                    <input type="text" id="bi" class="bi" placeholder="Ex: 999999999XX999"/>
 
                                 </div>
                                 <div  style="margin-left: 50%; margin-top: -10%;">
@@ -73,7 +70,7 @@
                                     <span class="details" >Grupos</span>
                                     <div style="display: flex;">
                                         <th:block th:each="grupo : ${grupos}">
-                                            <div th:if="${grupo.nome!='Estudante'}">
+                                            <div>
                                                 <input type="checkbox" th:value="${grupo.codigo}" th:field="*{grupos}">
                                                 <label th:text="${grupo.nome}"></label>                     
                                             </div>

@@ -16,6 +16,8 @@ public enum ListaPermissoes {
     VERIFICAR_PAGAMENTOS("Verificar Pagamentos"),
     CADASTRAR_FUNCIONARIOS("Cadastrar Funcionários"),
     CADASTRAR_ACESSORIOS("Cadastrar Acessórios"),
+    CONSULTAR_NOTAS("Consultar Notas"),
+    LANCAR_NOTAS("Lançar Notas"),
     VERIFICAR_RELATORIOS("Verificar Relatórios"),
     CADASTRAR_USUARIOS("Cadastrar Usuários");
     private String listaPermissao;

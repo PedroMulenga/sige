@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
     <head>
-        <title>EASYMULL</title>
+        <title>SIGE</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
@@ -15,7 +15,7 @@
         <input type="checkbox" id="nav-toggle">
         <div class="sidebar">
             <div class="sidebar-brand">
-                <h2><span class="lab la-accusoft"></span><span>EASYMULL</span></h2>
+                <h2><span class="lab la-accusoft"></span><span>SIGE</span></h2>
             </div>
             <div class="sidebar-menu">
                 <ul>
@@ -27,13 +27,17 @@
                         <a href="/paginas/secretariaPage" class="nav_link"><img src="/img/secretary.png" alt="" class="icon">
                             <span>Secretaria</span></a>
                     </li>
+                    <li sec:authorize="hasRole('ROLE_LANCAR_NOTAS')">
+                        <a href="/funcionarios/listarDisciplinaTurmas" class="nav_link"><img src="/img/books.png" alt="" class="icon">
+                            <span>Minhas Turmas</span></a>
+                    </li>
                     <li sec:authorize="hasRole('ROLE_REGISTAR_PAGAMENTOS')">
                         <a href="/paginas/servicePage" class="nav_link"><img src="/img/service.png" alt="" class="icon">
                             <span>Pagamentos</span></a>
                     </li>
-                    <li sec:authorize="hasRole('ROLE_VERIFICAR_PAGAMENTOS')">
-                        <a href="/transportes/transportePage" class="nav_link"><img src="/img/taxi_mobile_payment_64px.png" alt="" class="icon">
-                            <span>Finanças</span></a>
+                    <li sec:authorize="hasRole('ROLE_CONSULTAR_NOTAS')">
+                        <a href="/paginas/menu_estudantes" class="nav_link"><img src="/img/people_32px.png" alt="" class="icon">
+                            <span>Estudantes</span></a>
                     </li>
 
                     <li sec:authorize="hasRole('ROLE_VERIFICAR_RELATORIOS')">
@@ -49,6 +53,7 @@
                         <a href="/paginas/other" class="nav_link"><img src="/img/mind_map.png" alt="" class="icon">
                             <span>Outros</span></a>
                     </li>
+
 
                 </ul>
             </div>
@@ -102,7 +107,7 @@
                     <div class="card-single card2">
                         <div>
                             <h1>[[${totalAlunosPagos}]]</h1>
-                            <span>Pagos</span>
+                            <span>Pagos/Mês Actual</span>
                         </div>
                         <div>
                             <img src="/img/taxi_mobile_payment.png" alt="" class="icon">
@@ -111,7 +116,7 @@
                     <div class="card-single card3">
                         <div>
                             <h1>[[${totalAlunosNaoPagos}]]</h1>
-                            <span>Não Pagos</span>
+                            <span>Não Pagos/Mês Actual</span>
                         </div>
                         <div>
                             <img src="/img/mobile_payment.png" alt="" class="icon">
@@ -132,7 +137,7 @@
                     <div class="projects">
                         <div class="card">
                             <div class="card-header">
-                                <h3>REPRESENTAÇÃO GRÁFICA DO CRESCIMENTO ACADÉMICO NOS ÚLTIMOS 5 ANOS</h3>                            
+                                <h3>CRESCIMENTO ACADÉMICO NOS ÚLTIMOS 5 ANOS</h3>                            
                             </div>
                             <div class="card-body">
                                 <canvas id="myChart" height="160"></canvas>

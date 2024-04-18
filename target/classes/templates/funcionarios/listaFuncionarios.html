@@ -18,9 +18,9 @@
         <div class="container">
             <div class="projects">
                 <div class="card">
-                    <div class="card-header" sec:authorize-url="/cadastrarFuncionarios">
+                    <div class="card-header" sec:authorize-url="/funcionarios/cadastrarFuncionarios">
                         <h3 class="title">Lista de Funcionários</h3>
-                        <a href="/cadastrarFuncionarios" >Novo Registo</a>
+                        <a href="/funcionarios/cadastrarFuncionarios" >Novo Registo</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -41,7 +41,7 @@
                                         <td th:text="${funcionario.email}"></td>
                                         <td th:text="${funcionario.tipoFuncionario}"></td>
                                         <td>
-                                            <a th:href="@{/editarFuncionario/}+${funcionario.codigo}" style="padding-right: 10px;">
+                                            <a th:href="@{/funcionarios/editarFuncionario/}+${funcionario.codigo}" style="padding-right: 10px;">
                                                 <i class="fas fa-edit"><img src="/img/edit.png" alt="Editar" width="20px" height="20px"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="delete" th:attr="attr-codigo = ${funcionario.codigo}">
@@ -60,25 +60,25 @@
                                 <span>Total de Registo: [[${totalDeItens}]] - Pagina [[${paginaCorrente}]] de [[${totalDePaginas}]]</span>
                                 <ul>
                                     <li class="btnPaginatio prev">
-                                        <a th:if="${paginaCorrente > 1}" th:href="@{/listarFuncionarios/1}">«</a>
+                                        <a th:if="${paginaCorrente > 1}" th:href="@{/funcionarios/listarFuncionarios/1}">«</a>
                                         <a  th:unless="${paginaCorrente > 1}">«</a>
                                     </li>
                                     <li class="btnPaginatio prev">
-                                        <a th:if="${paginaCorrente > 1}" th:href="@{'/listarFuncionarios/' + ${paginaCorrente - 1}}"><i class="fas fa-angle-left">Prev</i></a>
+                                        <a th:if="${paginaCorrente > 1}" th:href="@{'/funcionarios/listarFuncionarios/' + ${paginaCorrente - 1}}"><i class="fas fa-angle-left">Prev</i></a>
                                         <a th:unless="${paginaCorrente > 1}"><span>Prev</span></a>
                                     </li>
                                     <th:block th:each="i: ${#numbers.sequence(1, totalDePaginas)}">                  
                                         <li class="numb">
-                                            <a th:if="${i != paginaCorrente}" th:href="@{'/listarFuncionarios/' + ${i}}">[[${i}]]</a>  
+                                            <a th:if="${i != paginaCorrente}" th:href="@{'/funcionarios/listarFuncionarios/' + ${i}}">[[${i}]]</a>  
                                             <span class="active" th:unless="${i != paginaCorrente}">[[${i}]]</span>  
                                         </li>
                                     </th:block>
                                     <li class="btnPaginatio next">
-                                        <a th:if="${paginaCorrente < totalDePaginas}" th:href="@{'/listarFuncionarios/' + ${paginaCorrente + 1}}"><i class="fas fa-angle-right">Next</i></a>
+                                        <a th:if="${paginaCorrente < totalDePaginas}" th:href="@{'/funcionarios/listarFuncionarios/' + ${paginaCorrente + 1}}"><i class="fas fa-angle-right">Next</i></a>
                                         <a th:unless="${paginaCorrente < totalDePaginas}"><span>Next</span></a>
                                     </li>
                                     <li class="btnPaginatio next">
-                                        <a th:if="${paginaCorrente < totalDePaginas}" th:href="@{'/listarFuncionarios/' + ${totalDePaginas}}"><span>»</span></a>
+                                        <a th:if="${paginaCorrente < totalDePaginas}" th:href="@{'/funcionarios/listarFuncionarios/' + ${totalDePaginas}}"><span>»</span></a>
                                         <a  th:unless="${paginaCorrente < totalDePaginas}"><span>»</span></a>
                                     </li>
                                 </ul>
@@ -108,7 +108,7 @@
                     showLoaderOnConfirm: true
                 }, function () {
                     setTimeout(function () {
-                        $.get("/eliminarFuncionario/" + codigo, function (data) {
+                        $.get("/funcionarios/eliminarFuncionario/" + codigo, function (data) {
                             location.reload(true);
                         });
                         swal("Excluído!", "Registo Eliminado com sucesso.", "success");

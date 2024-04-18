@@ -210,7 +210,7 @@ form .gender-details .category{
         max-width: 100%;
         margin-top: 30%;
     }
-  
+
 }
 
 @media (max-width: 870px) {
@@ -786,3 +786,39 @@ div.container div.list a:hover {
     visibility: visible;
 }
 
+.btn_print {
+    background: #AF0303;
+    border-radius: 10px;
+    color: #fff;
+    font-size: .8rem;
+    padding: .6rem 2rem;
+    border: 1px solid #FFF;
+}
+.detalhes{
+    border: 0; 
+    color: #9C0B3C;
+    font-size: 1rem; 
+    font-weight: 600; 
+    text-transform: uppercase;
+}
+.input_table input{
+    padding: .8rem;
+    width: 6rem;
+    outline: none;
+    border-radius: .4rem;
+    border: 1.5px solid #0E2431;
+    font-size: 15px;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+    line-height: 1;
+    font-weight: 120;
+    margin: 4px;
+}
+.card-notas_details {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    border-radius: 6px;
+    color: #fff;
+    border: 1.5px solid #0E2431;
+}

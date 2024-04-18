@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lista_de_alunos_turmas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="881a6c71-224f-4f3e-933d-733d2cd14589">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CODIGOTURMA" class="java.lang.Long"/>
+	<parameter name="ANOACADEMICO" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT api.aluno.nome AS nomeAluno,
+	api.aluno.sobrenome,
+	api.aluno.genero,
+	api.aluno.codigo AS numero_estudante,
+	api.turma.nome AS turma,
+	api.turma.classe,
+	api.cursos.nome AS curso,
+	api.turma.periodo,
+	api.matricula.codigo AS totalAlunos,
+	api.ano_lectivo.nome AS anoLectivo
+FROM api.matricula
+	INNER JOIN api.aluno ON 
+	 api.matricula.aluno_codigo = api.aluno.codigo 
+	INNER JOIN api.ano_lectivo ON 
+	 api.matricula.ano_lectivo_codigo = api.ano_lectivo.codigo 
+	INNER JOIN api.turma ON 
+	 api.matricula.turma_codigo = api.turma.codigo 
+	INNER JOIN api.cursos ON 
+	 api.turma.curso_codigo = api.cursos.codigo
+where api.turma.codigo=$P{CODIGOTURMA} AND api.ano_lectivo.codigo=$P{ANOACADEMICO}]]>
+	</queryString>
+	<field name="nomeAluno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nomeAluno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="sobrenome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="sobrenome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="genero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="genero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_estudante" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="numero_estudante"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="turma" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="turma"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="turma"/>
+	</field>
+	<field name="classe" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="classe"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="turma"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="curso" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="curso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cursos"/>
+	</field>
+	<field name="periodo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="periodo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="turma"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalAlunos" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="totalAlunos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="matricula"/>
+	</field>
+	<field name="anoLectivo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="anoLectivo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ano_lectivo"/>
+	</field>
+	<variable name="totalAlunos1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{totalAlunos}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="180" splitType="Stretch">
+			<staticText>
+				<reportElement x="190" y="16" width="365" height="30" uuid="27be458f-f7ee-4c55-a245-15830e2c8b48"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPLEXO ESCOLAR Nº705- 8 DE MARÇO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="155" width="200" height="24" uuid="078d7510-0a8a-4eae-a126-e34740c36525"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="13" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[LISTA NOMINAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="119" width="100" height="20" uuid="5227aa53-12b8-433e-aa37-bef1f2ecefcf"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANO LECTIVO]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="380" y="103" width="173" height="24" uuid="06059ec4-ac0f-4025-a7b8-c07cb598315a"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TURMA: "+$F{turma}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="373" y="80" width="180" height="21" uuid="2e6755f8-880f-4a3a-b55a-92a2fdea76ff"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CLASSE: "+$F{classe}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="204" y="60" width="349" height="19" uuid="a182efe7-f14b-49f7-8eb6-0579890994a8"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CURSO: "+$F{curso}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="393" y="131" width="160" height="25" uuid="b749e3d7-f079-49ac-a9cb-311c0ab158e6"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PERÍODO: "+$F{periodo}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="102" y="119" width="100" height="20" uuid="6b21e653-5560-4c0d-95db-366ec6547ac1"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["[ "+$F{anoLectivo}+" ]"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="-2" y="-15" width="560" height="25" backcolor="#F0F0F0" uuid="e9fcb658-4448-447b-a502-dde4402cfe48"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="85" width="180" height="25" backcolor="#F0F0F0" uuid="b83ee94d-4d71-4f5b-b2ed-99a2416ae9f6"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<image>
+				<reportElement x="31" y="17" width="72" height="59" uuid="2da3fb68-a30a-47a0-a737-bca9e2bf08e2"/>
+				<imageExpression><![CDATA["book.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="29">
+			<rectangle>
+				<reportElement x="32" y="2" width="469" height="26" backcolor="#C9C9C9" uuid="5c1f1cfa-16d1-4ef7-98b9-dfc9542225d1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="32" y="2" width="272" height="26" uuid="5464c313-5df1-43c9-869e-64ca17e2ae0a"/>
+				<box>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOME ALUNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="2" width="100" height="26" uuid="3a2f9c17-9aeb-4f06-88d9-3bc69b0db501"/>
+				<box>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GÉNERO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="2" width="97" height="26" uuid="0b88d851-1690-46dc-871b-e1abbfe92b67"/>
+				<box>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nª ESTUDANTE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<frame>
+				<reportElement x="32" y="0" width="469" height="30" uuid="5646a1f8-7150-4d78-a7da-d5f22fe01dc7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="0" y="6" width="272" height="20" uuid="462a7667-66b7-4140-b796-06ab7a28c3a0"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nomeAluno}.toUpperCase() +" "+ $F{sobrenome}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="272" y="6" width="100" height="20" uuid="85f71fa5-2090-4413-89cd-242942d7f0c8"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{genero}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="372" y="6" width="97" height="20" uuid="55641614-459e-4096-bc6a-fe29a6c82815"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numero_estudante}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="36" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement mode="Opaque" x="2" y="12" width="142" height="19" forecolor="#000000" backcolor="#FFFFFF" uuid="dbed8da7-e7b6-4e1b-85de-2da195ca46ea"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="1.0" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="1.0" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="150" y="11" width="290" height="19" uuid="76d7b9df-cdde-4c08-8218-511f3079eb61"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Processado Por: SIGEL- Lubango-Huíla_Angola]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="450" y="10" width="97" height="19" forecolor="#000000" backcolor="#FFFFFF" uuid="a406697d-93e6-4d53-a4c6-b608df3d414f"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="280" y="8" width="210" height="30" uuid="4addec5a-6738-403a-a4c6-d11c673c0141"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total de Alunos: "+ $V{totalAlunos1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -40,18 +40,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
+        web.ignoring().antMatchers("/js/**", "/img/**", "/css/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
-                /*.antMatchers("/alunos/**", "/matriculas/**").hasRole("EFECTUAR_MATRICULAS")
-                .antMatchers("/transportes/**").hasRole("VERIFICAR_PAGAMENTOS")
+                .antMatchers("/alunos/**", "/matriculas/**", "/inscricoes/**","/cursos/**","/turmas/**").hasRole("EFECTUAR_MATRICULAS")
+                .antMatchers("/transportes/**", "/listarPagamentoTransporte").hasRole("VERIFICAR_PAGAMENTOS")
                 .antMatchers("/emolumentos/**").hasRole("REGISTAR_PAGAMENTOS")
                 .antMatchers("/myPayments").hasRole("VERIFICAR_RELATORIOS")
-                .antMatchers("/listarPagamentoTransporte", "/paginas/**", "/usuarios/**").hasRole("CADASTRAR_USUARIOS")*/
+                .antMatchers("/notas/**").hasRole("CONSULTAR_NOTAS")
+                .antMatchers("/funcionarios/cadastrarProfessorTurma", "/funcionarios/listarProfessorTurmas",
+                        "/funcionarios/eliminarProfessorTurma", "/funcionarios/editarProfessorTurma","/funcionarios/cadastrarFuncionarios",
+                        "/funcionarios/listarFuncionarios","/funcionarios/editarFuncionario","/funcionarios/eliminarFuncionario").hasRole("CADASTRAR_FUNCIONARIOS")
+                .antMatchers("/funcionarios/detalhesTurma", "/funcionarios/listarDetalhesDisciplinaTurma", "/funcionarios/listarDisciplinaTurmas",
+                        "/funcionarios/cadastrarNotaAluno", "/funcionarios/editarNotaAluno", "/funcionarios/listarNotaAlunos").hasRole("LANCAR_NOTAS")
+                .antMatchers("/paginas/**", "/usuarios/**").hasRole("CADASTRAR_USUARIOS")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
